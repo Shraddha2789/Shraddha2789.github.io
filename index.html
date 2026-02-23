@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shraddha Singh — Product Manager</title>
+  <meta name="description" content="PM Portfolio of Shraddha Singh — 6+ years in Fintech, Insurtech & Enterprise SaaS. Case studies, teardowns, and writing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0d1b35;
+      --navy-mid: #162444;
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --amber: #f59e0b;
+      --green: #10b981;
+      --purple: #8b5cf6;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 24px rgba(13,27,53,0.08);
+      --shadow-lg: 0 12px 48px rgba(13,27,53,0.14);
+      --r: 12px;
+      --r-lg: 20px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .nav-logo { font-weight: 800; font-size: 1rem; color: var(--navy); text-decoration: none; letter-spacing: -0.3px; }
+    .nav-logo em { font-style: normal; color: var(--blue); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta { background: var(--navy) !important; color: #fff !important; padding: .45rem 1.1rem; border-radius: 7px; font-weight: 600 !important; transition: background .2s !important; }
+    .nav-cta:hover { background: var(--blue) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy); position: relative; overflow: hidden;
+      padding: 5.5rem 2rem 4.5rem;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: -120px; right: -120px;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(37,99,235,.18) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(37,99,235,.14); border: 1px solid rgba(37,99,235,.28);
+      color: #93c5fd; font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: .35rem .9rem; border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-size: clamp(2.6rem,5vw,3.8rem); font-weight: 900; color: #fff;
+      line-height: 1.08; letter-spacing: -1.5px; margin-bottom: .5rem;
+    }
+    .hero-title { font-size: 1.2rem; font-weight: 400; color: #93c5fd; margin-bottom: 1.5rem; }
+    .hero-bio { font-size: 1rem; color: #94a3b8; line-height: 1.75; max-width: 520px; margin-bottom: 2.25rem; }
+    .hero-bio strong { color: #e2e8f0; font-weight: 600; }
+    .hero-actions { display: flex; gap: .85rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .btn { display: inline-flex; align-items: center; gap: .45rem; padding: .7rem 1.6rem; border-radius: 8px; font-weight: 600; font-size: .9rem; text-decoration: none; transition: all .2s; font-family: inherit; cursor: pointer; }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-blue:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.15); }
+    .btn-ghost:hover { background: rgba(255,255,255,.14); }
+    .hero-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .hero-chip {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: #94a3b8; font-size: .78rem; padding: .28rem .7rem; border-radius: 100px;
+    }
+    .hero-photo-wrap { display: flex; justify-content: center; }
+    .hero-photo {
+      width: 260px; height: 260px; border-radius: 50%;
+      object-fit: cover; object-position: center 15%;
+      border: 4px solid rgba(255,255,255,.1);
+      box-shadow: 0 0 0 8px rgba(37,99,235,.12), var(--shadow-lg);
+    }
+
+    /* ── STATS ── */
+    .stats { background: var(--navy-mid); padding: 2rem; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat { text-align: center; padding: 1rem; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: -1.5px; line-height: 1; margin-bottom: .3rem; }
+    .stat-num span { color: var(--amber); }
+    .stat-lbl { font-size: .72rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+
+    /* ── SECTION COMMONS ── */
+    .section { padding: 5rem 2rem; }
+    .section.alt { background: var(--white); }
+    .section.dark { background: var(--navy-mid); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--blue-light); color: var(--blue);
+      font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+      padding: .3rem .75rem; border-radius: 100px; margin-bottom: .6rem;
+    }
+    .section-tag.white { background: rgba(37,99,235,.15); color: #93c5fd; }
+    .section-h { font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 800; color: var(--navy); letter-spacing: -.5px; margin-bottom: .4rem; }
+    .section-h.white { color: #fff; }
+    .section-sub { font-size: .95rem; color: var(--muted); max-width: 520px; }
+    .section-sub.white { color: #94a3b8; }
+    .section-hdr { margin-bottom: 2.75rem; }
+
+    /* ── CASE STUDIES ── */
+    .cs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+    .cs-card {
+      background: var(--white); border-radius: var(--r-lg);
+      border: 1px solid var(--border); overflow: hidden;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .cs-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .cs-top { padding: 1.75rem 1.75rem 1.5rem; border-left: 4px solid var(--blue); }
+    .cs-card.c-green .cs-top  { border-left-color: var(--green); }
+    .cs-card.c-amber .cs-top  { border-left-color: var(--amber); }
+    .cs-card.c-purple .cs-top { border-left-color: var(--purple); }
+    .cs-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+    .cs-ico { font-size: 1.5rem; }
+    .cs-co { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .cs-period { font-size: .72rem; color: var(--muted); }
+    .cs-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.3; margin-bottom: .65rem; letter-spacing: -.3px; }
+    .cs-hook { font-size: .875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
+    .cs-metrics { display: flex; gap: .45rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .cs-pill {
+      font-size: .75rem; font-weight: 600; padding: .28rem .65rem; border-radius: 100px;
+      background: #f0fdf4; color: #065f46; border: 1px solid #bbf7d0;
+    }
+    .cs-card.c-amber  .cs-pill { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+    .cs-card.c-purple .cs-pill { background: #f5f3ff; color: #4c1d95; border-color: #ddd6fe; }
+    .cs-card.c-blue   .cs-pill { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+    .cs-toggle {
+      display: flex; align-items: center; gap: .4rem;
+      background: none; border: none; color: var(--blue);
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      padding: 0; font-family: inherit; transition: gap .2s;
+    }
+    .cs-toggle:hover { gap: .65rem; }
+    .cs-toggle .arr { display: inline-block; transition: transform .3s; }
+    .cs-toggle.open .arr { transform: rotate(90deg); }
+    .cs-body {
+      display: none; padding: 0 1.75rem 1.75rem;
+      border-top: 1px solid var(--border); padding-top: 1.5rem;
+    }
+    .cs-body.open { display: block; }
+    .cs-body h4 { font-size: .875rem; font-weight: 700; color: var(--navy); margin: 1.25rem 0 .45rem; }
+    .cs-body h4:first-child { margin-top: 0; }
+    .cs-body p { font-size: .875rem; color: var(--muted); line-height: 1.7; margin-bottom: .65rem; }
+    .cs-body ul { margin: 0 0 .65rem 1.2rem; }
+    .cs-body ul li { font-size: .875rem; color: var(--muted); line-height: 1.7; margin-bottom: .3rem; }
+    .cs-body strong { color: var(--text); }
+    .outcome-strip {
+      background: linear-gradient(135deg,#f0fdf4,#eff6ff);
+      border: 1px solid #bbf7d0; border-radius: var(--r);
+      padding: 1.1rem 1.35rem; margin: 1rem 0;
+    }
+    .outcome-strip h4 { color: #065f46; margin-top: 0; margin-bottom: .5rem; }
+    .outcome-strip li { color: #1e4031 !important; }
+    .dtable { width: 100%; border-collapse: collapse; font-size: .8rem; margin: .75rem 0 1rem; }
+    .dtable th { background: #f8fafc; font-weight: 600; padding: .55rem .7rem; text-align: left; border: 1px solid var(--border); color: var(--text); }
+    .dtable td { padding: .55rem .7rem; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+
+    /* ── TEARDOWN ── */
+    .teardown-card {
+      background: linear-gradient(135deg, #0d1b35 0%, #1a2e55 100%);
+      border-radius: var(--r-lg); padding: 2.75rem 3rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+    }
+    .td-eyebrow { font-size: .72rem; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .6rem; }
+    .td-title { font-size: 1.7rem; font-weight: 800; color: #fff; letter-spacing: -.5px; margin-bottom: .85rem; }
+    .td-desc { font-size: .92rem; color: #94a3b8; line-height: 1.7; max-width: 560px; }
+    .td-chips { display: flex; gap: .45rem; flex-wrap: wrap; margin-top: 1.35rem; }
+    .td-chip { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); color: #94a3b8; font-size: .75rem; padding: .28rem .7rem; border-radius: 100px; }
+    .td-btn { background: #fff; color: var(--navy); padding: .85rem 1.75rem; border-radius: 8px; font-weight: 700; font-size: .88rem; text-decoration: none; white-space: nowrap; transition: all .2s; }
+    .td-btn:hover { background: #f1f5f9; transform: translateY(-1px); }
+
+    /* ── WRITING ── */
+    .writing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .art-card {
+      background: var(--bg); border-radius: var(--r); border: 1px solid var(--border);
+      padding: 1.5rem; display: flex; flex-direction: column;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .art-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .art-date { font-size: .72rem; color: var(--muted); font-weight: 600; margin-bottom: .65rem; text-transform: uppercase; letter-spacing: .05em; }
+    .art-title { font-size: .945rem; font-weight: 700; color: var(--navy); line-height: 1.4; margin-bottom: .6rem; flex: 1; }
+    .art-desc { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; flex: 2; }
+    .art-link { display: inline-flex; align-items: center; gap: .35rem; color: var(--blue); font-size: .82rem; font-weight: 600; text-decoration: none; }
+    .art-link:hover { text-decoration: underline; }
+
+    /* ── WORK SAMPLES ── */
+    .ws-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+    .ws-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+      transition: box-shadow .2s;
+    }
+    .ws-card:hover { box-shadow: var(--shadow); }
+    .ws-ico { font-size: 2rem; flex-shrink: 0; }
+    .ws-type { font-size: .7rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .2rem; }
+    .ws-name { font-size: .945rem; font-weight: 700; color: var(--navy); margin-bottom: .35rem; }
+    .ws-desc { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: .92rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.1rem; }
+    .about-text strong { color: var(--text); }
+    .how-grid { display: flex; flex-direction: column; gap: .85rem; }
+    .how-item { background: var(--bg); border-radius: var(--r); padding: 1.1rem 1.35rem; border-left: 3px solid var(--blue); }
+    .how-item h4 { font-size: .875rem; font-weight: 700; color: var(--navy); margin-bottom: .25rem; }
+    .how-item p { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+    .cert-row { display: flex; gap: .65rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .cert-badge { display: flex; align-items: center; gap: .4rem; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: .45rem .9rem; font-size: .75rem; font-weight: 600; color: var(--navy); }
+
+    /* ── CONTACT ── */
+    .contact-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .contact-sub { font-size: 1rem; color: #94a3b8; max-width: 460px; margin: .75rem auto 2.5rem; line-height: 1.75; }
+    .contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .cbtn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.75rem; border-radius: 8px; font-weight: 600; font-size: .9rem; text-decoration: none; transition: all .2s; }
+    .cbtn-blue { background: var(--blue); color: #fff; }
+    .cbtn-blue:hover { background: #1d4ed8; }
+    .cbtn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.15); }
+    .cbtn-ghost:hover { background: rgba(255,255,255,.14); }
+
+    /* ── FOOTER ── */
+    footer { background: #060e1f; padding: 1.5rem 2rem; text-align: center; font-size: .78rem; color: #334155; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo { width: 140px; height: 140px; }
+      .hero-bio { margin: 0 auto 2rem; }
+      .hero-actions { justify-content: center; }
+      .hero-chips { justify-content: center; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .cs-grid, .ws-grid, .about-grid { grid-template-columns: 1fr; }
+      .writing-grid { grid-template-columns: repeat(2,1fr); }
+      .teardown-card { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .writing-grid { grid-template-columns: 1fr; }
+      .section { padding: 3.5rem 1.25rem; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .stats { padding: 1.5rem 1.25rem; }
+      .teardown-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Shraddha <em>Singh</em></a>
+    <ul class="nav-links">
+      <li><a href="#work">Case Studies</a></li>
+      <li><a href="#teardown">Teardown</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">📍 Bengaluru, India · Open to Remote</div>
+      <h1 class="hero-name">Shraddha<br>Singh</h1>
+      <p class="hero-title">Product Manager · Fintech · Insurtech · GenAI</p>
+      <p class="hero-bio">
+        6+ years building digital products at the intersection of <strong>regulatory complexity, user trust, and enterprise scale</strong>. I've shipped AI-powered KYC for Indian banks, led a $10M GenAI transformation for a US healthcare giant, and own roadmap strategy for an insurance platform serving 500K+ customers.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-blue">View Case Studies ↓</a>
+        <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+        <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="btn btn-ghost">Medium ↗</a>
+      </div>
+      <div class="hero-chips">
+        <span class="hero-chip">B2B SaaS</span>
+        <span class="hero-chip">Fintech / KYC</span>
+        <span class="hero-chip">Insurtech</span>
+        <span class="hero-chip">GenAI Products</span>
+        <span class="hero-chip">PSPO I · AWS CP</span>
+        <span class="hero-chip">MBA JBIMS 2025</span>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img src="assets/photo.jpg" alt="Shraddha Singh" class="hero-photo" />
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ STATS ══════════════════ -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">6<span>+</span></div>
+      <div class="stat-lbl">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><span>$</span>10M<span>+</span></div>
+      <div class="stat-lbl">Program Led</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">45<span>%</span></div>
+      <div class="stat-lbl">Revenue Growth</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">60<span>%</span></div>
+      <div class="stat-lbl">Efficiency Gains</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CASE STUDIES ══════════════════ -->
+<section class="section alt" id="work">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <div class="section-tag">💼 Case Studies</div>
+      <h2 class="section-h">Products I'm most proud of</h2>
+      <p class="section-sub">Each story shows the problem, the decisions I made, and the outcomes — not just the highlights.</p>
+    </div>
+
+    <div class="cs-grid">
+
+      <!-- ── Signzy ── -->
+      <div class="cs-card c-blue">
+        <div class="cs-top">
+          <div class="cs-meta">
+            <span class="cs-ico">🔐</span>
+            <div>
+              <div class="cs-co">Signzy Technologies</div>
+              <div class="cs-period">Product Owner · Jan–Sept 2024</div>
+            </div>
+          </div>
+          <div class="cs-title">From 3 Days to 2 Hours: AI-Powered KYC for Tier-1 Banks</div>
+          <p class="cs-hook">Banks were losing customers at the identity verification step. The problem wasn't speed — it was silent failure. I found it, fixed it, and grew revenue 25% in 9 months.</p>
+          <div class="cs-metrics">
+            <span class="cs-pill">↓ 40% acquisition time</span>
+            <span class="cs-pill">↑ 35% KYC accuracy</span>
+            <span class="cs-pill">↑ 25% revenue</span>
+            <span class="cs-pill">3 contract renewals</span>
+          </div>
+          <button class="cs-toggle" onclick="toggle(this)">Read case study <span class="arr">›</span></button>
+        </div>
+        <div class="cs-body">
+          <h4>The Problem</h4>
+          <p>Signzy's KYC platform served Yes Bank and IndusInd Bank. The stated complaint: onboarding took 3 days with high rejection rates. But when I mapped actual drop-off data across 3 months of transaction logs, the real picture was different.</p>
+          <p><strong>60%+ of failures happened in the first 10 minutes</strong> — the document upload phase. Users weren't waiting for a slow process. They were failing silently and giving up. Meanwhile, each failed KYC generated a support ticket costing ~15 minutes of bank ops time.</p>
+          <p>The right metric wasn't processing speed. It was <strong>first-attempt success rate</strong>.</p>
+
+          <h4>Discovery Process</h4>
+          <ul>
+            <li>Pulled 3 months of KYC transaction logs — mapped stage-by-stage failure rates</li>
+            <li>Interviewed bank ops teams at Yes Bank and IndusInd to understand support ticket volume</li>
+            <li>Found 3 failure points: low-quality document uploads, liveness model failing in bright ambient light (common in tier-2 cities), and zero real-time feedback to users who failed</li>
+          </ul>
+
+          <h4>The Key Decision</h4>
+          <p>The data science team pushed to retrain the AI model first — it was the exciting problem. I pushed back. Retraining needed 8 weeks plus RBI-compliant validation. Meanwhile, 60% of failures were on document upload — a UX problem, not an AI problem.</p>
+          <p>We shipped <strong>guided capture UI + real-time feedback</strong> first (3 weeks, zero compliance risk). First-attempt success rate improved 28% in month one. That gave us the data to justify the model retrain in Phase 2.</p>
+
+          <table class="dtable">
+            <tr><th>Decision</th><th>Choice</th><th>Why</th></tr>
+            <tr><td>Phase order</td><td>UX fixes first</td><td>60% of failures were UX, not AI. Faster ROI, lower risk.</td></tr>
+            <tr><td>Feedback design</td><td>Specific error codes</td><td>Reduces support tickets; enables user self-service</td></tr>
+            <tr><td>Compliance</td><td>Review before sprint commit</td><td>RBI violation = contract loss. Slow down to stay safe.</td></tr>
+          </table>
+
+          <div class="outcome-strip">
+            <h4>📊 Outcome</h4>
+            <ul>
+              <li>Onboarding: 3 days → <strong>under 2 hours</strong></li>
+              <li>KYC accuracy up <strong>35%</strong></li>
+              <li>Customer acquisition <strong>40% faster</strong></li>
+              <li>Platform revenue grew <strong>25%</strong></li>
+              <li><strong>3 major contract renewals</strong> secured</li>
+            </ul>
+          </div>
+
+          <p><strong>Key learning:</strong> In B2B, your user's user is often the one you need to understand. The banks were my clients — but the people struggling with KYC were their customers. I had to understand both to solve it.</p>
+        </div>
+      </div>
+
+      <!-- ── Deloitte ── -->
+      <div class="cs-card c-green">
+        <div class="cs-top">
+          <div class="cs-meta">
+            <span class="cs-ico">🤖</span>
+            <div>
+              <div class="cs-co">Deloitte Digital</div>
+              <div class="cs-period">Product Consultant · Nov 2021–Jan 2024</div>
+            </div>
+          </div>
+          <div class="cs-title">Which GenAI Feature Do You Build First? ($10M Program)</div>
+          <p class="cs-hook">Every stakeholder wanted "AI in the contact center." Nobody could say what that meant. I mapped 180+ agent tasks, made the sequencing call, and delivered a $10M program 20% ahead of schedule.</p>
+          <div class="cs-metrics">
+            <span class="cs-pill">60% efficiency gain</span>
+            <span class="cs-pill">35% lower handle time</span>
+            <span class="cs-pill">$10M · 20% ahead</span>
+            <span class="cs-pill">10+ AI features</span>
+          </div>
+          <button class="cs-toggle" onclick="toggle(this)">Read case study <span class="arr">›</span></button>
+        </div>
+        <div class="cs-body">
+          <h4>Context</h4>
+          <p>TruServe is Deloitte's Salesforce-based contact center platform. In 2022, every enterprise client wanted GenAI — but no one had a clear product brief. My job on the $10M Health Care Service Corporation (HCSC) program: figure out which AI features to build and in what order.</p>
+          <p>HCSC: ~1M customer interactions/year, 2,000+ agents, 40% of time spent on post-call documentation.</p>
+
+          <h4>Discovery</h4>
+          <p>I ran structured workshops across 3 HCSC business units and mapped <strong>180+ agent tasks</strong> on two dimensions: automation potential and business impact. The result changed everything:</p>
+          <ul>
+            <li><strong>Smart email drafting</strong> — high automation potential, high impact, low downside risk</li>
+            <li><strong>Real-time agent guidance</strong> — very high upside, but catastrophic if wrong during a live call</li>
+            <li><strong>Post-call documentation</strong> — high volume, high potential, medium risk</li>
+          </ul>
+
+          <h4>The Sequencing Bet</h4>
+          <p>Leadership wanted the flagship feature: real-time AI agent assist. I argued against it for Phase 1. Wrong guidance during a live healthcare call = compliance liability. The model needed training data we didn't have yet.</p>
+          <p>I proposed smart email drafting first: saves 8–12 min/email, easy to override, easy to measure. They agreed. <strong>78% of AI drafts were accepted without significant edits</strong> in sprint 4. That number unlocked Phase 2.</p>
+
+          <h4>Delivery Challenges</h4>
+          <ul>
+            <li><strong>Scope creep:</strong> New GPT capabilities announced monthly. Introduced formal change control — every addition required impact assessment on timeline, budget, and integration complexity.</li>
+            <li><strong>Adoption:</strong> Agents were skeptical. Added AI confidence scores to the UI so agents felt in control. Adoption improved ~30% vs. baseline assumptions.</li>
+            <li><strong>Cross-org alignment:</strong> HCSC IT, Legal, Operations, and Business had different definitions of "done." Monthly joint reviews with all four — slow but prevented a compliance-related 6-week delay.</li>
+          </ul>
+
+          <div class="outcome-strip">
+            <h4>📊 Outcome</h4>
+            <ul>
+              <li><strong>60% operational efficiency improvement</strong> at HCSC's contact center</li>
+              <li>Agent handle time reduced <strong>35%</strong></li>
+              <li><strong>$10M program delivered 20% ahead of schedule</strong></li>
+              <li>10+ GenAI features shipped including email drafting, post-call docs, QA sentiment flagging</li>
+              <li>Became an internal Deloitte case study for GenAI transformation methodology</li>
+            </ul>
+          </div>
+
+          <p><strong>Key learning:</strong> "AI" is not a product requirement. A job-to-be-done is. In regulated industries, the cost of being wrong is asymmetric — a 90%-right AI that's 10%-wrong in dangerous ways is worse than doing nothing. This shaped every prioritization call I made.</p>
+        </div>
+      </div>
+
+      <!-- ── Sapiens ── -->
+      <div class="cs-card c-amber">
+        <div class="cs-top">
+          <div class="cs-meta">
+            <span class="cs-ico">🏦</span>
+            <div>
+              <div class="cs-co">Sapiens International</div>
+              <div class="cs-period">Senior Product Owner · Oct 2024–Present</div>
+            </div>
+          </div>
+          <div class="cs-title">Deciding What Not to Build: Roadmap Strategy at Enterprise Scale</div>
+          <p class="cs-hook">50+ features, 6 release slots, multiple tier-1 insurance clients all calling their request the highest priority. The real challenge wasn't execution — it was clarity.</p>
+          <div class="cs-metrics">
+            <span class="cs-pill">↓ 30% onboarding time</span>
+            <span class="cs-pill">↓ 25% abandonment</span>
+            <span class="cs-pill">↑ 15% adoption</span>
+            <span class="cs-pill">95% pre-prod quality</span>
+          </div>
+          <button class="cs-toggle" onclick="toggle(this)">Read case study <span class="arr">›</span></button>
+        </div>
+        <div class="cs-body">
+          <h4>Context</h4>
+          <p>Sapiens CoreSuite is an enterprise insurance platform serving 500K+ end customers through tier-1 insurance carriers globally. When I joined as Senior PO, the backlog had 50+ features with no consistent prioritization methodology. Multiple clients, competing priorities, 6 release slots.</p>
+
+          <h4>Building the Framework</h4>
+          <p>My first 30 days: understand the backlog, not execute it. I ran client interviews with 3 tier-1 clients, an architecture review to map technical dependencies, and analyzed support tickets (what clients complained about vs. what they requested — often different).</p>
+          <p>I built a <strong>4-factor prioritization matrix</strong>:</p>
+          <ul>
+            <li><strong>Client breadth</strong> — how many clients benefit?</li>
+            <li><strong>Strategic value</strong> — does this advance platform differentiation or just maintain parity?</li>
+            <li><strong>Technical risk</strong> — does this depend on a complex architecture change that might slip?</li>
+            <li><strong>Revenue linkage</strong> — is this tied to a contract commitment or renewal?</li>
+          </ul>
+
+          <h4>The Hardest Call</h4>
+          <p>Release 3: Feature A (digital self-service portal, 2 clients waiting, visible to customers) vs. Feature B (batch processing optimization, 1 client, critical for renewal). The metric said A. Revenue risk said B.</p>
+          <p>I took both to the steering committee with explicit trade-off framing. We chose B, protected the renewal, and I personally committed to the two waiting clients that Feature A would land in Release 4 with dedicated capacity — which required de-prioritizing two smaller features and direct client communication.</p>
+
+          <div class="outcome-strip">
+            <h4>📊 Outcome (6 months, ongoing)</h4>
+            <ul>
+              <li>Customer onboarding time reduced <strong>30%</strong></li>
+              <li>Transaction abandonment down <strong>25%</strong></li>
+              <li>Platform adoption up <strong>15%</strong></li>
+              <li><strong>95% pre-production quality rate</strong> — zero P1 defects shipped to clients</li>
+              <li>50+ features triaged with full stakeholder alignment across 6 releases</li>
+            </ul>
+          </div>
+
+          <p><strong>Key learning:</strong> Enterprise clients don't just want features — they want confidence that the platform is moving in the right direction. Roadmap predictability is itself a product. Every clean release is a trust deposit.</p>
+        </div>
+      </div>
+
+      <!-- ── Iksula ── -->
+      <div class="cs-card c-purple">
+        <div class="cs-top">
+          <div class="cs-meta">
+            <span class="cs-ico">🛍️</span>
+            <div>
+              <div class="cs-co">Iksula Services</div>
+              <div class="cs-period">Business Analyst → PM · Jul 2019–Oct 2021</div>
+            </div>
+          </div>
+          <div class="cs-title">Learning Product the Hard Way: 6 Products, 3 Brands, 2 Years</div>
+          <p class="cs-hook">Every client said "our checkout is broken." Checkout was fine — discovery was broken. I made the counter-intuitive call, shipped a personalization engine, and moved conversion 16 points.</p>
+          <div class="cs-metrics">
+            <span class="cs-pill">+16pp conversion</span>
+            <span class="cs-pill">6 products shipped</span>
+            <span class="cs-pill">95% client sat</span>
+            <span class="cs-pill">Excellence Award</span>
+          </div>
+          <button class="cs-toggle" onclick="toggle(this)">Read case study <span class="arr">›</span></button>
+        </div>
+        <div class="cs-body">
+          <h4>Context</h4>
+          <p>Iksula helped premium Indian brands — ITC, Eureka Forbes, ELC Toys — build their own e-commerce channels as Amazon ate into their direct sales. My role: ship products end-to-end, from discovery to go-to-market, on multiple client accounts simultaneously.</p>
+
+          <h4>The Diagnosis Everyone Got Wrong</h4>
+          <p>Industry default answer to low conversion: optimize checkout. We tried it. The needle barely moved. When I mapped the full user journey via session recordings and behavioral analysis, the real picture emerged:</p>
+          <ul>
+            <li>Returning users saw the same homepage as new users — zero personalization</li>
+            <li>A customer who bought baby toys last month was seeing ITC sauce promotions</li>
+            <li>Mobile abandonment was 60%+ — but it happened at the product detail page, not payment</li>
+          </ul>
+          <p>The problem was <strong>discovery, not checkout</strong>. Users left because they couldn't find what they wanted.</p>
+
+          <h4>The Bet</h4>
+          <p>The personalization engine was riskier than checkout optimization: more expensive, harder to measure, invisible to clients in a demo. I made the case to ITC's digital team with a competitive benchmark: Amazon's product pages for the same items vs. ITC's own site. The difference was personalization. They approved it.</p>
+          <p>I ran A/B tests for 8 weeks to reach statistical significance. Results:</p>
+          <ul>
+            <li>Personalized homepage → <strong>+8pp conversion</strong> vs. control</li>
+            <li>Mobile PDP restructure → <strong>+6pp on mobile</strong></li>
+            <li>Abandoned cart emails (personalized) → <strong>22% recovery rate</strong></li>
+          </ul>
+
+          <div class="outcome-strip">
+            <h4>📊 Outcome</h4>
+            <ul>
+              <li>Conversion rates improved <strong>+16 percentage points</strong> across accounts</li>
+              <li>6 products shipped end-to-end, on time</li>
+              <li><strong>95% client satisfaction</strong> score across all accounts</li>
+              <li><strong>Quarterly Excellence Award</strong> — first given for "product ownership mindset" in a BA role</li>
+            </ul>
+          </div>
+
+          <p><strong>Key learning:</strong> The presenting problem is rarely the actual problem. Every client said checkout — but checkout was fine. I learned to be deeply skeptical of the first diagnosis and to look at the full journey before picking a solution. This habit has stayed with me ever since.</p>
+        </div>
+      </div>
+
+    </div><!-- /cs-grid -->
+  </div>
+</section>
+
+<!-- ══════════════════ TEARDOWN ══════════════════ -->
+<section class="section" id="teardown">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <div class="section-tag">🔍 Product Thinking</div>
+      <h2 class="section-h">Going deep on products I use</h2>
+      <p class="section-sub">Independent teardowns to sharpen product thinking outside of work.</p>
+    </div>
+    <div class="teardown-card">
+      <div>
+        <div class="td-eyebrow">Featured Teardown · February 2026</div>
+        <div class="td-title">CRED — How India's Most Exclusive Fintech Built Its Moat</div>
+        <p class="td-desc">CRED turned paying a credit card bill — usually boring and unrewarded — into a status symbol for India's creditworthy elite. I break down the product evolution, the business model, what's working, what isn't, and what I'd build next.</p>
+        <div class="td-chips">
+          <span class="td-chip">Fintech</span>
+          <span class="td-chip">Consumer</span>
+          <span class="td-chip">Loyalty & Payments</span>
+          <span class="td-chip">B2C</span>
+          <span class="td-chip">India</span>
+        </div>
+      </div>
+      <div>
+        <a href="notion-portfolio/teardowns/cred-teardown.md" class="td-btn">Read Teardown →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ WRITING ══════════════════ -->
+<section class="section alt" id="writing">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <div class="section-tag">✍️ Writing</div>
+      <h2 class="section-h">On Medium</h2>
+      <p class="section-sub">Writing on product management, business analysis, and the craft of building digital products.</p>
+    </div>
+    <div class="writing-grid">
+
+      <div class="art-card">
+        <div class="art-date">Dec 2025</div>
+        <div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div>
+        <p class="art-desc">How configuration dependencies and schema misalignment cause production failures in enterprise integrations — lessons from a withdrawal API case study.</p>
+        <a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+      <div class="art-card">
+        <div class="art-date">May 2025</div>
+        <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
+        <p class="art-desc">A first-person account of implementing API integration strategy in banking — cutting onboarding time 40% and improving KYC accuracy 35%.</p>
+        <a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+      <div class="art-card">
+        <div class="art-date">Feb 2025</div>
+        <div class="art-title">How to Write Effective User Stories: A Guide for Business Analysts and Product Managers</div>
+        <p class="art-desc">A structured framework for user stories — capability classification, design integration, and acceptance criteria that engineering teams actually want to read.</p>
+        <a href="https://medium.com/@shraddhasingh8968/how-to-write-effective-user-stories-a-guide-for-business-analysts-and-product-managers-aecb0c222ece" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+      <div class="art-card">
+        <div class="art-date">Feb 2025</div>
+        <div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div>
+        <p class="art-desc">Step-by-step walkthrough of transforming chaotic restaurant operations into an efficient digital order management system using systematic BA methodology.</p>
+        <a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+      <div class="art-card">
+        <div class="art-date">Jan 2025</div>
+        <div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Skills Now Matter</div>
+        <p class="art-desc">Examines the growing demand for technical BAs — salary comparisons, practical code examples, and why data-driven analysis is becoming table-stakes.</p>
+        <a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+      <div class="art-card">
+        <div class="art-date">Aug 2024</div>
+        <div class="art-title">E-commerce Payment Gateway Integration: A PRD Template</div>
+        <p class="art-desc">A complete PRD template for integrating Razorpay into e-commerce platforms — problem space, solution design, integration steps, and success metrics.</p>
+        <a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ WORK SAMPLES ══════════════════ -->
+<section class="section" id="samples">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <div class="section-tag">📁 Work Samples</div>
+      <h2 class="section-h">Selected artifacts</h2>
+      <p class="section-sub">Sanitized samples showing how I think — strategy, requirements, systems design, and product vision.</p>
+    </div>
+    <div class="ws-grid">
+
+      <div class="ws-card">
+        <div class="ws-ico">📊</div>
+        <div>
+          <div class="ws-type">Strategic Analysis</div>
+          <div class="ws-name">JPMC Digital Banking Strategy (MBA Capstone)</div>
+          <p class="ws-desc">Competitive analysis of J.P. Morgan Chase's wealth management positioning. SWOT, QSPM matrices, benchmarking vs. Goldman Sachs and Morgan Stanley. $1.5B 3-year investment recommendation. <strong>Highest distinction.</strong></p>
+        </div>
+      </div>
+
+      <div class="ws-card">
+        <div class="ws-ico">📝</div>
+        <div>
+          <div class="ws-type">Product Requirements</div>
+          <div class="ws-name">Cloud Security Posture Management (CSPM) — PRD</div>
+          <p class="ws-desc">Full PRD for a cloud security product — user personas, functional and non-functional requirements, success metrics, and release milestones. Demonstrates technical depth and structured requirements writing.</p>
+        </div>
+      </div>
+
+      <div class="ws-card">
+        <div class="ws-ico">🔄</div>
+        <div>
+          <div class="ws-type">Process Design</div>
+          <div class="ws-name">Order Management System — Process Diagram</div>
+          <p class="ws-desc">End-to-end process flow covering order intake, fulfillment orchestration, inventory management, exception handling, and customer communication triggers. Shows how I think about system states and edge cases.</p>
+        </div>
+      </div>
+
+      <div class="ws-card">
+        <div class="ws-ico">🌱</div>
+        <div>
+          <div class="ws-type">Product Strategy Deck</div>
+          <div class="ws-name">HydroPod — Smart Home Agriculture</div>
+          <p class="ws-desc">Zero-to-one product strategy for a smart hydroponics concept — market sizing, personas, product vision, feature prioritization, GTM strategy, and business model. Shows how I approach a blank-slate product problem.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<section class="section alt" id="about">
+  <div class="section-inner">
+    <div class="section-hdr">
+      <div class="section-tag">👋 About</div>
+      <h2 class="section-h">How I got here</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I started in e-commerce, moved into digital banking, pivoted into enterprise AI at Deloitte, and now lead insurance platform strategy at Sapiens. Each role forced me to build a different PM muscle.</p>
+        <p>At <strong>Iksula</strong>, I learned to ship fast and let data change my mind. At <strong>Deloitte</strong>, I learned that stakeholder alignment is product work, not admin overhead. At <strong>Signzy</strong>, I learned that B2B products live or die on client relationship depth — and that compliance constraints can become competitive moats. At <strong>Sapiens</strong>, I'm learning that enterprise roadmap prioritization is its own discipline: making trade-offs explicit, in writing, before anyone disagrees.</p>
+        <p>The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>
+        <p>I hold an MBA from JBIMS (top-10 India, 2025), a BE in Information Technology, and am PSPO I and AWS Cloud Practitioner certified. I'm based in Bengaluru and open to remote roles.</p>
+        <div class="cert-row">
+          <span class="cert-badge">🏅 PSPO I</span>
+          <span class="cert-badge">☁️ AWS Cloud Practitioner</span>
+          <span class="cert-badge">📘 McKinsey Forward</span>
+          <span class="cert-badge">🎓 MBA, JBIMS 2025</span>
+        </div>
+      </div>
+      <div>
+        <div class="how-grid">
+          <div class="how-item">
+            <h4>I start with the user, not the feature</h4>
+            <p>Before writing a user story, I want to understand who it's for, what they're trying to do, and what's in their way. Discovery first — always.</p>
+          </div>
+          <div class="how-item">
+            <h4>I make trade-offs visible</h4>
+            <p>Prioritization shouldn't be a black box. I use frameworks (RICE, value/effort, MoSCoW) and make every trade-off explicit to stakeholders before committing to a roadmap.</p>
+          </div>
+          <div class="how-item">
+            <h4>I treat engineering as a partner</h4>
+            <p>The best decisions I've made came from conversations with engineers who said "there's a smarter way." Technical feasibility is a product constraint, not a blocker.</p>
+          </div>
+          <div class="how-item">
+            <h4>I don't confuse output with outcome</h4>
+            <p>Shipped features are inputs. What matters is whether they moved the metric that mattered. I track post-launch performance obsessively — and I'm comfortable killing features that didn't work.</p>
+          </div>
+          <div class="how-item">
+            <h4>I write specs people want to read</h4>
+            <p>Clear acceptance criteria, explicit edge cases, annotated wireframes. A vague spec is a tax on engineering velocity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section class="section dark" id="contact">
+  <div class="contact-inner">
+    <div class="section-tag white">📬 Get in Touch</div>
+    <h2 class="section-h white">Open to the right opportunity</h2>
+    <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries. Open to remote.</p>
+    <div class="contact-btns">
+      <a href="mailto:shraddhasingh8968@gmail.com" class="cbtn cbtn-blue">✉️ shraddhasingh8968@gmail.com</a>
+      <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="cbtn cbtn-ghost">LinkedIn ↗</a>
+      <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="cbtn cbtn-ghost">Medium ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  Shraddha Singh · Product Manager · Bengaluru, India · shraddhasingh8968@gmail.com
+</footer>
+
+<script>
+  function toggle(btn) {
+    btn.classList.toggle('open');
+    const body = btn.closest('.cs-top').nextElementSibling;
+    body.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

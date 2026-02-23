@@ -1,0 +1,5 @@
+.DS_Store
+*.pptx
+*.docx
+*.drawio
+notion-portfolio/build_notion.py
