@@ -144,7 +144,8 @@
     .writing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
     .art{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;}
     .art:hover{box-shadow:var(--sh-lg);transform:translateY(-2px);}
-    .art-cover{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.25rem;flex-shrink:0;}
+    .art-cover{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.25rem;flex-shrink:0;overflow:hidden;}
+    .art-cover img{width:100%;height:100%;object-fit:cover;display:block;}
     .art-body{padding:1.1rem 1.25rem 1.25rem;display:flex;flex-direction:column;flex:1;}
     .art-date{font-size:.68rem;color:var(--muted);font-weight:700;margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;}
     .art-title{font-size:.93rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:.55rem;flex:1;}
@@ -230,7 +231,7 @@
 <section class="hero">
   <div class="hero-in">
     <div>
-      <div class="hero-badge">📍 Bengaluru · Open to Remote</div>
+      <div class="hero-badge">📍 Bengaluru · Open to Hybrid · Onsite · Remote</div>
       <h1 class="hero-name">Shraddha<br>Singh</h1>
       <p class="hero-title">Product Manager · Fintech · Insurtech · GenAI</p>
       <p class="hero-bio">6+ years building products where <strong>regulatory complexity meets user trust</strong>. I've shipped AI-powered KYC for tier-1 Indian banks, led a $10M GenAI transformation for a US healthcare company, and currently own roadmap strategy for an insurance platform serving 500K+ customers.</p>
@@ -529,7 +530,9 @@
     </div>
     <div class="writing-grid">
       <div class="art">
-        <div class="art-cover" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);">⚡</div>
+        <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/1*3kPw3UA3annvV2e-Gb1gAA.png" alt="API Configuration article cover" loading="lazy"/>
+        </div>
         <div class="art-body">
           <div class="art-date">Dec 2025</div>
           <div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div>
@@ -538,7 +541,9 @@
         </div>
       </div>
       <div class="art">
-        <div class="art-cover" style="background:linear-gradient(135deg,#0f172a,#0369a1);">🏦</div>
+        <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/0*aD_Ys0EdeKi9t6oe" alt="Digital Banking article cover" loading="lazy"/>
+        </div>
         <div class="art-body">
           <div class="art-date">May 2025</div>
           <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
@@ -547,7 +552,9 @@
         </div>
       </div>
       <div class="art">
-        <div class="art-cover" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">📋</div>
+        <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/0*jgeJRZq9_O1pQWvA" alt="User Stories article cover" loading="lazy"/>
+        </div>
         <div class="art-body">
           <div class="art-date">Feb 2025</div>
           <div class="art-title">How to Write Effective User Stories: A Guide for Business Analysts and Product Managers</div>
@@ -556,7 +563,9 @@
         </div>
       </div>
       <div class="art">
-        <div class="art-cover" style="background:linear-gradient(135deg,#78350f,#d97706);">🍽️</div>
+        <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/1*8wZvCkKZsd5wNIWxFC3j7A.png" alt="Restaurant OMS article cover" loading="lazy"/>
+        </div>
         <div class="art-body">
           <div class="art-date">Feb 2025</div>
           <div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div>
@@ -565,7 +574,9 @@
         </div>
       </div>
       <div class="art">
-        <div class="art-cover" style="background:linear-gradient(135deg,#064e3b,#059669);">💻</div>
+        <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/1*5yUFZ1M6kbXhCKNFkTVryw.jpeg" alt="Business Analyst Evolution article cover" loading="lazy"/>
+        </div>
         <div class="art-body">
           <div class="art-date">Jan 2025</div>
           <div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Now Matter</div>
@@ -598,7 +609,7 @@
         <p>I started in e-commerce, moved into digital banking, pivoted into enterprise AI at Deloitte, and now lead insurance platform strategy at Sapiens. Each role forced me to build a different PM muscle.</p>
         <p>At <strong>Iksula</strong>, I learned to ship fast and let data change my mind. At <strong>Deloitte</strong>, I learned that stakeholder alignment is product work, not admin overhead. At <strong>Signzy</strong>, I learned that B2B products live or die on client relationship depth — and that compliance constraints can become competitive moats. At <strong>Sapiens</strong>, I'm learning that enterprise roadmap prioritization is its own discipline: making trade-offs explicit, in writing, before anyone disagrees.</p>
         <p>The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>
-        <p>MBA from <strong>JBIMS Mumbai</strong> (Top-10 India, 2025), BE in Information Technology, PSPO I certified, and AWS Cloud Practitioner. Based in Bengaluru, open to remote.</p>
+        <p>MBA from <strong>JBIMS Mumbai</strong> (Top-10 India, 2025), BE in Information Technology, PSPO I certified, and AWS Cloud Practitioner. Based in Bengaluru, open to hybrid, onsite &amp; remote.</p>
         <div class="cert-row">
           <span class="cert">🏅 PSPO I</span>
           <span class="cert">☁️ AWS CP</span>
@@ -622,7 +633,7 @@
   <div class="contact-in">
     <div class="sec-tag wh">📬 Get in Touch</div>
     <h2 class="sec-h wh">Open to the right opportunity</h2>
-    <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries. Open to remote.</p>
+    <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries. Open to hybrid, onsite &amp; remote.</p>
     <div class="contact-btns">
       <a href="mailto:shraddhasingh8968@gmail.com" class="cbtn cbtn-blue">✉️ shraddhasingh8968@gmail.com</a>
       <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="cbtn cbtn-ghost">LinkedIn ↗</a>
