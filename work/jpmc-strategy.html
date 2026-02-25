@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPMC Digital Banking Strategy · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0d1b35;--blue:#2563eb;--amber:#f59e0b;--bg:#f8fafc;--white:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+    .hero{background:linear-gradient(135deg,#0d1b35,#1a2e55);padding:3.5rem 2rem 2.5rem;text-align:center;}
+    .hero-tag{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#fcd34d;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:600px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#64748b;font-weight:500;}
+    .badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.25);color:#fcd34d;font-size:.75rem;font-weight:700;padding:.35rem .85rem;border-radius:100px;}
+    /* Stats */
+    .stats{background:rgba(0,0,0,.2);border-top:1px solid rgba(255,255,255,.05);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-1px;}
+    .s-num span{color:var(--amber);}
+    .s-lbl{font-size:.72rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+    /* Sections */
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem;}
+    .overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem;}
+    .ov-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.35rem 1.5rem;}
+    .ov-card h4{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .ov-card p{font-size:.9rem;color:var(--text);line-height:1.6;}
+    /* PDF viewer */
+    .pdf-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);}
+    .pdf-toolbar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .pdf-toolbar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .pdf-dl{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .pdf-dl:hover{background:var(--blue);}
+    iframe{display:block;width:100%;height:780px;border:none;}
+    /* Key contributions */
+    .section-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin:2.5rem 0 1rem;}
+    .contrib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+    .contrib{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;border-left:3px solid var(--blue);}
+    .contrib h4{font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;}
+    .contrib p{font-size:.82rem;color:var(--muted);line-height:1.6;margin:0;}
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+    @media(max-width:700px){.overview-grid,.contrib-grid{grid-template-columns:1fr;}.stats-inner{grid-template-columns:repeat(3,1fr);} iframe{height:500px;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Work Sample</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">🏆 Highest Distinction</div>
+  <h1>Digital Banking Strategy for Investment Banking<br><span style="color:#93c5fd">J.P. Morgan Chase — MBA Capstone</span></h1>
+  <p class="hero-sub">Comprehensive competitive analysis of J.P. Morgan Chase's wealth management and digital banking positioning — with strategic recommendations for emerging market expansion.</p>
+  <div class="meta-row">
+    <span>✍️ Shraddha Singh</span>
+    <span>🎓 JBIMS MBA Capstone · 2025</span>
+    <span>📂 Investment Banking Strategy</span>
+    <div class="badge">⭐ Highest Distinction</div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num">$<span>1.5</span>B</div><div class="s-lbl">Investment Roadmap</div></div>
+      <div><div class="s-num"><span>15</span>%</div><div class="s-lbl">Projected Market Share Gain</div></div>
+      <div><div class="s-num"><span>3</span>yr</div><div class="s-lbl">Strategic Horizon</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="overview-grid">
+    <div class="ov-card">
+      <h4>Scope</h4>
+      <p>Competitive benchmarking of JPMC's wealth management platform against Goldman Sachs, Morgan Stanley, and Citi — with focus on digital banking services in emerging markets.</p>
+    </div>
+    <div class="ov-card">
+      <h4>Frameworks Used</h4>
+      <p>SWOT analysis · QSPM matrix · Porter's Five Forces · Financial projections · Customer segmentation · TAM/SAM/SOM analysis</p>
+    </div>
+    <div class="ov-card">
+      <h4>Key Recommendation</h4>
+      <p>$1.5B investment over 3 years to expand digital banking in high-growth emerging markets, projected to capture 15% incremental market share.</p>
+    </div>
+    <div class="ov-card">
+      <h4>Recognition</h4>
+      <p>Received highest grade distinction from JBIMS faculty for delivering actionable insights into institutional banking strategy and wealth management platform evolution.</p>
+    </div>
+  </div>
+
+  <div class="section-title">Key Contributions</div>
+  <div class="contrib-grid">
+    <div class="contrib">
+      <h4>Competitive Landscape Analysis</h4>
+      <p>Benchmarked JPMC against 3 major competitors across 12 dimensions including digital capabilities, customer acquisition cost, AUM growth, and product breadth.</p>
+    </div>
+    <div class="contrib">
+      <h4>Emerging Market Opportunity Sizing</h4>
+      <p>TAM/SAM/SOM analysis for Southeast Asia and South Asia markets. Identified ₹15T addressable opportunity in HNI digital wealth management.</p>
+    </div>
+    <div class="contrib">
+      <h4>Strategic Recommendations</h4>
+      <p>Three strategic pillars — digital-first wealth management, embedded banking partnerships, and AI-powered advisory — with phased investment plan and ROI projections.</p>
+    </div>
+    <div class="contrib">
+      <h4>Financial Modelling</h4>
+      <p>Built financial projections covering CAC, LTV, revenue per customer, and break-even analysis for the recommended $1.5B investment roadmap.</p>
+    </div>
+  </div>
+
+  <div class="section-title">Full Document</div>
+  <div class="pdf-wrap">
+    <div class="pdf-toolbar">
+      <span>📄 ShraddhaSingh_JPMC_Strategy.pdf</span>
+      <a href="../assets/ShraddhaSingh JPMC.pdf" download class="pdf-dl">⬇ Download PDF</a>
+    </div>
+    <iframe src="../assets/ShraddhaSingh JPMC.pdf" title="JPMC Strategy Document"></iframe>
+  </div>
+</div>
+
+<footer>
+  <p>Work sample by <a href="../index.html">Shraddha Singh</a> · MBA Capstone · JBIMS 2025</p>
+</footer>
+
+</body>
+</html>

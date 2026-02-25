@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSPM PRD · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0d1b35;--blue:#2563eb;--green:#10b981;--purple:#8b5cf6;--bg:#f8fafc;--white:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+    .hero{background:linear-gradient(135deg,#0d1b35,#1e3a5f);padding:3.5rem 2rem 2.5rem;text-align:center;}
+    .hero-tag{display:inline-block;background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.3);color:#c4b5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:580px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#64748b;font-weight:500;}
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 5rem;}
+    /* PRD section */
+    .prd-section{background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:1.5rem;overflow:hidden;}
+    .prd-section-hdr{padding:1.1rem 1.5rem;background:#f8fafc;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+    .prd-section-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+    .ico-blue{background:#eff6ff;}
+    .ico-green{background:#f0fdf4;}
+    .ico-purple{background:#f5f3ff;}
+    .ico-amber{background:#fffbeb;}
+    .prd-section-title{font-size:.9rem;font-weight:800;color:var(--navy);}
+    .prd-section-sub{font-size:.78rem;color:var(--muted);}
+    .prd-body{padding:1.35rem 1.5rem;}
+    .prd-body p{font-size:.875rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem;}
+    .prd-body p:last-child{margin-bottom:0;}
+    .prd-body strong{color:var(--text);}
+    .prd-body ul{margin:.5rem 0 .75rem 1.25rem;}
+    .prd-body li{font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:.3rem;}
+    /* Two col */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:.75rem;}
+    .mini-card{background:#f8fafc;border-radius:9px;padding:1rem 1.1rem;border:1px solid var(--border);}
+    .mini-card h5{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;}
+    .mini-card p{font-size:.82rem;color:var(--text);line-height:1.55;margin:0;}
+    /* User story */
+    .story{background:#f5f3ff;border-left:3px solid var(--purple);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.5rem 0;}
+    .story p{font-size:.83rem;color:#3b0764;line-height:1.65;margin:0;font-style:italic;}
+    /* AC item */
+    .ac{display:flex;gap:.65rem;padding:.5rem 0;border-bottom:1px solid #f1f5f9;}
+    .ac:last-child{border-bottom:none;}
+    .ac-num{width:22px;height:22px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;flex-shrink:0;margin-top:.1rem;}
+    .ac-text{font-size:.83rem;color:var(--muted);line-height:1.6;}
+    /* Metrics */
+    .metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;}
+    .metric{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:.9rem 1rem;text-align:center;}
+    .metric-num{font-size:1.4rem;font-weight:900;color:#065f46;letter-spacing:-.5px;}
+    .metric-lbl{font-size:.72rem;color:#047857;font-weight:600;margin-top:.15rem;}
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+    @media(max-width:640px){.two-col,.metrics-row{grid-template-columns:1fr;}.page{padding:2rem 1.25rem 4rem;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Work Sample · PRD</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">📝 Product Requirements Document</div>
+  <h1>Cloud Security Posture Management (CSPM)<br><span style="color:#c4b5fd">Product Requirements Document</span></h1>
+  <p class="hero-sub">A structured PRD for a cloud security product — covering problem space, personas, functional requirements, success metrics, and release milestones.</p>
+  <div class="meta-row">
+    <span>✍️ Shraddha Singh</span>
+    <span>📂 Security · Cloud Infrastructure · B2B SaaS</span>
+    <span>🔒 Sanitized — no confidential data</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-blue">🎯</div>
+      <div>
+        <div class="prd-section-title">Problem Statement</div>
+        <div class="prd-section-sub">Why this product exists</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <p>Organizations migrating to multi-cloud environments face an exponentially growing attack surface. Security teams lack real-time visibility into misconfigurations across AWS, GCP, and Azure — leading to compliance violations, data breaches, and costly incident response.</p>
+      <p><strong>Current state:</strong> Security reviews are manual, periodic (quarterly audits), and generate reports that are outdated by the time they're actioned. There is no continuous monitoring or automated remediation path.</p>
+      <p><strong>Target outcome:</strong> A CSPM platform that provides continuous, automated cloud security posture monitoring — surfacing misconfigurations, policy violations, and compliance gaps in real-time with actionable remediation guidance.</p>
+    </div>
+  </div>
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-purple">👤</div>
+      <div>
+        <div class="prd-section-title">User Personas</div>
+        <div class="prd-section-sub">Who we're building for</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <div class="two-col">
+        <div class="mini-card">
+          <h5>Primary — Security Engineer</h5>
+          <p>Manages cloud security posture across 100s of accounts. Needs: real-time misconfiguration alerts, automated remediation, and compliance dashboards. Pain: alert fatigue from generic scanners that don't prioritize by risk.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Secondary — CISO / Security Lead</h5>
+          <p>Needs executive-level visibility into compliance posture (SOC2, ISO27001, PCI-DSS). Pain: monthly manual reporting takes 2–3 days and is error-prone. Needs: automated compliance reports on-demand.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="mini-card">
+          <h5>Tertiary — DevOps Engineer</h5>
+          <p>Deploys infrastructure via CI/CD pipelines. Needs: shift-left security checks that catch misconfigurations before deployment. Pain: security feedback loop is slow — issues found weeks after deployment.</p>
+        </div>
+        <div class="mini-card">
+          <h5>Out of Scope</h5>
+          <p>Individual developers (covered by SAST/DAST tools). Network security teams (covered by SIEM/SOAR). Small companies (&lt;50 cloud resources) — complexity doesn't justify CSPM tooling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-blue">📋</div>
+      <div>
+        <div class="prd-section-title">User Stories (Selected)</div>
+        <div class="prd-section-sub">Key functional requirements expressed as user stories</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <div class="story"><p>As a Security Engineer, I want to see all misconfigured cloud resources across my AWS and GCP accounts in a single dashboard, so I can prioritize remediation without switching between consoles.</p></div>
+      <div class="story"><p>As a CISO, I want to generate a SOC2 compliance report with a single click, so I can share accurate posture data with auditors without manual data gathering.</p></div>
+      <div class="story"><p>As a DevOps Engineer, I want CSPM checks integrated into my Terraform CI/CD pipeline, so misconfigurations are caught before infrastructure is deployed to production.</p></div>
+      <div class="story"><p>As a Security Engineer, I want misconfiguration alerts ranked by business impact and exploitability, so I can focus on critical issues instead of drowning in low-severity noise.</p></div>
+      <p style="margin-top:.75rem;"><strong>Acceptance Criteria Sample (Story 1 — Unified Dashboard):</strong></p>
+      <div class="ac"><div class="ac-num">1</div><div class="ac-text">Dashboard loads all connected cloud accounts within 10 seconds for up to 500 resources</div></div>
+      <div class="ac"><div class="ac-num">2</div><div class="ac-text">Misconfigurations are categorized by severity: Critical / High / Medium / Low with distinct visual indicators</div></div>
+      <div class="ac"><div class="ac-num">3</div><div class="ac-text">Each finding links to: affected resource ARN/ID, policy violated, remediation steps, and estimated effort</div></div>
+      <div class="ac"><div class="ac-num">4</div><div class="ac-text">Filtering by account, region, resource type, and severity is available without page reload</div></div>
+      <div class="ac"><div class="ac-num">5</div><div class="ac-text">Dashboard state is saved per user and restored on next login</div></div>
+    </div>
+  </div>
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-green">⚙️</div>
+      <div>
+        <div class="prd-section-title">Non-Functional Requirements</div>
+        <div class="prd-section-sub">Performance, security, and scalability constraints</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <div class="two-col">
+        <div class="mini-card"><h5>Performance</h5><p>Full cloud scan completes in &lt;15 min for up to 10,000 resources. Dashboard P95 load time &lt;3s. API response &lt;500ms at 95th percentile.</p></div>
+        <div class="mini-card"><h5>Availability</h5><p>99.9% uptime SLA. Scheduled scans must not be affected by UI downtime. Data retention: 12 months of finding history.</p></div>
+        <div class="mini-card"><h5>Security</h5><p>Read-only cloud permissions only (no write access). All data encrypted at rest (AES-256) and in transit (TLS 1.3). SOC2 Type II compliant.</p></div>
+        <div class="mini-card"><h5>Scalability</h5><p>Must support customers with up to 50 cloud accounts and 100,000 resources. Multi-tenant architecture with strict data isolation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-green">📊</div>
+      <div>
+        <div class="prd-section-title">Success Metrics</div>
+        <div class="prd-section-sub">How we'll know if this product is working</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <div class="metrics-row">
+        <div class="metric"><div class="metric-num">70%</div><div class="metric-lbl">Critical finding resolution within 48h</div></div>
+        <div class="metric"><div class="metric-num">&lt;5%</div><div class="metric-lbl">False positive rate on alerts</div></div>
+        <div class="metric"><div class="metric-num">80%</div><div class="metric-lbl">DAU/MAU for security engineers</div></div>
+      </div>
+      <p style="margin-top:1rem;">Secondary metrics: Compliance report generation time (target: &lt;2 min vs. current 2–3 days), number of accounts connected per customer, and net promoter score from security engineering persona.</p>
+    </div>
+  </div>
+
+  <div class="prd-section">
+    <div class="prd-section-hdr">
+      <div class="prd-section-ico ico-amber">🗓</div>
+      <div>
+        <div class="prd-section-title">Release Milestones</div>
+        <div class="prd-section-sub">Phased delivery plan</div>
+      </div>
+    </div>
+    <div class="prd-body">
+      <div class="two-col">
+        <div class="mini-card"><h5>Phase 1 — MVP (Month 1–3)</h5><p>AWS integration only. Unified misconfiguration dashboard. Severity-ranked alerts. Basic remediation guidance. Manual report export.</p></div>
+        <div class="mini-card"><h5>Phase 2 — Multi-cloud (Month 4–6)</h5><p>GCP + Azure integration. Automated compliance reports (SOC2, CIS benchmarks). API for SIEM integration. Custom policy builder.</p></div>
+        <div class="mini-card"><h5>Phase 3 — Shift-left (Month 7–9)</h5><p>CI/CD pipeline integration (GitHub Actions, Terraform Cloud). IaC scanning. PR-level security checks. Developer-facing remediation suggestions.</p></div>
+        <div class="mini-card"><h5>Phase 4 — Intelligence (Month 10–12)</h5><p>ML-based risk scoring. Attack path visualization. Auto-remediation for low-risk findings. Executive risk dashboard.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Work sample by <a href="../index.html">Shraddha Singh</a> · Product Manager · Bengaluru</p>
+</footer>
+
+</body>
+</html>
