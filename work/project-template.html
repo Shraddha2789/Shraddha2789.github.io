@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║   SHRADDHA SINGH — PM PORTFOLIO ENTRY TEMPLATE                  ║
+  ║                                                                  ║
+  ║   HOW TO USE                                                     ║
+  ║   1. Duplicate this file → rename to work/[project-slug].html   ║
+  ║   2. Fill in every <!-- EDIT: ... --> placeholder               ║
+  ║   3. Pick an accent theme (swap the class on <body>):            ║
+  ║      theme-blue (default) · theme-purple · theme-green           ║
+  ║      theme-amber                                                 ║
+  ║   4. Add a work-card entry to index.html (snippet at bottom)    ║
+  ║   5. Push — the card auto-fits the existing grid                ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- EDIT: Page title -->
+  <title>Project Title · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── DESIGN TOKENS (matches main site) ── */
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --green:#10b981;
+      --purple:#8b5cf6; --amber:#f59e0b; --rose:#f43f5e;
+      --bg:#f8fafc; --white:#fff; --text:#0f172a;
+      --muted:#64748b; --border:#e2e8f0;
+    }
+
+    /* ── ACCENT THEMES — swap class on <body> ── */
+    body.theme-blue  { --accent:#2563eb; --accent-dark:#1e3a8a; --accent-mid:#1e40af; --accent-lt:#eff6ff; --accent-text:#1e40af; --accent-soft:rgba(37,99,235,.18); --accent-ring:rgba(37,99,235,.3); --accent-muted:#93c5fd; }
+    body.theme-purple{ --accent:#8b5cf6; --accent-dark:#4c1d95; --accent-mid:#6d28d9; --accent-lt:#f5f3ff; --accent-text:#4c1d95; --accent-soft:rgba(139,92,246,.18); --accent-ring:rgba(139,92,246,.3); --accent-muted:#c4b5fd; }
+    body.theme-green { --accent:#10b981; --accent-dark:#064e3b; --accent-mid:#047857; --accent-lt:#f0fdf4; --accent-text:#065f46; --accent-soft:rgba(16,185,129,.18); --accent-ring:rgba(16,185,129,.3); --accent-muted:#6ee7b7; }
+    body.theme-amber { --accent:#f59e0b; --accent-dark:#78350f; --accent-mid:#d97706; --accent-lt:#fffbeb; --accent-text:#92400e; --accent-soft:rgba(245,158,11,.18); --accent-ring:rgba(245,158,11,.3); --accent-muted:#fcd34d; }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+
+    /* ── NAV ── */
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,var(--navy),var(--accent-dark,#1e3a5f));padding:3.5rem 2rem 2.5rem;text-align:center;}
+    .hero-tag{display:inline-block;background:var(--accent-soft);border:1px solid var(--accent-ring);color:var(--accent-muted);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:600px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#64748b;font-weight:500;}
+
+    /* ── PAGE WRAPPER ── */
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 5rem;}
+
+    /* ── PROJECT CARD — core component ── */
+    .project-card{display:flex;flex-direction:column;gap:1.25rem;}
+
+    /* Context bar */
+    .pc-context{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .pc-context-item{font-size:.82rem;font-weight:600;color:var(--text);}
+    .pc-context-sep{color:var(--border);font-size:.9rem;}
+    .pc-context-badge{background:var(--accent-lt,#eff6ff);color:var(--accent-text,#1e40af);border:1px solid var(--accent-ring,rgba(37,99,235,.3));font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:100px;}
+
+    /* Section block */
+    .pc-section{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    .pc-section-hdr{padding:1rem 1.5rem;background:#f8fafc;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+    .pc-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+    .pc-ico.blue{background:#eff6ff;}
+    .pc-ico.green{background:#f0fdf4;}
+    .pc-ico.purple{background:#f5f3ff;}
+    .pc-ico.amber{background:#fffbeb;}
+    .pc-ico.rose{background:#fff1f2;}
+    .pc-section-title{font-size:.88rem;font-weight:800;color:var(--navy);}
+    .pc-section-sub{font-size:.76rem;color:var(--muted);margin-top:.1rem;}
+    .pc-body{padding:1.35rem 1.5rem;}
+    .pc-body p{font-size:.875rem;color:var(--muted);line-height:1.78;margin-bottom:.75rem;}
+    .pc-body p:last-child{margin-bottom:0;}
+    .pc-body strong{color:var(--text);}
+    .pc-body ul{margin:.5rem 0 .75rem 1.25rem;}
+    .pc-body li{font-size:.875rem;color:var(--muted);line-height:1.72;margin-bottom:.35rem;}
+
+    /* Two-column grid inside pc-body */
+    .pc-two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:.5rem;}
+    .pc-mini{background:#f8fafc;border-radius:9px;padding:1rem 1.1rem;border:1px solid var(--border);}
+    .pc-mini h5{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;}
+    .pc-mini p{font-size:.83rem;color:var(--text);line-height:1.58;margin:0;}
+    .pc-mini ul{margin:.35rem 0 0 1rem;}
+    .pc-mini li{font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:.25rem;}
+
+    /* Execution steps */
+    .pc-steps{display:flex;flex-direction:column;gap:0;}
+    .pc-step{display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid #f1f5f9;}
+    .pc-step:last-child{border-bottom:none;}
+    .pc-step-num{width:26px;height:26px;background:var(--accent,#2563eb);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;margin-top:.05rem;}
+    .pc-step-content strong{display:block;font-size:.875rem;color:var(--navy);margin-bottom:.2rem;font-weight:700;}
+    .pc-step-content span{font-size:.84rem;color:var(--muted);line-height:1.65;}
+
+    /* Metrics row */
+    .pc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .pc-metric{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1.1rem 1rem;text-align:center;}
+    .pc-metric-num{font-size:1.6rem;font-weight:900;color:#065f46;letter-spacing:-.5px;line-height:1;}
+    .pc-metric-lbl{font-size:.72rem;color:#047857;font-weight:600;margin-top:.35rem;line-height:1.4;}
+
+    /* Outcome / highlight block */
+    .pc-outcome{background:linear-gradient(135deg,var(--navy),#1a2e55);border-radius:12px;padding:1.5rem 1.75rem;}
+    .pc-outcome-label{font-size:.7rem;font-weight:700;color:var(--accent-muted,#93c5fd);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
+    .pc-outcome p{font-size:.93rem;color:#e2e8f0;line-height:1.75;margin:0;}
+    .pc-outcome strong{color:#fff;}
+
+    /* Skills */
+    .pc-skills{display:flex;gap:.45rem;flex-wrap:wrap;}
+    .pc-skill{background:var(--accent-lt,#eff6ff);color:var(--accent-text,#1e40af);border:1px solid var(--accent-ring,rgba(37,99,235,.25));font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:6px;}
+
+    /* Optional: doc viewer (embed PPTX/PDF/DOCX via Office Online) */
+    .pc-viewer{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);}
+    .pc-viewer-bar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .pc-viewer-bar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .pc-dl-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .pc-dl-btn:hover{background:var(--accent,#2563eb);}
+    .pc-viewer iframe{display:block;width:100%;height:680px;border:none;}
+
+    /* Footer */
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    /* Responsive */
+    @media(max-width:640px){
+      .pc-two-col,.pc-metrics{grid-template-columns:1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+      .pc-viewer iframe{height:420px;}
+    }
+  </style>
+</head>
+
+<!--
+  THEME OPTIONS — set one class on <body>:
+    theme-blue   → blue accent  (technical, platform, API projects)
+    theme-purple → purple accent (strategy, research, PRD projects)
+    theme-green  → green accent  (growth, metrics, efficiency projects)
+    theme-amber  → amber accent  (consumer, GTM, business model projects)
+-->
+<body class="theme-blue">
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <!-- EDIT: work type label -->
+  <span class="nav-title">Work Sample · Product Case Study</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <!-- EDIT: category tag e.g. "📊 Feature Launch" / "🔐 Platform Redesign" / "📝 PRD" -->
+  <div class="hero-tag">🚀 Feature Launch</div>
+
+  <!-- EDIT: project title (two lines if needed, use <br> + <span style="color:var(--accent-muted)"> for subtitle) -->
+  <h1>Project Title<br><span style="color:var(--accent-muted,#93c5fd)">Short descriptive subtitle</span></h1>
+
+  <!-- EDIT: one-line summary of what the project is -->
+  <p class="hero-sub">One sentence that captures what this project is and why it mattered — shown right below the title.</p>
+
+  <div class="meta-row">
+    <!-- EDIT: your name, company, domain tags, data note -->
+    <span>✍️ Shraddha Singh</span>
+    <span>🏦 Sapiens International</span>
+    <span>📂 Insurtech · Enterprise SaaS</span>
+    <span>🔒 Sanitized — no confidential data</span>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page">
+  <div class="project-card">
+
+    <!-- ─── 1. CONTEXT ─────────────────────────────────────── -->
+    <div class="pc-context">
+      <!-- EDIT: fill in company, role, period, team size, scope -->
+      <span class="pc-context-item">🏦 Sapiens International</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">Senior Product Owner</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">Oct 2024 – Present</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">Team: 8 engineers, 2 QA, 1 architect</span>
+      <span class="pc-context-badge">Insurance Platform · CoreSuite</span>
+    </div>
+
+    <!-- ─── 2. PROBLEM ─────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico blue">🎯</div>
+        <div>
+          <div class="pc-section-title">Problem Statement</div>
+          <div class="pc-section-sub">What was broken and why it mattered</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <!-- EDIT: 2–3 paragraphs. First: current state. Second: root cause. Third: target outcome. -->
+        <p><strong>Current state:</strong> Describe what users or the business were experiencing. Be specific — what was slow, broken, manual, or missing? Include data where possible (e.g. "took 3 days", "35% drop-off").</p>
+        <p><strong>Root cause:</strong> What was actually causing the problem — a process gap, technical debt, org misalignment, or a missing capability?</p>
+        <p><strong>Target outcome:</strong> What would success look like? Frame it in terms of user impact or business outcome, not feature delivery.</p>
+      </div>
+    </div>
+
+    <!-- ─── 3. STRATEGY ────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico purple">🧭</div>
+        <div>
+          <div class="pc-section-title">Strategy &amp; Approach</div>
+          <div class="pc-section-sub">How I framed the problem and chose a path</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-two-col">
+          <div class="pc-mini">
+            <h5>What we decided</h5>
+            <!-- EDIT: key strategic choices -->
+            <p>Describe the core approach chosen. What frameworks, prioritization methods, or design decisions shaped the direction?</p>
+          </div>
+          <div class="pc-mini">
+            <h5>What we ruled out</h5>
+            <!-- EDIT: alternatives considered and rejected — shows thinking rigour -->
+            <p>What did you consciously deprioritize or reject, and why? (e.g. "Chose X over Y because…")</p>
+          </div>
+          <div class="pc-mini">
+            <h5>Key constraints</h5>
+            <!-- EDIT: technical, regulatory, resourcing, or timeline constraints -->
+            <ul>
+              <li>Constraint 1 (e.g. RBI compliance requirement)</li>
+              <li>Constraint 2 (e.g. 2-sprint delivery window)</li>
+              <li>Constraint 3 (e.g. read-only API access)</li>
+            </ul>
+          </div>
+          <div class="pc-mini">
+            <h5>Stakeholders involved</h5>
+            <!-- EDIT: who you worked with and their roles in decisions -->
+            <ul>
+              <li>Engineering — technical feasibility</li>
+              <li>Client Success — user validation</li>
+              <li>Legal / Compliance — regulatory sign-off</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 4. EXECUTION ───────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico amber">⚙️</div>
+        <div>
+          <div class="pc-section-title">Execution</div>
+          <div class="pc-section-sub">How it was delivered — phased, iterative, or milestone-driven</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-steps">
+          <!-- EDIT: 3–5 execution steps. Each = a phase, sprint, or key decision point. -->
+          <div class="pc-step">
+            <div class="pc-step-num">1</div>
+            <div class="pc-step-content">
+              <strong>Discovery &amp; Definition</strong>
+              <span>What you did to understand the problem deeply — interviews, data analysis, mapping the current state. What insight changed your thinking?</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">2</div>
+            <div class="pc-step-content">
+              <strong>Prioritization &amp; Scoping</strong>
+              <span>How you decided what to build first. What framework did you use (RICE, MoSCoW, value/effort)? What got cut and why?</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">3</div>
+            <div class="pc-step-content">
+              <strong>Build &amp; Iteration</strong>
+              <span>How you ran delivery — sprint cadence, how specs were written, how you handled scope changes, key trade-offs made during build.</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">4</div>
+            <div class="pc-step-content">
+              <strong>Launch &amp; Validation</strong>
+              <span>How you released — phased rollout, feature flags, UAT process. What you tracked post-launch and how quickly you iterated.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 5. METRICS ─────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico green">📊</div>
+        <div>
+          <div class="pc-section-title">Impact Metrics</div>
+          <div class="pc-section-sub">Quantified outcomes, not activity</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-metrics">
+          <!-- EDIT: 3 metrics. Format: number + label. Use ↓/↑ prefix for direction. -->
+          <div class="pc-metric">
+            <div class="pc-metric-num">↓30%</div>
+            <div class="pc-metric-lbl">Onboarding time reduction</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-num">95%</div>
+            <div class="pc-metric-lbl">Pre-production quality rate</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-num">↑15%</div>
+            <div class="pc-metric-lbl">Platform adoption increase</div>
+          </div>
+        </div>
+        <!-- EDIT: optional — explain methodology or add secondary metrics -->
+        <p style="margin-top:1rem;">Secondary metrics or measurement methodology note. e.g. "Measured over 90 days post-launch across 3 client accounts. Baseline from Q3 2024 platform analytics."</p>
+      </div>
+    </div>
+
+    <!-- ─── 6. OUTCOME ─────────────────────────────────────── -->
+    <div class="pc-outcome">
+      <div class="pc-outcome-label">✦ Outcome &amp; Learnings</div>
+      <!-- EDIT: 2–3 sentences. What changed? What was the business/user impact? What would you do differently? -->
+      <p>Write a strong outcome statement: what concretely changed for the user or business as a result of this work. Then add one honest reflection — what you'd do differently, what surprised you, or what this unlocked next. <strong>Make it human, not just a metric list.</strong></p>
+    </div>
+
+    <!-- ─── 7. SKILLS ──────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico blue">🛠</div>
+        <div>
+          <div class="pc-section-title">Skills Demonstrated</div>
+          <div class="pc-section-sub">Capabilities this project evidences</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-skills">
+          <!-- EDIT: 6–10 skill tags relevant to this project -->
+          <span class="pc-skill">Product Strategy</span>
+          <span class="pc-skill">Roadmap Prioritization</span>
+          <span class="pc-skill">Stakeholder Management</span>
+          <span class="pc-skill">Agile / Scrum</span>
+          <span class="pc-skill">User Story Mapping</span>
+          <span class="pc-skill">Data-driven Decisions</span>
+          <span class="pc-skill">Cross-functional Leadership</span>
+          <span class="pc-skill">Enterprise SaaS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 8. DOCUMENT VIEWER (optional) ─────────────────── -->
+    <!--
+      Include this block if you have a supporting artifact (PPTX / DOCX / PDF).
+      For PPTX/DOCX: use Office Online embed → https://view.officeapps.live.com/op/embed.aspx?src=<RAW_GITHUB_URL>
+      For PDF: use the raw GitHub URL directly in src.
+      Delete this block if no artifact.
+    -->
+    <!--
+    <div class="pc-viewer">
+      <div class="pc-viewer-bar">
+        <span>📄 filename.pptx</span>
+        <a href="../assets/filename.pptx" download class="pc-dl-btn">⬇ Download</a>
+      </div>
+      <iframe
+        src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Shraddha2789/Shraddha2789.github.io/main/assets/filename.pptx"
+        title="Document title">
+      </iframe>
+    </div>
+    -->
+
+  </div><!-- /project-card -->
+</div><!-- /page -->
+
+<footer>
+  <p>Work sample by <a href="../index.html">Shraddha Singh</a> · Product Manager · Bengaluru</p>
+</footer>
+
+</body>
+</html>
+
+<!--
+  ════════════════════════════════════════════════════════════════════
+  INDEX.HTML CARD SNIPPET
+  Copy-paste into the .work-grid section in index.html.
+  Change the band color to match your theme:
+    band-blue · band-purple · band-amber · band-navy
+  ════════════════════════════════════════════════════════════════════
+
+  <a href="work/[project-slug].html" class="work-card">
+    <div class="work-card-band band-blue"></div>
+    <div class="work-card-body">
+      <div class="work-type">🚀 Feature Launch · Sapiens International</div>
+      <div class="work-title">Project Title</div>
+      <p class="work-desc">One to two sentence summary of what the project was and what it achieved. Keep it punchy — the full story is one click away.</p>
+      <div class="work-link">Read case study →</div>
+    </div>
+  </a>
+
+  ════════════════════════════════════════════════════════════════════
+-->
