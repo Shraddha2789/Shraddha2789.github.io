@@ -54,10 +54,17 @@
     .metric{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:.9rem 1rem;text-align:center;}
     .metric-num{font-size:1.4rem;font-weight:900;color:#065f46;letter-spacing:-.5px;}
     .metric-lbl{font-size:.72rem;color:#047857;font-weight:600;margin-top:.15rem;}
+    /* Doc viewer */
+    .viewer-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);margin-top:2rem;}
+    .viewer-toolbar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .viewer-toolbar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .dl-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .dl-btn:hover{background:var(--blue);}
+    iframe.doc{display:block;width:100%;height:760px;border:none;}
     footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
     footer p{font-size:.8rem;color:#475569;}
     footer a{color:#93c5fd;text-decoration:none;}
-    @media(max-width:640px){.two-col,.metrics-row{grid-template-columns:1fr;}.page{padding:2rem 1.25rem 4rem;}}
+    @media(max-width:640px){.two-col,.metrics-row{grid-template-columns:1fr;}.page{padding:2rem 1.25rem 4rem;} iframe.doc{height:480px;}}
   </style>
 </head>
 <body>
@@ -201,6 +208,17 @@
         <div class="mini-card"><h5>Phase 4 — Intelligence (Month 10–12)</h5><p>ML-based risk scoring. Attack path visualization. Auto-remediation for low-risk findings. Executive risk dashboard.</p></div>
       </div>
     </div>
+  </div>
+
+  <div class="viewer-wrap">
+    <div class="viewer-toolbar">
+      <span>📄 Product Requirements Document - CSPM (1).docx</span>
+      <a href="../assets/Product Requirements Document - CSPM (1).docx" download class="dl-btn">⬇ Download DOCX</a>
+    </div>
+    <iframe class="doc"
+      src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Shraddha2789/Shraddha2789.github.io/main/assets/Product%20Requirements%20Document%20-%20CSPM%20(1).docx"
+      title="CSPM Product Requirements Document">
+    </iframe>
   </div>
 
 </div>

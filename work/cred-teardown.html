@@ -68,11 +68,20 @@
     .tc-num{flex-shrink:0;width:28px;height:28px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-top:.1rem;}
     .tc-text strong{display:block;font-size:.9rem;color:var(--navy);margin-bottom:.2rem;}
     .tc-text span{font-size:.85rem;color:var(--muted);}
+    /* Deck viewer */
+    .viewer-section{max-width:800px;margin:0 auto;padding:0 2rem 4rem;}
+    .viewer-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);}
+    .viewer-toolbar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .viewer-toolbar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .dl-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .dl-btn:hover{background:var(--blue);}
+    .viewer-sec-title{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.85rem;}
+    iframe.deck{display:block;width:100%;height:520px;border:none;}
     /* Footer */
     footer{background:var(--navy);padding:2rem;text-align:center;}
     footer p{font-size:.8rem;color:#475569;}
     footer a{color:#93c5fd;}
-    @media(max-width:640px){.content{padding:2rem 1.25rem 4rem;}.hero{padding:2.5rem 1.25rem 2rem;}}
+    @media(max-width:640px){.content{padding:2rem 1.25rem 4rem;}.hero{padding:2.5rem 1.25rem 2rem;}.viewer-section{padding:0 1.25rem 3rem;} iframe.deck{height:340px;}}
   </style>
 </head>
 <body>
@@ -260,6 +269,20 @@
     </div>
   </div>
 
+</div>
+
+<div class="viewer-section">
+  <div class="viewer-sec-title">📊 Original Teardown Deck</div>
+  <div class="viewer-wrap">
+    <div class="viewer-toolbar">
+      <span>📊 CRED-Teardown.pptx</span>
+      <a href="../assets/CRED-Teardown.pptx" download class="dl-btn">⬇ Download PPTX</a>
+    </div>
+    <iframe class="deck"
+      src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Shraddha2789/Shraddha2789.github.io/main/assets/CRED-Teardown.pptx"
+      title="CRED Teardown Deck">
+    </iframe>
+  </div>
 </div>
 
 <footer>

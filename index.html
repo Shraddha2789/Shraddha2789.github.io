@@ -52,7 +52,7 @@
     /* Photo */
     .hero-photo-wrap{display:flex;justify-content:center;align-items:center;}
     .photo-ring{width:280px;height:280px;border-radius:50%;padding:4px;background:linear-gradient(135deg,rgba(37,99,235,.5),rgba(139,92,246,.5));box-shadow:0 0 0 8px rgba(37,99,235,.1),var(--sh-lg);}
-    .hero-photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:42% 12%;display:block;}
+    .hero-photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:42% 5%;display:block;}
 
     /* ── STATS ── */
     .stats{background:var(--navy-mid);padding:1.75rem 2rem;border-bottom:1px solid rgba(255,255,255,.04);}
@@ -142,8 +142,10 @@
 
     /* ── WRITING ── */
     .writing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
-    .art{background:var(--bg);border-radius:var(--r);border:1px solid var(--border);padding:1.35rem;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;}
-    .art:hover{box-shadow:var(--sh);transform:translateY(-2px);}
+    .art{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;}
+    .art:hover{box-shadow:var(--sh-lg);transform:translateY(-2px);}
+    .art-cover{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.25rem;flex-shrink:0;}
+    .art-body{padding:1.1rem 1.25rem 1.25rem;display:flex;flex-direction:column;flex:1;}
     .art-date{font-size:.68rem;color:var(--muted);font-weight:700;margin-bottom:.55rem;text-transform:uppercase;letter-spacing:.06em;}
     .art-title{font-size:.93rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:.55rem;flex:1;}
     .art-desc{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:1rem;flex:2;}
@@ -504,23 +506,13 @@
         </div>
       </a>
 
-      <a href="assets/ShraddhaSingh JPMC.pdf" target="_blank" class="work-card">
+      <a href="work/hydropod.html" class="work-card">
         <div class="work-card-band band-blue"></div>
         <div class="work-card-body">
           <div class="work-type">🌱 Product Strategy Deck</div>
           <div class="work-title">HydroPod — Smart Home Agriculture</div>
           <p class="work-desc">Zero-to-one product strategy for a smart hydroponics concept. Market sizing, personas, feature prioritization, GTM strategy, and business model — from a blank slate.</p>
           <div class="work-link">View deck →</div>
-        </div>
-      </a>
-
-      <a href="assets/Order Management System Process Diagram.drawio" target="_blank" class="work-card">
-        <div class="work-card-band band-navy"></div>
-        <div class="work-card-body">
-          <div class="work-type">🔄 Process Design</div>
-          <div class="work-title">Order Management System — Process Diagram</div>
-          <p class="work-desc">End-to-end OMS process flow: order intake, fulfillment orchestration, inventory management, exception handling, and customer communication triggers.</p>
-          <div class="work-link">View diagram →</div>
         </div>
       </a>
     </div>
@@ -537,40 +529,58 @@
     </div>
     <div class="writing-grid">
       <div class="art">
-        <div class="art-date">Dec 2025</div>
-        <div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div>
-        <p class="art-desc">How configuration dependencies and schema misalignment cause production failures — lessons from an enterprise withdrawal API case study.</p>
-        <a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);">⚡</div>
+        <div class="art-body">
+          <div class="art-date">Dec 2025</div>
+          <div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div>
+          <p class="art-desc">How configuration dependencies and schema misalignment cause production failures — lessons from an enterprise withdrawal API case study.</p>
+          <a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
       <div class="art">
-        <div class="art-date">May 2025</div>
-        <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
-        <p class="art-desc">First-person account of implementing API integration strategy in banking — cutting onboarding 40% and improving KYC accuracy 35%.</p>
-        <a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#0f172a,#0369a1);">🏦</div>
+        <div class="art-body">
+          <div class="art-date">May 2025</div>
+          <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
+          <p class="art-desc">First-person account of implementing API integration strategy in banking — cutting onboarding 40% and improving KYC accuracy 35%.</p>
+          <a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
       <div class="art">
-        <div class="art-date">Feb 2025</div>
-        <div class="art-title">How to Write Effective User Stories: A Guide for Business Analysts and Product Managers</div>
-        <p class="art-desc">Structured framework for user stories that engineering teams actually want to read — capability classification, design integration, and acceptance criteria.</p>
-        <a href="https://medium.com/@shraddhasingh8968/how-to-write-effective-user-stories-a-guide-for-business-analysts-and-product-managers-aecb0c222ece" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">📋</div>
+        <div class="art-body">
+          <div class="art-date">Feb 2025</div>
+          <div class="art-title">How to Write Effective User Stories: A Guide for Business Analysts and Product Managers</div>
+          <p class="art-desc">Structured framework for user stories that engineering teams actually want to read — capability classification, design integration, and acceptance criteria.</p>
+          <a href="https://medium.com/@shraddhasingh8968/how-to-write-effective-user-stories-a-guide-for-business-analysts-and-product-managers-aecb0c222ece" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
       <div class="art">
-        <div class="art-date">Feb 2025</div>
-        <div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div>
-        <p class="art-desc">Step-by-step walkthrough of transforming chaotic restaurant operations into an efficient digital OMS using systematic business analysis.</p>
-        <a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#78350f,#d97706);">🍽️</div>
+        <div class="art-body">
+          <div class="art-date">Feb 2025</div>
+          <div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div>
+          <p class="art-desc">Step-by-step walkthrough of transforming chaotic restaurant operations into an efficient digital OMS using systematic business analysis.</p>
+          <a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
       <div class="art">
-        <div class="art-date">Jan 2025</div>
-        <div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Now Matter</div>
-        <p class="art-desc">Examines the growing demand for technical BAs — salary comparisons, practical code examples, and why data fluency is becoming table-stakes.</p>
-        <a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#064e3b,#059669);">💻</div>
+        <div class="art-body">
+          <div class="art-date">Jan 2025</div>
+          <div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Now Matter</div>
+          <p class="art-desc">Examines the growing demand for technical BAs — salary comparisons, practical code examples, and why data fluency is becoming table-stakes.</p>
+          <a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
       <div class="art">
-        <div class="art-date">Aug 2024</div>
-        <div class="art-title">E-commerce Payment Gateway Integration: A PRD Template</div>
-        <p class="art-desc">Complete PRD template for integrating Razorpay into e-commerce platforms — problem space, solution design, integration steps, and success metrics.</p>
-        <a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        <div class="art-cover" style="background:linear-gradient(135deg,#881337,#e11d48);">💳</div>
+        <div class="art-body">
+          <div class="art-date">Aug 2024</div>
+          <div class="art-title">E-commerce Payment Gateway Integration: A PRD Template</div>
+          <p class="art-desc">Complete PRD template for integrating Razorpay into e-commerce platforms — problem space, solution design, integration steps, and success metrics.</p>
+          <a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
       </div>
     </div>
   </div>

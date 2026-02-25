@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HydroPod Strategy Deck · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0d1b35;--blue:#2563eb;--green:#10b981;--bg:#f8fafc;--white:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+    .hero{background:linear-gradient(135deg,#064e3b 0%,#065f46 50%,#047857 100%);padding:3.5rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'🌱';position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:8rem;opacity:.1;}
+    .hero-tag{display:inline-block;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#6ee7b7;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#a7f3d0;max-width:580px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#6ee7b7;font-weight:500;}
+    .page{max-width:960px;margin:0 auto;padding:3rem 2rem 5rem;}
+    /* Overview cards */
+    .ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem;}
+    .ov-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.35rem;}
+    .ov-card h4{font-size:.75rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.45rem;}
+    .ov-card p{font-size:.875rem;color:var(--text);line-height:1.6;}
+    /* Deck viewer */
+    .sec-title{font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:-.2px;margin:2.5rem 0 .85rem;}
+    .viewer-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);}
+    .viewer-toolbar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .viewer-toolbar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .dl-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .dl-btn:hover{background:var(--blue);}
+    iframe{display:block;width:100%;height:720px;border:none;}
+    /* Highlights */
+    .highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem;}
+    .hl{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;border-left:3px solid var(--green);}
+    .hl h4{font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+    .hl p{font-size:.82rem;color:var(--muted);line-height:1.6;margin:0;}
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+    @media(max-width:700px){.ov-grid{grid-template-columns:1fr;}.highlights{grid-template-columns:1fr;} iframe{height:420px;}.page{padding:2rem 1.25rem 4rem;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Work Sample · Strategy Deck</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">🌱 Product Strategy Deck</div>
+  <h1>HydroPod — Revolutionizing Home Agriculture</h1>
+  <p class="hero-sub">End-to-end product strategy for a smart home hydroponics concept — from market sizing and user personas through go-to-market and business model.</p>
+  <div class="meta-row">
+    <span>✍️ Shraddha Singh</span>
+    <span>📂 Consumer Hardware · AgriTech · IoT</span>
+    <span>🎯 Zero-to-One Product Thinking</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="ov-grid">
+    <div class="ov-card">
+      <h4>What it covers</h4>
+      <p>Market sizing (TAM/SAM/SOM), competitive landscape, user personas, product vision, feature roadmap, GTM strategy, and financial projections.</p>
+    </div>
+    <div class="ov-card">
+      <h4>Why it's here</h4>
+      <p>Shows how I approach a product from a blank slate — synthesising market signals, user needs, and business constraints into a coherent strategy.</p>
+    </div>
+    <div class="ov-card">
+      <h4>Key skills demonstrated</h4>
+      <p>Zero-to-one thinking · Market sizing · Persona development · Roadmap sequencing · GTM planning · Business model design</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Full Presentation</div>
+  <div class="viewer-wrap">
+    <div class="viewer-toolbar">
+      <span>📊 HydroPod-Revolutionizing-Home-Agriculture.pptx</span>
+      <a href="../assets/HydroPod-Revolutionizing-Home-Agriculture (1).pptx" download class="dl-btn">⬇ Download</a>
+    </div>
+    <iframe
+      src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Shraddha2789/Shraddha2789.github.io/main/assets/HydroPod-Revolutionizing-Home-Agriculture%20(1).pptx"
+      title="HydroPod Strategy Deck">
+    </iframe>
+  </div>
+
+  <div class="sec-title">Key Highlights</div>
+  <div class="highlights">
+    <div class="hl">
+      <h4>Market Opportunity</h4>
+      <p>Sized the home hydroponics TAM at $4.5B globally with a 12% CAGR. Identified urban millennials in Tier-1 Indian cities and US metros as the primary SAM — high disposable income, limited outdoor space, health-conscious.</p>
+    </div>
+    <div class="hl">
+      <h4>User Personas</h4>
+      <p>Built three distinct personas: the Health-Conscious Urban Professional (primary), the Sustainability Advocate, and the Home Chef — each with distinct motivations, willingness to pay, and product expectations.</p>
+    </div>
+    <div class="hl">
+      <h4>Product Strategy</h4>
+      <p>Recommended a "hardware-led, software-monetized" model: low-margin hardware to acquire users, high-margin subscription for grow plans, seed kits, and community features.</p>
+    </div>
+    <div class="hl">
+      <h4>GTM Approach</h4>
+      <p>Phased GTM: D2C launch via Instagram/YouTube (lifestyle content), followed by Amazon marketplace, then retail partnerships with premium grocery chains (Whole Foods, Nature's Basket).</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Work sample by <a href="../index.html">Shraddha Singh</a> · Product Manager · Bengaluru</p>
+</footer>
+
+</body>
+</html>
