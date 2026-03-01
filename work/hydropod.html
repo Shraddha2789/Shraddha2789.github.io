@@ -41,6 +41,15 @@
     .hl p{font-size:.82rem;color:var(--muted);line-height:1.6;margin:0;}
     footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
     footer p{font-size:.8rem;color:#475569;}
+    /* Narrative bar */
+    .narrative{background:var(--white);border-bottom:1px solid var(--border);}
+    .narrative-in{max-width:960px;margin:0 auto;padding:2rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+    .narr-step{padding:1.25rem 1.5rem;position:relative;}
+    .narr-step:not(:last-child)::after{content:'→';position:absolute;right:-0.6rem;top:1.4rem;color:var(--border);font-size:1.1rem;font-weight:700;}
+    .narr-num{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem;}
+    .narr-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;line-height:1.3;}
+    .narr-text{font-size:.78rem;color:var(--muted);line-height:1.65;}
+    @media(max-width:700px){.narrative-in{grid-template-columns:1fr 1fr;}.narr-step:nth-child(2)::after{display:none;}.narr-step:nth-child(4)::after{display:none;}}
     footer a{color:#93c5fd;text-decoration:none;}
     @media(max-width:700px){.ov-grid{grid-template-columns:1fr;}.highlights{grid-template-columns:1fr;} iframe{height:420px;}.page{padding:2rem 1.25rem 4rem;}}
   </style>
@@ -60,6 +69,31 @@
     <span>✍️ Shraddha Singh</span>
     <span>📂 Consumer Hardware · AgriTech · IoT</span>
     <span>🎯 Zero-to-One Product Thinking</span>
+  </div>
+</div>
+
+<div class="narrative">
+  <div class="narrative-in">
+    <div class="narr-step">
+      <div class="narr-num">01 · Context</div>
+      <div class="narr-label">The Business Problem</div>
+      <p class="narr-text">A blank slate: a concept for smart home hydroponics with no validated market, no product definition, and no technical proof-of-concept. The ask was a full strategic case — enough to justify or kill the idea before investing in development.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">02 · Research</div>
+      <div class="narr-label">Market Sizing & Persona Discovery</div>
+      <p class="narr-text">Sized the global home farming market using TAM/SAM/SOM. Interviewed early adopters across urban gardeners, health-conscious households, and sustainability advocates. Found the primary pain point wasn't yield — it was cognitive load.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">03 · Decision</div>
+      <div class="narr-label">GTM-First Over Tech-First</div>
+      <p class="narr-text">Recommended a GTM-first approach — build the distribution channel before the product. Chose a DTC subscription model over hardware-only retail. Ruled out B2B (restaurants) in Phase 1 due to high CAC and long sales cycles.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">04 · Outcome</div>
+      <div class="narr-label">Output & Reflection</div>
+      <p class="narr-text">Delivered a full strategy deck: market sizing, 3 validated personas, phased roadmap, and a monetisation model with unit economics. Learning: zero-to-one strategy is 80% constraint-setting — knowing what you won't build is as valuable as knowing what you will.</p>
+    </div>
   </div>
 </div>
 

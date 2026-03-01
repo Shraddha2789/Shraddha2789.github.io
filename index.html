@@ -153,6 +153,37 @@
     .art-desc{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:1rem;flex:2;}
     .art-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--blue);font-size:.8rem;font-weight:600;text-decoration:none;}
     .art-link:hover{text-decoration:underline;}
+    .art-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
+    .art-tag{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:100px;}
+    .art-tag.tag-ai{background:#eff6ff;color:#2563eb;}
+    .art-tag.tag-strategy{background:#fffbeb;color:#b45309;}
+    .art-tag.tag-discovery{background:#f5f3ff;color:#7c3aed;}
+    .art-tag.tag-fintech{background:#f0fdf4;color:#15803d;}
+    .art-tag.tag-technical{background:#f0fdf4;color:#15803d;}
+    .art-tag.tag-prd{background:#f0fdf4;color:#15803d;}
+    .art-tag.tag-execution{background:#fffbeb;color:#b45309;}
+    .art-tag.tag-craft{background:#f5f3ff;color:#7c3aed;}
+    .art-tag.tag-career{background:#f5f3ff;color:#7c3aed;}
+
+    /* ── CASE STUDIES ── */
+    .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .cs-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:box-shadow .2s,transform .2s;}
+    .cs-card:hover{box-shadow:var(--sh-lg);transform:translateY(-3px);}
+    .cs-band{height:5px;}
+    .cs-body{padding:1.5rem;display:flex;flex-direction:column;flex:1;}
+    .cs-meta{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+    .cs-arc{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--navy);color:#93c5fd;padding:.25rem .65rem;border-radius:100px;margin-bottom:1rem;width:fit-content;}
+    .cs-title{font-size:1.05rem;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:.6rem;}
+    .cs-problem{font-size:.8rem;color:var(--muted);line-height:1.65;flex:1;margin-bottom:1rem;}
+    .cs-outcome{display:flex;align-items:flex-start;gap:.6rem;background:var(--bg);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.25rem;}
+    .cs-outcome-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);white-space:nowrap;margin-top:.1rem;}
+    .cs-outcome-text{font-size:.8rem;font-weight:600;color:var(--text);line-height:1.5;}
+    .cs-link{font-size:.82rem;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:.3rem;}
+
+    /* ── POSITIONING STATEMENT ── */
+    .position-quote{background:var(--navy);border-radius:var(--r-lg);padding:2rem 2.5rem;border-left:4px solid var(--blue);margin-bottom:2rem;}
+    .position-quote p{font-size:1.05rem;color:#e2e8f0;line-height:1.8;font-style:italic;margin:0;}
+    .position-quote p strong{color:#fff;font-style:normal;}
 
     /* ── ABOUT ── */
     .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
@@ -198,9 +229,11 @@
       .skills-grid{grid-template-columns:repeat(2,1fr);}
       .teardown-feat{grid-template-columns:1fr;}
       .nav-links{display:none;}
+      .cs-grid{grid-template-columns:1fr;}
     }
     @media(max-width:600px){
       .writing-grid{grid-template-columns:1fr;}
+      .cs-grid{grid-template-columns:1fr;}
       .skills-grid{grid-template-columns:1fr;}
       .stats-in{grid-template-columns:repeat(3,1fr);}
       .sec{padding:3.5rem 1.25rem;}
@@ -220,6 +253,7 @@
     <a href="#" class="nav-logo">Shraddha <em>Singh</em></a>
     <ul class="nav-links">
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#about">About</a></li>
@@ -464,6 +498,65 @@
   </div>
 </section>
 
+<!-- CASE STUDIES -->
+<section class="sec" id="case-studies">
+  <div class="sec-in">
+    <div class="sec-hdr">
+      <div class="sec-tag">🧠 Case Studies</div>
+      <h2 class="sec-h">How I Think Through Problems</h2>
+      <p class="sec-sub">End-to-end narratives — from messy context to shipped outcome. Not what I did, but how I decided.</p>
+    </div>
+    <div class="cs-grid">
+
+      <a href="work/cspm-prd.html" class="cs-card">
+        <div class="cs-band" style="background:linear-gradient(90deg,var(--blue),#60a5fa);"></div>
+        <div class="cs-body">
+          <div class="cs-meta">Signzy Technologies · B2B Fintech · 2022–2024</div>
+          <div class="cs-arc">Problem → Solution → Impact</div>
+          <div class="cs-title">Redesigning KYC Onboarding for Compliance at Scale</div>
+          <p class="cs-problem">Our API-based KYC flow was taking 72+ hours per customer due to manual fallback loops and schema misalignment between client systems and our verification engine. Compliance constraints made it impossible to simply speed things up — every change had to survive regulatory scrutiny.</p>
+          <div class="cs-outcome">
+            <span class="cs-outcome-label">Impact</span>
+            <span class="cs-outcome-text">40% faster onboarding · 35% lift in KYC accuracy · Zero compliance exceptions post-launch</span>
+          </div>
+          <span class="cs-link">Read case study →</span>
+        </div>
+      </a>
+
+      <a href="work/jpmc-strategy.html" class="cs-card">
+        <div class="cs-band" style="background:linear-gradient(90deg,var(--amber),#fcd34d);"></div>
+        <div class="cs-body">
+          <div class="cs-meta">Deloitte Digital · Enterprise SaaS · 2021–2022</div>
+          <div class="cs-arc">Problem → Solution → Impact</div>
+          <div class="cs-title">Digital Banking Transformation: From Manual Ops to Intelligent Workflows</div>
+          <p class="cs-problem">A major banking client's ops team was spending 40% of their week on manual reconciliation and exception handling — work that should have been automated. Stakeholder misalignment across compliance, tech, and business units meant every decision took three approval cycles.</p>
+          <div class="cs-outcome">
+            <span class="cs-outcome-label">Impact</span>
+            <span class="cs-outcome-text">60% efficiency gain · $10M+ program delivered · 500K+ customers served</span>
+          </div>
+          <span class="cs-link">Read case study →</span>
+        </div>
+      </a>
+
+      <a href="work/hydropod.html" class="cs-card">
+        <div class="cs-band" style="background:linear-gradient(90deg,var(--green),#6ee7b7);"></div>
+        <div class="cs-body">
+          <div class="cs-meta">Independent · Zero-to-One · Product Strategy</div>
+          <div class="cs-arc">Problem → Solution → Impact</div>
+          <div class="cs-title">HydroPod: Building a Go-to-Market Strategy from a Blank Slate</div>
+          <p class="cs-problem">No product. No validated market. A concept for smart home hydroponics that needed a full strategic case — from market sizing and persona research to a monetisation model and phased GTM plan — before a single line of code was written.</p>
+          <div class="cs-outcome">
+            <span class="cs-outcome-label">Output</span>
+            <span class="cs-outcome-text">Full GTM strategy · Market sizing · 3-phase roadmap · Monetisation model</span>
+          </div>
+          <span class="cs-link">Read case study →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- WORK SAMPLES -->
 <section class="sec alt" id="work">
   <div class="sec-in">
@@ -548,6 +641,7 @@
           <div class="art-date">Mar 2026</div>
           <div class="art-title">Beyond Prompts: How to Actually Build Real AI Products</div>
           <p class="art-desc">Everything a tech-curious person needs to know about LLMs, RAG, agents, and building real AI products — without the fluff.</p>
+          <div class="art-tags"><span class="art-tag tag-ai">AI</span><span class="art-tag tag-strategy">Strategy</span></div>
           <a href="https://medium.com/design-bootcamp/beyond-prompts-how-to-actually-build-real-ai-products-a1a8879bad0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -559,6 +653,7 @@
           <div class="art-date">Dec 2025</div>
           <div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div>
           <p class="art-desc">How configuration dependencies and schema misalignment cause production failures — lessons from an enterprise withdrawal API case study.</p>
+          <div class="art-tags"><span class="art-tag tag-technical">Technical</span><span class="art-tag tag-fintech">Fintech</span></div>
           <a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -570,6 +665,7 @@
           <div class="art-date">May 2025</div>
           <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
           <p class="art-desc">First-person account of implementing API integration strategy in banking — cutting onboarding 40% and improving KYC accuracy 35%.</p>
+          <div class="art-tags"><span class="art-tag tag-fintech">Fintech</span><span class="art-tag tag-discovery">Discovery</span></div>
           <a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -581,6 +677,7 @@
           <div class="art-date">Feb 2025</div>
           <div class="art-title">How to Write Effective User Stories: A Guide for Business Analysts and Product Managers</div>
           <p class="art-desc">Structured framework for user stories that engineering teams actually want to read — capability classification, design integration, and acceptance criteria.</p>
+          <div class="art-tags"><span class="art-tag tag-discovery">Discovery</span><span class="art-tag tag-craft">Craft</span></div>
           <a href="https://medium.com/@shraddhasingh8968/how-to-write-effective-user-stories-a-guide-for-business-analysts-and-product-managers-aecb0c222ece" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -592,6 +689,7 @@
           <div class="art-date">Feb 2025</div>
           <div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div>
           <p class="art-desc">Step-by-step walkthrough of transforming chaotic restaurant operations into an efficient digital OMS using systematic business analysis.</p>
+          <div class="art-tags"><span class="art-tag tag-strategy">Strategy</span><span class="art-tag tag-execution">Execution</span></div>
           <a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -603,6 +701,7 @@
           <div class="art-date">Jan 2025</div>
           <div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Now Matter</div>
           <p class="art-desc">Examines the growing demand for technical BAs — salary comparisons, practical code examples, and why data fluency is becoming table-stakes.</p>
+          <div class="art-tags"><span class="art-tag tag-career">Career</span><span class="art-tag tag-technical">Technical</span></div>
           <a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -612,6 +711,7 @@
           <div class="art-date">Aug 2024</div>
           <div class="art-title">E-commerce Payment Gateway Integration: A PRD Template</div>
           <p class="art-desc">Complete PRD template for integrating Razorpay into e-commerce platforms — problem space, solution design, integration steps, and success metrics.</p>
+          <div class="art-tags"><span class="art-tag tag-prd">PRD</span><span class="art-tag tag-fintech">Fintech</span></div>
           <a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
@@ -628,6 +728,9 @@
     </div>
     <div class="about-grid">
       <div class="about-text">
+        <div class="position-quote">
+          <p>I sit at the intersection of two things most PMs pick one of: <strong>regulated, compliance-heavy Fintech</strong> — and <strong>GenAI product development.</strong> Six years in KYC, insurance, and enterprise SaaS taught me that the hardest product problems aren't technical. They're trust problems. Now I apply that instinct to AI products, where trust is everything.</p>
+        </div>
         <p>I started in e-commerce, moved into digital banking, pivoted into enterprise AI at Deloitte, and now lead insurance platform strategy at Sapiens. Each role forced me to build a different PM muscle.</p>
         <p>At <strong>Iksula</strong>, I learned to ship fast and let data change my mind. At <strong>Deloitte</strong>, I learned that stakeholder alignment is product work, not admin overhead. At <strong>Signzy</strong>, I learned that B2B products live or die on client relationship depth — and that compliance constraints can become competitive moats. At <strong>Sapiens</strong>, I'm learning that enterprise roadmap prioritization is its own discipline: making trade-offs explicit, in writing, before anyone disagrees.</p>
         <p>The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>

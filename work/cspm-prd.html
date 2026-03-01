@@ -64,6 +64,15 @@
     footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
     footer p{font-size:.8rem;color:#475569;}
     footer a{color:#93c5fd;text-decoration:none;}
+    /* Narrative bar */
+    .narrative{background:var(--white);border-bottom:1px solid var(--border);}
+    .narrative-in{max-width:900px;margin:0 auto;padding:2rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+    .narr-step{padding:1.25rem 1.5rem;position:relative;}
+    .narr-step:not(:last-child)::after{content:'→';position:absolute;right:-0.6rem;top:1.4rem;color:var(--border);font-size:1.1rem;font-weight:700;}
+    .narr-num{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem;}
+    .narr-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;line-height:1.3;}
+    .narr-text{font-size:.78rem;color:var(--muted);line-height:1.65;}
+    @media(max-width:700px){.narrative-in{grid-template-columns:1fr 1fr;}.narr-step:nth-child(2)::after{display:none;}.narr-step:nth-child(4)::after{display:none;}}
     @media(max-width:640px){.two-col,.metrics-row{grid-template-columns:1fr;}.page{padding:2rem 1.25rem 4rem;} iframe.doc{height:480px;}}
   </style>
 </head>
@@ -82,6 +91,31 @@
     <span>✍️ Shraddha Singh</span>
     <span>📂 Security · Cloud Infrastructure · B2B SaaS</span>
     <span>🔒 Sanitized — no confidential data</span>
+  </div>
+</div>
+
+<div class="narrative">
+  <div class="narrative-in">
+    <div class="narr-step">
+      <div class="narr-num">01 · Context</div>
+      <div class="narr-label">The Business Problem</div>
+      <p class="narr-text">A cloud security product had no structured requirements process. Engineering was building from verbal briefs, resulting in scope creep and missed compliance requirements. I was brought in to define the product requirements from scratch.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">02 · Research</div>
+      <div class="narr-label">Persona Mapping & Discovery</div>
+      <p class="narr-text">Ran discovery sessions with 4 enterprise buyer personas — CISOs, DevOps leads, compliance officers, and security analysts. Each had conflicting priorities. The insight: compliance teams needed auditability above all else; DevOps needed friction removal.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">03 · Decision</div>
+      <div class="narr-label">Prioritisation Trade-offs</div>
+      <p class="narr-text">Chose compliance-first phasing over feature parity with competitors. Controversial with sales, but the right call — enterprise buyers in regulated sectors won't pilot tools that can't prove audit trails from day one.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">04 · Outcome</div>
+      <div class="narr-label">Impact & Reflection</div>
+      <p class="narr-text">PRD adopted by engineering with no major revision cycles — a first for the team. Learning: writing for the reader, not the writer, is the hardest PM skill. Every requirement needs to answer "what would a sceptical engineer ask next?"</p>
+    </div>
   </div>
 </div>
 
