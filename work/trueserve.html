@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrueServe GenAI · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0d1b35;--blue:#2563eb;--amber:#f59e0b;--green:#10b981;--purple:#8b5cf6;--bg:#f8fafc;--white:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+    .hero{background:linear-gradient(135deg,#0d1b35,#1c2e58);padding:3.5rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'🤖';position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:8rem;opacity:.07;}
+    .hero-tag{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#fcd34d;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:620px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#64748b;font-weight:500;}
+    .badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.25);color:#fcd34d;font-size:.75rem;font-weight:700;padding:.35rem .85rem;border-radius:100px;}
+    /* Stats */
+    .stats{background:rgba(0,0,0,.2);border-top:1px solid rgba(255,255,255,.05);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-1px;}
+    .s-num span{color:var(--amber);}
+    .s-lbl{font-size:.72rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+    /* Narrative bar */
+    .narrative{background:var(--white);border-bottom:1px solid var(--border);}
+    .narrative-in{max-width:900px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+    .narr-step{padding:1.25rem 1.5rem;position:relative;}
+    .narr-step:not(:last-child)::after{content:'→';position:absolute;right:-0.6rem;top:1.4rem;color:var(--border);font-size:1.1rem;font-weight:700;}
+    .narr-num{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;}
+    .narr-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;line-height:1.3;}
+    .narr-text{font-size:.78rem;color:var(--muted);line-height:1.65;}
+    /* Page */
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 5rem;}
+    .section-title{font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:-.2px;margin:2.5rem 0 1rem;}
+    /* Context cards */
+    .ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+    .ctx-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;}
+    .ctx-card h4{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .ctx-card p{font-size:.88rem;color:var(--text);line-height:1.6;}
+    /* Decision callout */
+    .callout{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid var(--amber);border-radius:10px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+    .callout h4{font-size:.82rem;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .callout p{font-size:.88rem;color:#78350f;line-height:1.7;margin:0;}
+    /* Feature list */
+    .feature-list{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0 1.5rem;}
+    .feature{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start;}
+    .feature-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .feature-body h4{font-size:.875rem;font-weight:700;color:var(--navy);margin-bottom:.25rem;}
+    .feature-body p{font-size:.8rem;color:var(--muted);line-height:1.6;margin:0;}
+    /* Outcome metrics */
+    .metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;}
+    .metric{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;border-top:3px solid var(--green);}
+    .metric-num{font-size:1.75rem;font-weight:900;color:var(--navy);letter-spacing:-1px;margin-bottom:.25rem;}
+    .metric-lbl{font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+    /* Reflection */
+    .reflection{background:var(--navy);border-radius:14px;padding:2rem 2.5rem;margin-top:2rem;}
+    .reflection h3{font-size:1rem;font-weight:800;color:#fff;margin-bottom:1rem;}
+    .reflection p{font-size:.88rem;color:#94a3b8;line-height:1.8;margin-bottom:.75rem;}
+    .reflection p:last-child{margin:0;}
+    .reflection strong{color:#e2e8f0;}
+    /* External link */
+    .platform-link{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:#fcd34d;font-size:.8rem;font-weight:700;padding:.5rem 1.1rem;border-radius:8px;text-decoration:none;margin-top:1rem;transition:background .2s;}
+    .platform-link:hover{background:rgba(245,158,11,.25);}
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+    @media(max-width:700px){
+      .stats-inner{grid-template-columns:repeat(2,1fr);}
+      .ctx-grid{grid-template-columns:1fr;}
+      .metrics-row{grid-template-columns:1fr 1fr;}
+      .narrative-in{grid-template-columns:1fr 1fr;}
+      .narr-step:nth-child(2)::after{display:none;}
+      .narr-step:nth-child(4)::after{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Back to portfolio</a>
+  <span class="nav-title">Case Study · GenAI Product</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">🤖 Deloitte Digital · TrueServe™ · GenAI</div>
+  <h1>Shipping GenAI Features on TrueServe</h1>
+  <p class="hero-sub">How I sequenced 10+ GenAI features for a $10M contact centre transformation — and why I championed the counter-intuitive feature first.</p>
+  <div class="meta-row">
+    <span>📅 Nov 2021 – Jan 2024</span>
+    <span>🏢 Deloitte Digital</span>
+    <span>👤 Product Consultant</span>
+    <span class="badge">Enterprise GenAI · Contact Centre</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-inner">
+    <div>
+      <div class="s-num"><span>60</span>%</div>
+      <div class="s-lbl">Productivity Gain</div>
+    </div>
+    <div>
+      <div class="s-num"><span>78</span>%</div>
+      <div class="s-lbl">AI Draft Acceptance</div>
+    </div>
+    <div>
+      <div class="s-num">$<span>10</span>M</div>
+      <div class="s-lbl">Program Value</div>
+    </div>
+    <div>
+      <div class="s-num"><span>20</span>%</div>
+      <div class="s-lbl">Ahead of Schedule</div>
+    </div>
+  </div>
+</div>
+
+<div class="narrative">
+  <div class="narrative-in">
+    <div class="narr-step">
+      <div class="narr-num">01 · Context</div>
+      <div class="narr-label">The Business Problem</div>
+      <p class="narr-text">HCSC needed to modernise a contact centre handling hundreds of thousands of customer interactions. TrueServe™ — Deloitte's Salesforce-based AI platform — was the vehicle, but GenAI feature sequencing was wide open.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">02 · Research</div>
+      <div class="narr-label">Mapping 180+ Agent Tasks</div>
+      <p class="narr-text">Ran discovery across agent workflows, mapping 180+ tasks by frequency, cognitive load, and error rate. Identified that email drafting — not real-time assist — had the highest volume, lowest risk, and fastest feedback loop.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">03 · Decision</div>
+      <div class="narr-label">Counter-Intuitive Prioritisation</div>
+      <p class="narr-text">Championed smart email drafting as the first GenAI feature — not the more visible real-time agent assist. The logic: async drafting let us gather clean acceptance data without real-time risk. It became the proof point that unlocked the rest of the program.</p>
+    </div>
+    <div class="narr-step">
+      <div class="narr-num">04 · Outcome</div>
+      <div class="narr-label">Impact & Reflection</div>
+      <p class="narr-text">78% AI draft acceptance by sprint 4. Program delivered 20% ahead of schedule. Key learning: the right first feature isn't the flashiest — it's the one that generates the evidence you need to de-risk everything that follows.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <h2 class="section-title">Context & Platform</h2>
+  <div class="ctx-grid">
+    <div class="ctx-card">
+      <h4>The Platform</h4>
+      <p>TrueServe™ is Deloitte Digital's AI-powered contact centre accelerator — built on Salesforce, designed to reduce handle time, prevent unnecessary contacts, and empower agents through GenAI tooling.</p>
+    </div>
+    <div class="ctx-card">
+      <h4>The Client</h4>
+      <p>Health Care Service Corporation (HCSC) — one of the largest customer-owned health insurers in the US. High-volume, high-stakes contact centre with strict compliance requirements and low tolerance for AI errors.</p>
+    </div>
+    <div class="ctx-card">
+      <h4>The Challenge</h4>
+      <p>180+ distinct agent tasks. 10+ GenAI features on the roadmap. A $10M budget and executive pressure to show early ROI. Which feature do you ship first, and how do you justify it to stakeholders who want everything at once?</p>
+    </div>
+    <div class="ctx-card">
+      <h4>My Role</h4>
+      <p>Product Consultant leading GenAI feature definition, stakeholder alignment, and delivery sequencing. Worked directly with engineering, UX, and HCSC's ops leadership to prioritise and ship features end-to-end.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">The Counter-Intuitive Decision</h2>
+  <div class="callout">
+    <h4>Why Email Drafting Before Real-Time Agent Assist</h4>
+    <p>Everyone wanted real-time agent assist first — it's the flashier capability. But I pushed for smart email drafting as the launch feature. Here's why: async email gave us a clean signal. Agents could accept, edit, or reject AI drafts without the pressure of a live customer on the line. That meant real acceptance data, not politeness. By sprint 4, we had a 78% acceptance rate — and that number was what unlocked stakeholder confidence to go bigger.</p>
+  </div>
+
+  <h2 class="section-title">GenAI Features Shipped</h2>
+  <div class="feature-list">
+    <div class="feature">
+      <div class="feature-num">1</div>
+      <div class="feature-body">
+        <h4>Smart Email Drafting</h4>
+        <p>LLM-generated draft responses for agent email workflows. Agents review, edit, and send — with a feedback loop that improved model accuracy over sprints. First feature shipped; 78% acceptance rate by sprint 4.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-num">2</div>
+      <div class="feature-body">
+        <h4>Interaction Summarisation</h4>
+        <p>Automatic post-call and post-chat summaries reducing agent after-call work time. Structured output tied into CRM, eliminating manual note-taking for 180+ task categories.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-num">3</div>
+      <div class="feature-body">
+        <h4>Real-Time Agent Assist</h4>
+        <p>Live suggestions surfaced during customer interactions — recommended responses, policy lookups, and escalation triggers. Sequenced after email drafting to build on established model trust and agent familiarity.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-num">4</div>
+      <div class="feature-body">
+        <h4>Conversational AI Self-Service</h4>
+        <p>Virtual agent flows for high-frequency, low-complexity queries — reducing live agent volume and allowing human agents to focus on complex, high-empathy interactions.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Outcome</h2>
+  <div class="metrics-row">
+    <div class="metric">
+      <div class="metric-num">60%</div>
+      <div class="metric-lbl">Agent Productivity Gain</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">78%</div>
+      <div class="metric-lbl">AI Draft Acceptance Rate</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">20%</div>
+      <div class="metric-lbl">Ahead of Schedule</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">About TrueServe™</h2>
+  <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:.5rem;">TrueServe™ is Deloitte Digital's pre-built accelerator for contact centre transformation — combining conversational AI, omnichannel orchestration, agent assist, and advanced analytics to deliver faster ROI than custom builds.</p>
+  <a href="https://www.deloittedigital.com/us/en/accelerators/trueserve.html" target="_blank" rel="noopener" class="platform-link">View TrueServe™ on Deloitte Digital ↗</a>
+
+  <div class="reflection">
+    <h3>Reflection</h3>
+    <p>The most important PM skill I exercised here wasn't technical — it was <strong>sequencing under uncertainty</strong>. When you have 10 GenAI features and can only ship one first, the question isn't "what's most impressive?" It's "what generates the evidence that makes everything else possible?"</p>
+    <p>Championing email drafting over real-time assist was a hard sell to stakeholders who wanted the flagship feature. But the acceptance data from those early sprints became the single strongest proof point in the program — and it de-risked every subsequent feature decision.</p>
+    <p>Also learned: in regulated industries like health insurance, <strong>trust is the product</strong>. You don't build trust by shipping the biggest feature first. You build it by being right about the small ones.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to portfolio</a></p>
+</footer>
+
+</body>
+</html>
