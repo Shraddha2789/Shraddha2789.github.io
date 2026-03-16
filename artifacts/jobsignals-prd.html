@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobSignals — Product Requirements Document</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222535;
+    --border: #2e3147;
+    --accent: #5b6af0;
+    --accent2: #38d9a9;
+    --accent3: #f7b731;
+    --text: #e2e4f0;
+    --muted: #8b8fa8;
+    --danger: #f06595;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── Layout ── */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    padding: 28px 0 40px;
+    z-index: 100;
+  }
+  .sidebar-logo {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .sidebar-logo .wordmark {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+  .sidebar-logo .wordmark span { color: var(--accent); }
+  .sidebar-logo .badge {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    background: rgba(91,106,240,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(91,106,240,0.3);
+    border-radius: 4px;
+    padding: 1px 7px;
+  }
+  .sidebar nav a {
+    display: block;
+    padding: 7px 24px;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .sidebar nav a:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    border-left-color: var(--accent);
+  }
+  .sidebar nav .section-label {
+    padding: 16px 24px 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+
+  /* ── Main ── */
+  .main { margin-left: 260px; max-width: 960px; padding: 60px 64px 120px; }
+
+  /* ── Hero ── */
+  .hero {
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 28px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .meta-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .meta-item .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+  .meta-item .value { font-size: 13px; font-weight: 600; color: var(--text); }
+
+  /* ── Section ── */
+  .section { margin-bottom: 72px; }
+  .section-anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    background: rgba(91,106,240,0.12);
+    border: 1px solid rgba(91,106,240,0.3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #fff;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 28px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent2);
+    margin: 20px 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { margin-bottom: 14px; color: var(--text); }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .callout.green { border-left-color: var(--accent2); }
+  .callout.yellow { border-left-color: var(--accent3); }
+  .callout .callout-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--surface2); }
+  th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── Code ── */
+  pre {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    margin: 16px 0;
+    color: #a8b4d8;
+  }
+  code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--accent2);
+  }
+  pre code { background: none; border: none; padding: 0; color: inherit; }
+  .kw { color: #c792ea; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cmt { color: #546e7a; }
+  .key { color: #80cbc4; }
+  .val { color: #c3e88d; }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .tag-p0 { background: rgba(240,101,149,0.15); color: var(--danger); }
+  .tag-p1 { background: rgba(247,183,49,0.15); color: var(--accent3); }
+  .tag-p2 { background: rgba(139,143,168,0.15); color: var(--muted); }
+  .tag-yes { background: rgba(56,217,169,0.15); color: var(--accent2); }
+  .tag-no { background: rgba(139,143,168,0.1); color: var(--muted); }
+
+  /* ── Persona Card ── */
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .persona-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .persona-card .persona-name { font-weight: 700; font-size: 14px; color: #fff; margin-bottom: 2px; }
+  .persona-card .persona-role { font-size: 12px; color: var(--accent); margin-bottom: 12px; }
+  .persona-card .persona-quote {
+    font-size: 12.5px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 2px solid var(--border);
+    padding-left: 10px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .persona-card .persona-row { display: flex; gap: 8px; margin-bottom: 4px; font-size: 12px; }
+  .persona-card .persona-label { color: var(--muted); min-width: 70px; }
+  .persona-card .persona-val { color: var(--text); }
+
+  /* ── Wireframe ── */
+  .wireframe-section { margin: 32px 0; }
+  .wireframe-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wireframe-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .wireframe-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .wf-titlebar {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wf-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .wf-dot.r { background: #f06595; }
+  .wf-dot.y { background: #f7b731; }
+  .wf-dot.g { background: #38d9a9; }
+  .wf-url {
+    margin-left: 10px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 4px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+    max-width: 320px;
+  }
+  .wf-body { padding: 20px; }
+
+  /* ── Divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ── List ── */
+  ul, ol { padding-left: 20px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; color: var(--text); font-size: 14px; }
+  li strong { color: #fff; }
+
+  /* ── Pill ── */
+  .pill {
+    display: inline-block;
+    background: rgba(91,106,240,0.1);
+    border: 1px solid rgba(91,106,240,0.25);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin: 2px;
+  }
+  .pill.green { background: rgba(56,217,169,0.1); border-color: rgba(56,217,169,0.25); color: var(--accent2); }
+  .pill.yellow { background: rgba(247,183,49,0.1); border-color: rgba(247,183,49,0.25); color: var(--accent3); }
+
+  /* ── Risk ── */
+  .risk-high { color: var(--danger); font-weight: 600; }
+  .risk-med { color: var(--accent3); font-weight: 600; }
+  .risk-low { color: var(--accent2); font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 32px 24px 80px; }
+    .persona-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">Job<span>Signals</span></div>
+    <div class="badge">PRD v1.0</div>
+  </div>
+  <nav>
+    <div class="section-label">Document</div>
+    <a href="#overview">1. Product Overview</a>
+    <a href="#problem">2. Problem Statement</a>
+    <a href="#market">3. Market Opportunity</a>
+    <a href="#personas">4. Target Users</a>
+    <a href="#usecases">5. Key Use Cases</a>
+    <div class="section-label">Data Product</div>
+    <a href="#definition">6. Data Product Definition</a>
+    <a href="#sources">7. Data Sources</a>
+    <a href="#model">8. Data Model</a>
+    <a href="#pipeline">9. Pipeline Architecture</a>
+    <a href="#api">10. API Design</a>
+    <div class="section-label">Product</div>
+    <a href="#features">11. Features</a>
+    <a href="#nfr">12. Non-Functional Req.</a>
+    <a href="#governance">13. Data Governance</a>
+    <a href="#metrics">14. Product Metrics</a>
+    <a href="#mvp">15. MVP Scope</a>
+    <div class="section-label">Strategy</div>
+    <a href="#risks">16. Risks & Mitigation</a>
+    <a href="#roadmap">17. Roadmap</a>
+  </nav>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Product Requirements Document</div>
+  <h1><span>Job</span>Signals</h1>
+  <p class="hero-sub">The canonical dataset for job market intelligence — aggregating, enriching, and serving hiring signals as a reusable data product.</p>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="label">Version</div><div class="value">1.0 — Draft</div></div>
+    <div class="meta-item"><div class="label">Date</div><div class="value">2026-03-13</div></div>
+    <div class="meta-item"><div class="label">Type</div><div class="value">Data Product</div></div>
+    <div class="meta-item"><div class="label">Domain</div><div class="value">Labor Markets</div></div>
+    <div class="meta-item"><div class="label">MVP Target</div><div class="value">W10 from Kickoff</div></div>
+    <div class="meta-item"><div class="label">Status</div><div class="value">In Review</div></div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 1: OVERVIEW -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="overview"></a>
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Product Overview</h2>
+  </div>
+
+  <p>JobSignals is a reusable, governed data product that ingests job postings from multiple sources — LinkedIn, Indeed, YC Jobs, and company career pages — and transforms raw listings into a structured, enriched, and queryable dataset. It surfaces hiring trends, skill demand signals, salary benchmarks, and company hiring velocity for a broad range of downstream consumers.</p>
+
+  <div class="callout">
+    <div class="callout-title">Core Principle</div>
+    JobSignals is not a job board. It is an intelligence layer built on top of job markets. The output is a set of curated, versioned datasets and APIs that any team can build on without re-solving data collection, cleaning, or normalization.
+  </div>
+
+  <h3>Core Outputs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Output Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Canonical Dataset</strong></td><td>Normalized job postings, deduplicated and enriched across all sources</td></tr>
+        <tr><td><strong>Signals Dataset</strong></td><td>Derived aggregations: skill trends, salary bands, company hiring velocity</td></tr>
+        <tr><td><strong>REST + GraphQL API</strong></td><td>Programmatic access to raw and derived datasets with versioned contracts</td></tr>
+        <tr><td><strong>Embedded Dashboards</strong></td><td>Pre-built visualizations for non-technical consumers</td></tr>
+        <tr><td><strong>Data Catalog Entry</strong></td><td>Discoverable, documented, versioned entry in the internal data catalog</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 2: PROBLEM -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="problem"></a>
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Problem Statement</h2>
+  </div>
+
+  <h3>The Core Problem</h3>
+  <p>Job market data is fragmented, noisy, and inaccessible as a reusable asset. Today, any team that wants to answer a question like <em>"Which ML skills are companies hiring for most in Q1 2026?"</em> has to manually scrape or purchase data, spend weeks cleaning it, build bespoke pipelines, and produce an answer that goes stale within days.</p>
+  <p>This work is being done redundantly — by bootcamps building curriculum, by VCs doing diligence, by job seekers benchmarking salaries, and by HR teams setting headcount budgets. Each consumer solves the same underlying data problem independently, with no shared standard or infrastructure.</p>
+
+  <h3>Consequences</h3>
+  <ul>
+    <li><strong>Wasted engineering effort:</strong> Every consumer rebuilds the same extraction and normalization logic</li>
+    <li><strong>Low data quality:</strong> One-off scrapes lack deduplication, standardized taxonomy, or historical depth</li>
+    <li><strong>Stale intelligence:</strong> Without continuous pipelines, job market signals decay within days</li>
+    <li><strong>No shared language:</strong> Skill names, job titles, and company identifiers are inconsistent across sources</li>
+  </ul>
+
+  <div class="callout green">
+    <div class="callout-title">The Solution</div>
+    A governed, reusable data product solves this once, centrally. JobSignals becomes the single authoritative source for job market data — maintained with clear ownership, documented contracts, versioned schemas, and accessible via APIs.
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 3: MARKET -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="market"></a>
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Market Opportunity</h2>
+  </div>
+
+  <h3>Total Addressable Market</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Segment</th><th>Example Players</th><th>Relevant TAM</th></tr></thead>
+      <tbody>
+        <tr><td>Talent Intelligence Platforms</td><td>Lightcast, Burning Glass, TalentNeuron</td><td>~$3B</td></tr>
+        <tr><td>HR Analytics & Workforce Planning</td><td>Visier, Workday, Eightfold</td><td>~$5B</td></tr>
+        <tr><td>Recruiting & Sourcing Tools</td><td>LinkedIn Recruiter, Greenhouse</td><td>~$8B</td></tr>
+        <tr><td>Education & Upskilling</td><td>Coursera, Lambda, Springboard</td><td>~$10B</td></tr>
+        <tr><td>Economic Research & Policy</td><td>Government, academia, think tanks</td><td>Non-commercial</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Why Now</h3>
+  <ul>
+    <li>LLM-native tools have dramatically lowered the cost of parsing unstructured job descriptions into structured data</li>
+    <li>The rise of Data Mesh architecture has increased organizational appetite for owned, governed data products</li>
+    <li>Real-time labor market intelligence has become a strategic asset as hiring cycles compress and skills shift rapidly</li>
+  </ul>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 4: PERSONAS -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="personas"></a>
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Target Users & Personas</h2>
+  </div>
+
+  <h3>Persona Map</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Persona</th><th>Role</th><th>Primary Need</th><th>Tech Level</th><th>Access Mode</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Career Navigator</strong></td><td>Individual job seeker</td><td>Benchmark salary; understand in-demand skills</td><td>Low</td><td>Dashboard</td></tr>
+        <tr><td><strong>Talent Strategist</strong></td><td>In-house recruiter / TA lead</td><td>Pipeline health, competitor hiring activity</td><td>Medium</td><td>Dashboard + API</td></tr>
+        <tr><td><strong>Curriculum Architect</strong></td><td>Bootcamp / edtech PM</td><td>Identify skill gaps to build courses around</td><td>Medium</td><td>Dataset + API</td></tr>
+        <tr><td><strong>Workforce Analyst</strong></td><td>HR analytics / people ops</td><td>Headcount planning, attrition risk benchmarking</td><td>High</td><td>API + raw dataset</td></tr>
+        <tr><td><strong>Investment Analyst</strong></td><td>VC / PE analyst</td><td>Hiring velocity as proxy for company growth</td><td>Medium</td><td>API + Dashboard</td></tr>
+        <tr><td><strong>Labor Economist</strong></td><td>Academic / policy researcher</td><td>Longitudinal skill demand and wage trends</td><td>High</td><td>Raw dataset + bulk export</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Persona Deep Dives</h3>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-name">Career Navigator</div>
+      <div class="persona-role">Individual Job Seeker</div>
+      <div class="persona-quote">"I'm transitioning from backend to ML. Which skills should I prioritize to maximize offers and salary?"</div>
+      <div class="persona-row"><span class="persona-label">Pain:</span><span class="persona-val">Advice is anecdotal; no structured view of skills vs. comp</span></div>
+      <div class="persona-row"><span class="persona-label">JTBD:</span><span class="persona-val">Ranked view of high-demand ML skills, filtered by location</span></div>
+      <div class="persona-row"><span class="persona-label">Success:</span><span class="persona-val">Makes learning investment based on real signal, not Reddit</span></div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-name">Talent Strategist</div>
+      <div class="persona-role">In-house Recruiter / TA Lead</div>
+      <div class="persona-quote">"We're hiring 12 senior data engineers. How hot is the market and what compensation is competitive?"</div>
+      <div class="persona-row"><span class="persona-label">Pain:</span><span class="persona-val">Manually monitors competitor boards; no unified market view</span></div>
+      <div class="persona-row"><span class="persona-label">JTBD:</span><span class="persona-val">Track competitor hiring, benchmark JD requirements, set comp</span></div>
+      <div class="persona-row"><span class="persona-label">Success:</span><span class="persona-val">Reduces time-to-offer using market benchmarks not intuition</span></div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-name">Curriculum Architect</div>
+      <div class="persona-role">Bootcamp / EdTech Product Manager</div>
+      <div class="persona-quote">"We're redesigning our data engineering bootcamp. What do employers actually want right now?"</div>
+      <div class="persona-row"><span class="persona-label">Pain:</span><span class="persona-val">Curriculum changes are slow; demand shifts faster than response</span></div>
+      <div class="persona-row"><span class="persona-label">JTBD:</span><span class="persona-val">Quarterly ranked list of in-demand skills by role from live postings</span></div>
+      <div class="persona-row"><span class="persona-label">Success:</span><span class="persona-val">Placement rates improve; curriculum anchored to employer demand</span></div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-name">Investment Analyst</div>
+      <div class="persona-role">VC / PE Firm Analyst</div>
+      <div class="persona-quote">"We're doing diligence on a Series B. Does their hiring velocity match their claimed growth?"</div>
+      <div class="persona-row"><span class="persona-label">Pain:</span><span class="persona-val">Pieces together hiring patterns manually from LinkedIn</span></div>
+      <div class="persona-row"><span class="persona-label">JTBD:</span><span class="persona-val">Pull hiring velocity, role composition, skill investment patterns</span></div>
+      <div class="persona-row"><span class="persona-label">Success:</span><span class="persona-val">Hiring data becomes a diligence input alongside revenue metrics</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 5: USE CASES -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="usecases"></a>
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Key Use Cases</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Use Case</th><th>Primary Persona</th><th>Priority</th><th>MVP</th></tr></thead>
+      <tbody>
+        <tr><td>UC-01</td><td>Salary benchmarking by role, location, company stage</td><td>Career Navigator</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>UC-02</td><td>Skill demand ranking by role and time period</td><td>Navigator, Curriculum</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>UC-03</td><td>Company hiring velocity tracking</td><td>TA Lead, VC Analyst</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>UC-04</td><td>JD requirements comparison across companies</td><td>Talent Strategist</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>UC-05</td><td>Longitudinal skill trend analysis (12–24 months)</td><td>Economist, Curriculum</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>UC-06</td><td>Remote vs. on-site distribution by role/industry</td><td>Career Navigator</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>UC-07</td><td>Competitor hiring pattern alerts</td><td>Talent Strategist</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>UC-08</td><td>New role emergence detection</td><td>Economist, VC Analyst</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>UC-09</td><td>Bulk dataset export for model training</td><td>Researcher</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 6: DATA PRODUCT DEFINITION -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="definition"></a>
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Data Product Definition</h2>
+  </div>
+
+  <p>This section defines JobSignals according to Data Mesh and data-as-a-product principles.</p>
+
+  <h3>Product Identity</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Product Name</td><td>JobSignals</td></tr>
+        <tr><td>Domain</td><td>Talent & Labor Markets</td></tr>
+        <tr><td>Owner (Team)</td><td>Data Platform — Market Intelligence Squad</td></tr>
+        <tr><td>Product Type</td><td>Source-aligned + Aggregated Data Product</td></tr>
+        <tr><td>Output Ports</td><td>REST API, GraphQL API, Data Warehouse (BigQuery/Snowflake), Dashboard embed</td></tr>
+        <tr><td>SLA Tier</td><td>Tier 2 — 99.5% uptime, 24h freshness (standard); 1h freshness (premium)</td></tr>
+        <tr><td>Schema Versioning</td><td>Semantic versioning (MAJOR.MINOR.PATCH); breaking changes require MAJOR + 90-day deprecation</td></tr>
+        <tr><td>Data Catalog Entry</td><td><code>jobsignals.v1</code> — discoverable via internal data catalog</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Data Product Contracts</h3>
+  <div class="callout">
+    <div class="callout-title">Contract 1 — Core Job Postings Dataset</div>
+    Schema stability guaranteed for 12 months on MINOR versions. Freshness SLA: ingested within 24 hours of source publication. Completeness SLA: ≥95% of required fields populated.
+  </div>
+  <div class="callout green">
+    <div class="callout-title">Contract 2 — Signals Aggregations Dataset</div>
+    Updated daily at 06:00 UTC. Covers rolling 90-day, 12-month, and all-time windows. Skill taxonomy pinned to versioned ontology <code>skills_taxonomy.v2</code>.
+  </div>
+  <div class="callout yellow">
+    <div class="callout-title">Contract 3 — API</div>
+    Versioned under <code>/v1/</code>, <code>/v2/</code> etc. Backward-compatible changes do not bump major version. Deprecation notices minimum 90 days before any breaking change.
+  </div>
+
+  <h3>Ownership Model</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Role</th><th>Responsible Party</th><th>Responsibilities</th></tr></thead>
+      <tbody>
+        <tr><td>Product Owner</td><td>PM, Market Intelligence</td><td>Roadmap, prioritization, consumer onboarding</td></tr>
+        <tr><td>Data Engineer Lead</td><td>Platform Engineering</td><td>Pipeline reliability, freshness SLA</td></tr>
+        <tr><td>Data Steward</td><td>Analytics Engineering</td><td>Schema design, taxonomy governance, quality checks</td></tr>
+        <tr><td>Security & Privacy</td><td>Data Governance Team</td><td>PII handling, scraping compliance review</td></tr>
+        <tr><td>API Owner</td><td>Backend Engineering</td><td>API versioning, rate limiting, auth</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 7: DATA SOURCES -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="sources"></a>
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>Data Sources</h2>
+  </div>
+
+  <h3>Source Registry</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Source</th><th>Type</th><th>Method</th><th>Cadence</th><th>Coverage</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LinkedIn Jobs</strong></td><td>Public job board</td><td>Official API + structured crawl</td><td>Every 6h</td><td>Global, all industries</td></tr>
+        <tr><td><strong>Indeed</strong></td><td>Public job board</td><td>Structured crawl (robots.txt compliant)</td><td>Every 6h</td><td>Global</td></tr>
+        <tr><td><strong>YC Jobs</strong></td><td>Curated startup board</td><td>HTML scrape + RSS</td><td>Daily</td><td>US startups</td></tr>
+        <tr><td><strong>Company Career Pages</strong></td><td>Company-owned</td><td>Targeted crawl (tier-1 list)</td><td>Daily</td><td>Configurable</td></tr>
+        <tr><td><strong>Glassdoor Salary Data</strong></td><td>Salary intelligence</td><td>Data partnership / crawl</td><td>Weekly</td><td>Global</td></tr>
+        <tr><td><strong>BLS / O*NET</strong></td><td>Government data</td><td>Public API</td><td>Monthly</td><td>US occupational</td></tr>
+        <tr><td><strong>HN "Who's Hiring"</strong></td><td>Community thread</td><td>HTML parse</td><td>Monthly</td><td>Tech-focused</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Source Tiering</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Sources</th><th>SLA Treatment</th><th>Fallback</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill">Tier 1 — Core</span></td><td>LinkedIn, Indeed</td><td>Failure alert within 15 min</td><td>Cached last-known-good dataset</td></tr>
+        <tr><td><span class="pill yellow">Tier 2 — Enrichment</span></td><td>YC Jobs, Career Pages, Glassdoor</td><td>Failure alert within 1 hour</td><td>Excluded from that ingestion cycle</td></tr>
+        <tr><td><span class="pill green">Tier 3 — Supplemental</span></td><td>BLS, HN</td><td>Best effort, batch</td><td>No fallback required</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout yellow">
+    <div class="callout-title">Legal & Compliance</div>
+    All scraping must respect <code>robots.txt</code> and rate-limit to avoid DoS. No PII (recruiter names, poster identities) will be stored. LinkedIn and Indeed ToS restrict commercial scraping — data partnership agreements should be pursued for Tier 1 sources as the product scales.
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 8: DATA MODEL -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="model"></a>
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2>Data Model</h2>
+  </div>
+
+  <h3>Entity Relationship Overview</h3>
+  <pre>job_postings (raw → normalized)
+    │
+    ├── job_skills (extracted from description)
+    ├── job_salaries (extracted / inferred)
+    └── companies (resolved entity)
+            │
+            └── company_signals (aggregated per company)
+                        │
+                        └── skill_trends (time-series aggregations)</pre>
+
+  <h3>Core Table: <code>job_postings</code></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Type</th><th>Description</th><th>Nullable</th></tr></thead>
+      <tbody>
+        <tr><td><code>job_id</code></td><td>STRING (UUID)</td><td>Globally unique identifier (JobSignals-assigned)</td><td>No</td></tr>
+        <tr><td><code>source_platform</code></td><td>ENUM</td><td>linkedin | indeed | yc_jobs | career_page | other</td><td>No</td></tr>
+        <tr><td><code>title_raw</code></td><td>STRING</td><td>Job title as posted, unmodified</td><td>No</td></tr>
+        <tr><td><code>title_normalized</code></td><td>STRING</td><td>Mapped to JobSignals title taxonomy</td><td>No</td></tr>
+        <tr><td><code>title_family</code></td><td>STRING</td><td>Role family: Engineering, Data, Product, Design…</td><td>Yes</td></tr>
+        <tr><td><code>company_id</code></td><td>STRING (FK)</td><td>Reference to companies.company_id</td><td>No</td></tr>
+        <tr><td><code>location_city</code></td><td>STRING</td><td>Parsed city</td><td>Yes</td></tr>
+        <tr><td><code>location_country</code></td><td>STRING</td><td>ISO 3166-1 alpha-2</td><td>Yes</td></tr>
+        <tr><td><code>work_modality</code></td><td>ENUM</td><td>remote | hybrid | onsite | unspecified</td><td>No</td></tr>
+        <tr><td><code>seniority_level</code></td><td>ENUM</td><td>intern | junior | mid | senior | staff | principal | executive</td><td>Yes</td></tr>
+        <tr><td><code>salary_min</code></td><td>INTEGER</td><td>Minimum salary (USD, annualized)</td><td>Yes</td></tr>
+        <tr><td><code>salary_max</code></td><td>INTEGER</td><td>Maximum salary (USD, annualized)</td><td>Yes</td></tr>
+        <tr><td><code>salary_source</code></td><td>ENUM</td><td>posted | inferred | glassdoor_enrichment</td><td>Yes</td></tr>
+        <tr><td><code>posted_at</code></td><td>TIMESTAMP</td><td>Date/time of original posting</td><td>No</td></tr>
+        <tr><td><code>ingested_at</code></td><td>TIMESTAMP</td><td>Date/time JobSignals first ingested it</td><td>No</td></tr>
+        <tr><td><code>is_active</code></td><td>BOOLEAN</td><td>Whether the listing is currently live</td><td>No</td></tr>
+        <tr><td><code>dataset_version</code></td><td>STRING</td><td>JobSignals schema version at ingest time</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Core Table: <code>job_skills</code></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>skill_id</code></td><td>STRING (UUID)</td><td>Unique row ID</td></tr>
+        <tr><td><code>job_id</code></td><td>STRING (FK)</td><td>Reference to job_postings</td></tr>
+        <tr><td><code>skill_name</code></td><td>STRING</td><td>Canonical skill name (from taxonomy)</td></tr>
+        <tr><td><code>skill_category</code></td><td>ENUM</td><td>technical | soft | domain | tool | certification</td></tr>
+        <tr><td><code>is_required</code></td><td>BOOLEAN</td><td>Required vs. preferred</td></tr>
+        <tr><td><code>extraction_method</code></td><td>ENUM</td><td>rule_based | llm_extracted | manual</td></tr>
+        <tr><td><code>confidence_score</code></td><td>FLOAT</td><td>0.0–1.0 extraction confidence</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Derived Table: <code>skill_trends</code></h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>skill_name</code></td><td>STRING</td><td>Canonical skill name</td></tr>
+        <tr><td><code>title_family</code></td><td>STRING</td><td>Role family filter (optional grouping)</td></tr>
+        <tr><td><code>period</code></td><td>DATE</td><td>Start of the aggregation window</td></tr>
+        <tr><td><code>window</code></td><td>ENUM</td><td>7d | 30d | 90d | 365d</td></tr>
+        <tr><td><code>posting_count</code></td><td>INTEGER</td><td>Postings requiring this skill in window</td></tr>
+        <tr><td><code>posting_share</code></td><td>FLOAT</td><td>% of all postings in context requiring skill</td></tr>
+        <tr><td><code>mom_change</code></td><td>FLOAT</td><td>Month-over-month change in posting_share</td></tr>
+        <tr><td><code>yoy_change</code></td><td>FLOAT</td><td>Year-over-year change in posting_share</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WIREFRAME: Data Model ERD -->
+  <div class="wireframe-section">
+    <div class="wireframe-label">Wireframe — Entity Relationship Diagram</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">JobSignals — Data Model</div>
+      </div>
+      <div class="wf-body">
+        <svg width="100%" viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace" font-size="11">
+          <!-- job_postings -->
+          <rect x="280" y="20" width="240" height="180" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <rect x="280" y="20" width="240" height="32" rx="6" fill="#2e3355"/>
+          <rect x="280" y="44" width="240" height="8" rx="0" fill="#2e3355"/>
+          <text x="400" y="41" text-anchor="middle" fill="#a0a8d0" font-weight="700" font-size="12">job_postings</text>
+          <text x="292" y="74" fill="#5b6af0">job_id</text><text x="480" y="74" fill="#546e7a">PK UUID</text>
+          <text x="292" y="92" fill="#80cbc4">company_id</text><text x="480" y="92" fill="#546e7a">FK</text>
+          <text x="292" y="110" fill="#a0a8d0">title_normalized</text>
+          <text x="292" y="128" fill="#a0a8d0">seniority_level</text>
+          <text x="292" y="146" fill="#a0a8d0">work_modality</text>
+          <text x="292" y="164" fill="#a0a8d0">salary_min / max</text>
+          <text x="292" y="182" fill="#a0a8d0">posted_at</text>
+
+          <!-- job_skills -->
+          <rect x="10" y="60" width="200" height="140" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <rect x="10" y="60" width="200" height="32" rx="6" fill="#2e3355"/>
+          <rect x="10" y="84" width="200" height="8" fill="#2e3355"/>
+          <text x="110" y="81" text-anchor="middle" fill="#a0a8d0" font-weight="700" font-size="12">job_skills</text>
+          <text x="22" y="112" fill="#5b6af0">skill_id</text><text x="170" y="112" fill="#546e7a">PK</text>
+          <text x="22" y="130" fill="#80cbc4">job_id</text><text x="170" y="130" fill="#546e7a">FK</text>
+          <text x="22" y="148" fill="#a0a8d0">skill_name</text>
+          <text x="22" y="166" fill="#a0a8d0">skill_category</text>
+          <text x="22" y="184" fill="#a0a8d0">confidence_score</text>
+
+          <!-- companies -->
+          <rect x="590" y="60" width="210" height="140" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <rect x="590" y="60" width="210" height="32" rx="6" fill="#2e3355"/>
+          <rect x="590" y="84" width="210" height="8" fill="#2e3355"/>
+          <text x="695" y="81" text-anchor="middle" fill="#a0a8d0" font-weight="700" font-size="12">companies</text>
+          <text x="602" y="112" fill="#5b6af0">company_id</text><text x="766" y="112" fill="#546e7a">PK</text>
+          <text x="602" y="130" fill="#a0a8d0">company_name</text>
+          <text x="602" y="148" fill="#a0a8d0">industry</text>
+          <text x="602" y="166" fill="#a0a8d0">company_stage</text>
+          <text x="602" y="184" fill="#a0a8d0">employee_count_range</text>
+
+          <!-- skill_trends -->
+          <rect x="10" y="270" width="200" height="130" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <rect x="10" y="270" width="200" height="32" rx="6" fill="#1e2a20"/>
+          <rect x="10" y="294" width="200" height="8" fill="#1e2a20"/>
+          <text x="110" y="291" text-anchor="middle" fill="#38d9a9" font-weight="700" font-size="12">skill_trends</text>
+          <text x="22" y="320" fill="#a0a8d0">skill_name</text>
+          <text x="22" y="338" fill="#a0a8d0">period + window</text>
+          <text x="22" y="356" fill="#a0a8d0">posting_share</text>
+          <text x="22" y="374" fill="#a0a8d0">mom_change</text>
+
+          <!-- company_signals -->
+          <rect x="590" y="270" width="210" height="130" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <rect x="590" y="270" width="210" height="32" rx="6" fill="#1e2a20"/>
+          <rect x="590" y="294" width="210" height="8" fill="#1e2a20"/>
+          <text x="695" y="291" text-anchor="middle" fill="#38d9a9" font-weight="700" font-size="12">company_signals</text>
+          <text x="602" y="320" fill="#80cbc4">company_id</text><text x="766" y="320" fill="#546e7a">FK</text>
+          <text x="602" y="338" fill="#a0a8d0">hiring_velocity_score</text>
+          <text x="602" y="356" fill="#a0a8d0">total_postings</text>
+          <text x="602" y="374" fill="#a0a8d0">top_skills[]</text>
+
+          <!-- Relationship lines -->
+          <!-- job_postings → job_skills -->
+          <line x1="280" y1="130" x2="210" y2="130" stroke="#3b4060" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <circle cx="210" cy="130" r="3" fill="#5b6af0"/>
+          <circle cx="280" cy="130" r="3" fill="#5b6af0"/>
+
+          <!-- job_postings → companies -->
+          <line x1="520" y1="110" x2="590" y2="110" stroke="#3b4060" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <circle cx="520" cy="110" r="3" fill="#80cbc4"/>
+          <circle cx="590" cy="110" r="3" fill="#80cbc4"/>
+
+          <!-- job_postings → skill_trends (via aggregation) -->
+          <line x1="110" y1="200" x2="110" y2="270" stroke="#38d9a9" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+          <text x="116" y="242" fill="#38d9a9" font-size="10" opacity="0.7">aggregates to</text>
+
+          <!-- companies → company_signals -->
+          <line x1="695" y1="200" x2="695" y2="270" stroke="#38d9a9" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+          <text x="701" y="242" fill="#38d9a9" font-size="10" opacity="0.7">aggregates to</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 9: PIPELINE -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="pipeline"></a>
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <h2>Data Pipeline Architecture</h2>
+  </div>
+
+  <pre>┌──────────────────────────────────────────────────────────────┐
+│                      SOURCE LAYER                             │
+│  LinkedIn  │  Indeed  │  YC Jobs  │  Career Pages  │  BLS    │
+└──────────────────────┬───────────────────────────────────────┘
+                        │ HTTP / API / RSS
+                        ▼
+┌──────────────────────────────────────────────────────────────┐
+│                   INGESTION LAYER (Airflow)                    │
+│  ├── Source adapters (Python, async, per-source)              │
+│  ├── Rate limiting + retry with exponential backoff           │
+│  └── Raw landing zone → GCS / S3 (Bronze / partitioned)      │
+└──────────────────────┬───────────────────────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────────────────────┐
+│              TRANSFORMATION LAYER (dbt on BigQuery)           │
+│  ├── Deduplication (fingerprint + LSH near-duplicate)         │
+│  ├── Normalization (title taxonomy, company resolution)       │
+│  ├── Skill extraction (LLM pipeline + rule-based fallback)    │
+│  ├── Salary parsing + currency normalization                  │
+│  └── Aggregations → skill_trends, company_signals            │
+└──────────────────────┬───────────────────────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────────────────────┐
+│                    SERVING LAYER                              │
+│  ├── Data Warehouse (BigQuery) — Analytics consumers          │
+│  ├── Operational DB (PostgreSQL) — API backend                │
+│  ├── Search Index (Elasticsearch) — Faceted search            │
+│  └── Cache (Redis) — Hot path API responses                   │
+└──────────────────────┬───────────────────────────────────────┘
+                        │
+             ┌──────────┴──────────┐
+             ▼                     ▼
+       REST / GraphQL          Dashboard
+            API               (Metabase /
+         (FastAPI)              Superset)</pre>
+
+  <h3>Pipeline Stage Summary</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Tool</th><th>Owner</th><th>SLA</th></tr></thead>
+      <tbody>
+        <tr><td>Crawling & ingestion</td><td>Python + Playwright + Airflow</td><td>Data Engineering</td><td>&lt; 1h per source cycle</td></tr>
+        <tr><td>Raw storage (Bronze)</td><td>GCS / S3 (partitioned by source + date)</td><td>Data Engineering</td><td>Durable; no query SLA</td></tr>
+        <tr><td>Deduplication</td><td>dbt model <code>stg_job_postings_deduped</code></td><td>Analytics Engineering</td><td>Daily</td></tr>
+        <tr><td>Normalization</td><td>dbt + external enrichment APIs</td><td>Analytics Engineering</td><td>Daily</td></tr>
+        <tr><td>Skill extraction</td><td>LLM micro-service (Claude API, batch)</td><td>ML Platform</td><td>Daily</td></tr>
+        <tr><td>Aggregations</td><td>dbt incremental models</td><td>Analytics Engineering</td><td>Daily by 06:00 UTC</td></tr>
+        <tr><td>Serving DB sync</td><td>Airbyte / custom sync job</td><td>Data Engineering</td><td>Hourly</td></tr>
+        <tr><td>API</td><td>FastAPI on GKE / Cloud Run</td><td>Backend Engineering</td><td>99.5% uptime</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Deduplication Strategy</h3>
+  <p>Job postings are duplicated across sources frequently. JobSignals uses multi-signal fingerprinting:</p>
+  <ol>
+    <li><strong>Exact match:</strong> <code>(company_id, title_normalized, location_city, posted_at_date)</code> — strongest signal</li>
+    <li><strong>Near-duplicate:</strong> Locality-sensitive hashing (LSH) on <code>description_cleaned</code> — catches reposts with minor edits</li>
+    <li><strong>Cross-source linking:</strong> If source URLs differ but fingerprint matches, merge into canonical record with an array of originating sources</li>
+  </ol>
+
+  <!-- WIREFRAME: Pipeline Flow -->
+  <div class="wireframe-section">
+    <div class="wireframe-label">Wireframe — Skill Extraction Sub-Pipeline</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">Skill Extraction Flow</div>
+      </div>
+      <div class="wf-body">
+        <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif" font-size="12">
+          <!-- Node 1 -->
+          <rect x="10" y="60" width="130" height="50" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <text x="75" y="81" text-anchor="middle" fill="#a0a8d0" font-weight="600">description</text>
+          <text x="75" y="97" text-anchor="middle" fill="#a0a8d0" font-weight="600">_cleaned</text>
+          <!-- Arrow -->
+          <line x1="140" y1="85" x2="190" y2="85" stroke="#3b4060" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- Node 2 -->
+          <rect x="190" y="60" width="150" height="50" rx="6" fill="#222535" stroke="#3b4060" stroke-width="1.5"/>
+          <text x="265" y="81" text-anchor="middle" fill="#a0a8d0" font-weight="600">Rule-based</text>
+          <text x="265" y="97" text-anchor="middle" fill="#546e7a">keyword match</text>
+          <!-- Branch arrows -->
+          <line x1="340" y1="75" x2="395" y2="50" stroke="#38d9a9" stroke-width="1.5" marker-end="url(#arr-g)"/>
+          <line x1="340" y1="95" x2="395" y2="120" stroke="#f7b731" stroke-width="1.5" marker-end="url(#arr-y)"/>
+          <!-- High conf box -->
+          <rect x="395" y="25" width="160" height="44" rx="6" fill="#1a2820" stroke="#38d9a9" stroke-width="1.5"/>
+          <text x="475" y="44" text-anchor="middle" fill="#38d9a9" font-weight="600">High confidence</text>
+          <text x="475" y="60" text-anchor="middle" fill="#546e7a">&gt; 0.85 → insert direct</text>
+          <!-- Low conf box -->
+          <rect x="395" y="100" width="160" height="44" rx="6" fill="#2a2010" stroke="#f7b731" stroke-width="1.5"/>
+          <text x="475" y="119" text-anchor="middle" fill="#f7b731" font-weight="600">Ambiguous</text>
+          <text x="475" y="135" text-anchor="middle" fill="#546e7a">send to LLM</text>
+          <!-- LLM box -->
+          <rect x="590" y="100" width="160" height="44" rx="6" fill="#1e1a2e" stroke="#5b6af0" stroke-width="1.5"/>
+          <text x="670" y="119" text-anchor="middle" fill="#5b6af0" font-weight="600">Claude API</text>
+          <text x="670" y="135" text-anchor="middle" fill="#546e7a">structured output</text>
+          <line x1="555" y1="122" x2="590" y2="122" stroke="#f7b731" stroke-width="1.5" marker-end="url(#arr-y)"/>
+          <!-- Output -->
+          <rect x="590" y="25" width="160" height="44" rx="6" fill="#1e2a20" stroke="#38d9a9" stroke-width="1.5"/>
+          <text x="670" y="44" text-anchor="middle" fill="#38d9a9" font-weight="600">→ job_skills</text>
+          <text x="670" y="60" text-anchor="middle" fill="#546e7a">taxonomy-mapped</text>
+          <line x1="555" y1="47" x2="590" y2="47" stroke="#38d9a9" stroke-width="1.5" marker-end="url(#arr-g)"/>
+          <!-- LLM → output -->
+          <line x1="670" y1="100" x2="670" y2="69" stroke="#5b6af0" stroke-width="1.5" marker-end="url(#arr-b)"/>
+
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#3b4060"/>
+            </marker>
+            <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#38d9a9"/>
+            </marker>
+            <marker id="arr-y" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f7b731"/>
+            </marker>
+            <marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#5b6af0"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 10: API -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="api"></a>
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <h2>API Design</h2>
+  </div>
+
+  <h3>Design Principles</h3>
+  <ul>
+    <li>RESTful with resource-oriented URLs; GraphQL endpoint for flexible consumer queries (Phase 3)</li>
+    <li>All responses return JSON with consistent envelope: <code>{ data, meta, errors }</code></li>
+    <li>Pagination: cursor-based for large result sets, offset-based for fixed queries</li>
+    <li>Authentication: API key (external) + service account JWT (internal)</li>
+    <li>All timestamps in ISO 8601 UTC</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Base URL</div>
+    <code>https://api.jobsignals.io/v1/</code>
+  </div>
+
+  <h3>Endpoint: <code>GET /v1/jobs</code></h3>
+  <pre><span class="cmt">// Search and filter job postings</span>
+<span class="cmt">// Query params: q, title_family, company_id, location, modality,</span>
+<span class="cmt">//   seniority, salary_min, posted_after, skills[], page_size, cursor</span>
+
+<span class="cmt">// Response 200</span>
+{
+  <span class="key">"data"</span>: [{
+    <span class="key">"job_id"</span>: <span class="str">"jb_01HXYZ..."</span>,
+    <span class="key">"title_normalized"</span>: <span class="str">"Senior Data Engineer"</span>,
+    <span class="key">"company"</span>: {
+      <span class="key">"company_name"</span>: <span class="str">"Stripe"</span>,
+      <span class="key">"industry"</span>: <span class="str">"Fintech"</span>,
+      <span class="key">"company_stage"</span>: <span class="str">"public"</span>
+    },
+    <span class="key">"location"</span>: { <span class="key">"city"</span>: <span class="str">"San Francisco"</span>, <span class="key">"modality"</span>: <span class="str">"hybrid"</span> },
+    <span class="key">"seniority_level"</span>: <span class="str">"senior"</span>,
+    <span class="key">"salary"</span>: { <span class="key">"min"</span>: <span class="num">180000</span>, <span class="key">"max"</span>: <span class="num">240000</span>, <span class="key">"currency"</span>: <span class="str">"USD"</span> },
+    <span class="key">"skills"</span>: [<span class="str">"Apache Spark"</span>, <span class="str">"dbt"</span>, <span class="str">"Python"</span>, <span class="str">"Kafka"</span>],
+    <span class="key">"posted_at"</span>: <span class="str">"2026-03-10T14:22:00Z"</span>
+  }],
+  <span class="key">"meta"</span>: { <span class="key">"total_count"</span>: <span class="num">4820</span>, <span class="key">"next_cursor"</span>: <span class="str">"eyJqb2Ii..."</span> }
+}</pre>
+
+  <h3>Endpoint: <code>GET /v1/skills/trends</code></h3>
+  <pre><span class="cmt">// Ranked skill demand over time</span>
+<span class="cmt">// Query params: title_family, country, window (7d|30d|90d|365d), limit, order_by</span>
+
+{
+  <span class="key">"data"</span>: [{
+    <span class="key">"skill_name"</span>: <span class="str">"dbt"</span>,
+    <span class="key">"skill_category"</span>: <span class="str">"tool"</span>,
+    <span class="key">"posting_count"</span>: <span class="num">12480</span>,
+    <span class="key">"posting_share"</span>: <span class="num">0.34</span>,
+    <span class="key">"mom_change"</span>: <span class="num">0.08</span>,
+    <span class="key">"yoy_change"</span>: <span class="num">0.31</span>,
+    <span class="key">"rank"</span>: <span class="num">1</span>,
+    <span class="key">"rank_previous_period"</span>: <span class="num">3</span>
+  }],
+  <span class="key">"meta"</span>: {
+    <span class="key">"window"</span>: <span class="str">"30d"</span>,
+    <span class="key">"title_family"</span>: <span class="str">"Data Engineering"</span>,
+    <span class="key">"total_postings_in_scope"</span>: <span class="num">36708</span>
+  }
+}</pre>
+
+  <h3>Endpoint: <code>GET /v1/companies/{id}/signals</code></h3>
+  <pre>{
+  <span class="key">"data"</span>: {
+    <span class="key">"company_name"</span>: <span class="str">"Stripe"</span>,
+    <span class="key">"window"</span>: <span class="str">"90d"</span>,
+    <span class="key">"total_postings"</span>: <span class="num">143</span>,
+    <span class="key">"active_postings"</span>: <span class="num">58</span>,
+    <span class="key">"hiring_velocity_score"</span>: <span class="num">82.4</span>,
+    <span class="key">"top_skills"</span>: [<span class="str">"Python"</span>, <span class="str">"Go"</span>, <span class="str">"Kubernetes"</span>, <span class="str">"PostgreSQL"</span>, <span class="str">"dbt"</span>],
+    <span class="key">"salary_benchmarks"</span>: { <span class="key">"median_min"</span>: <span class="num">170000</span>, <span class="key">"median_max"</span>: <span class="num">230000</span> },
+    <span class="key">"trend"</span>: [
+      { <span class="key">"period"</span>: <span class="str">"2025-12-01"</span>, <span class="key">"postings"</span>: <span class="num">38</span> },
+      { <span class="key">"period"</span>: <span class="str">"2026-01-01"</span>, <span class="key">"postings"</span>: <span class="num">52</span> },
+      { <span class="key">"period"</span>: <span class="str">"2026-02-01"</span>, <span class="key">"postings"</span>: <span class="num">53</span> }
+    ]
+  }
+}</pre>
+
+  <h3>Endpoint: <code>GET /v1/salaries/benchmark</code></h3>
+  <pre>{
+  <span class="key">"data"</span>: {
+    <span class="key">"title_family"</span>: <span class="str">"Data Engineering"</span>,
+    <span class="key">"seniority"</span>: <span class="str">"senior"</span>,
+    <span class="key">"country"</span>: <span class="str">"US"</span>,
+    <span class="key">"percentile_10"</span>: <span class="num">140000</span>,
+    <span class="key">"percentile_25"</span>: <span class="num">165000</span>,
+    <span class="key">"percentile_50"</span>: <span class="num">195000</span>,
+    <span class="key">"percentile_75"</span>: <span class="num">230000</span>,
+    <span class="key">"percentile_90"</span>: <span class="num">270000</span>,
+    <span class="key">"sample_size"</span>: <span class="num">2840</span>
+  }
+}</pre>
+
+  <h3>Error Codes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>HTTP Status</th><th>Code</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>400</td><td><code>INVALID_PARAMS</code></td><td>Malformed or missing required parameters</td></tr>
+        <tr><td>401</td><td><code>UNAUTHORIZED</code></td><td>Missing or invalid API key</td></tr>
+        <tr><td>403</td><td><code>PLAN_LIMIT</code></td><td>Endpoint not available on current plan</td></tr>
+        <tr><td>404</td><td><code>NOT_FOUND</code></td><td>Resource does not exist</td></tr>
+        <tr><td>429</td><td><code>RATE_LIMITED</code></td><td>Rate limit exceeded; <code>Retry-After</code> header included</td></tr>
+        <tr><td>500</td><td><code>INTERNAL_ERROR</code></td><td>Server-side error; auto-reported to on-call</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- WIREFRAME: DASHBOARD -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="wireframes"></a>
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <h2>Product Wireframes</h2>
+  </div>
+
+  <!-- WF 1: Skill Trends Dashboard -->
+  <div class="wireframe-section">
+    <div class="wireframe-label">Wireframe 1 — Skill Demand Dashboard</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">jobsignals.io/dashboard/skills</div>
+      </div>
+      <svg width="100%" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+        <!-- Top nav -->
+        <rect width="900" height="44" fill="#1a1d27"/>
+        <text x="20" y="28" fill="#5b6af0" font-weight="700" font-size="14">Job<tspan fill="#e2e4f0">Signals</tspan></text>
+        <text x="160" y="28" fill="#8b8fa8" font-size="12">Overview</text>
+        <text x="240" y="28" fill="#e2e4f0" font-size="12">Skill Trends</text>
+        <text x="340" y="28" fill="#8b8fa8" font-size="12">Companies</text>
+        <text x="430" y="28" fill="#8b8fa8" font-size="12">Salaries</text>
+        <rect x="232" y="38" width="80" height="2" rx="1" fill="#5b6af0"/>
+        <!-- Filter bar -->
+        <rect x="0" y="44" width="900" height="48" fill="#222535"/>
+        <rect x="16" y="56" width="120" height="24" rx="4" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="76" y="72" text-anchor="middle" fill="#a0a8d0" font-size="11">Data Engineering ▾</text>
+        <rect x="148" y="56" width="90" height="24" rx="4" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="193" y="72" text-anchor="middle" fill="#a0a8d0" font-size="11">United States ▾</text>
+        <rect x="250" y="56" width="80" height="24" rx="4" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="290" y="72" text-anchor="middle" fill="#a0a8d0" font-size="11">Last 30 days ▾</text>
+        <!-- KPI cards -->
+        <rect x="16" y="108" width="190" height="72" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="32" y="130" fill="#8b8fa8" font-size="10" letter-spacing="0.5">TOTAL POSTINGS</text>
+        <text x="32" y="158" fill="#e2e4f0" font-size="24" font-weight="700">36,708</text>
+        <text x="32" y="172" fill="#38d9a9" font-size="11">↑ 12% vs last month</text>
+        <rect x="220" y="108" width="190" height="72" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="236" y="130" fill="#8b8fa8" font-size="10" letter-spacing="0.5">UNIQUE COMPANIES</text>
+        <text x="236" y="158" fill="#e2e4f0" font-size="24" font-weight="700">4,291</text>
+        <text x="236" y="172" fill="#38d9a9" font-size="11">↑ 8% vs last month</text>
+        <rect x="424" y="108" width="190" height="72" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="440" y="130" fill="#8b8fa8" font-size="10" letter-spacing="0.5">MEDIAN SALARY</text>
+        <text x="440" y="158" fill="#e2e4f0" font-size="24" font-weight="700">$195k</text>
+        <text x="440" y="172" fill="#f7b731" font-size="11">↔ flat vs last month</text>
+        <rect x="628" y="108" width="254" height="72" rx="6" fill="#1e1a2e" stroke="#5b6af0" stroke-width="1"/>
+        <text x="644" y="130" fill="#8b8fa8" font-size="10" letter-spacing="0.5">FASTEST RISING SKILL</text>
+        <text x="644" y="155" fill="#5b6af0" font-size="20" font-weight="700">dbt</text>
+        <text x="644" y="172" fill="#5b6af0" font-size="11">+31% YoY · Rank #1 ↑ from #3</text>
+
+        <!-- Skill ranking table -->
+        <rect x="16" y="196" width="440" height="320" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="28" y="218" fill="#e2e4f0" font-weight="600" font-size="13">Top Skills — Data Engineering</text>
+        <rect x="16" y="224" width="440" height="1" fill="#2e3147"/>
+        <!-- Header -->
+        <text x="28" y="244" fill="#8b8fa8" font-size="10" letter-spacing="0.6">RANK</text>
+        <text x="78" y="244" fill="#8b8fa8" font-size="10" letter-spacing="0.6">SKILL</text>
+        <text x="290" y="244" fill="#8b8fa8" font-size="10" letter-spacing="0.6">SHARE</text>
+        <text x="360" y="244" fill="#8b8fa8" font-size="10" letter-spacing="0.6">MOM</text>
+        <text x="420" y="244" fill="#8b8fa8" font-size="10" letter-spacing="0.6">YOY</text>
+        <!-- Rows -->
+        <rect x="16" y="248" width="440" height="34" fill="rgba(91,106,240,0.06)"/>
+        <text x="36" y="269" fill="#5b6af0" font-weight="700" font-size="13">1</text>
+        <rect x="66" y="257" width="10" height="10" rx="2" fill="#38d9a9" opacity="0.3"/>
+        <text x="82" y="269" fill="#e2e4f0" font-size="12" font-weight="600">dbt</text>
+        <text x="230" y="269" fill="#8b8fa8" font-size="11">tool</text>
+        <rect x="285" y="259" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="259" width="34" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="269" fill="#e2e4f0" font-size="11">34%</text>
+        <text x="358" y="269" fill="#38d9a9" font-size="11">+8%</text>
+        <text x="415" y="269" fill="#38d9a9" font-size="11">+31%</text>
+
+        <text x="36" y="302" fill="#a0a8d0" font-size="13">2</text>
+        <text x="82" y="302" fill="#e2e4f0" font-size="12">Apache Spark</text>
+        <text x="230" y="302" fill="#8b8fa8" font-size="11">tool</text>
+        <rect x="285" y="292" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="292" width="29" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="302" fill="#e2e4f0" font-size="11">29%</text>
+        <text x="358" y="302" fill="#38d9a9" font-size="11">+3%</text>
+        <text x="415" y="302" fill="#38d9a9" font-size="11">+14%</text>
+
+        <text x="36" y="335" fill="#a0a8d0" font-size="13">3</text>
+        <text x="82" y="335" fill="#e2e4f0" font-size="12">Python</text>
+        <text x="230" y="335" fill="#8b8fa8" font-size="11">technical</text>
+        <rect x="285" y="325" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="325" width="27" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="335" fill="#e2e4f0" font-size="11">27%</text>
+        <text x="358" y="335" fill="#8b8fa8" font-size="11">+1%</text>
+        <text x="415" y="335" fill="#38d9a9" font-size="11">+9%</text>
+
+        <text x="36" y="368" fill="#a0a8d0" font-size="13">4</text>
+        <text x="82" y="368" fill="#e2e4f0" font-size="12">Kafka</text>
+        <text x="230" y="368" fill="#8b8fa8" font-size="11">tool</text>
+        <rect x="285" y="358" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="358" width="22" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="368" fill="#e2e4f0" font-size="11">22%</text>
+        <text x="358" y="368" fill="#f06595" font-size="11">-2%</text>
+        <text x="415" y="368" fill="#38d9a9" font-size="11">+5%</text>
+
+        <text x="36" y="401" fill="#a0a8d0" font-size="13">5</text>
+        <text x="82" y="401" fill="#e2e4f0" font-size="12">Kubernetes</text>
+        <text x="230" y="401" fill="#8b8fa8" font-size="11">tool</text>
+        <rect x="285" y="391" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="391" width="19" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="401" fill="#e2e4f0" font-size="11">19%</text>
+        <text x="358" y="401" fill="#38d9a9" font-size="11">+4%</text>
+        <text x="415" y="401" fill="#38d9a9" font-size="11">+18%</text>
+
+        <text x="36" y="434" fill="#a0a8d0" font-size="13">6</text>
+        <text x="82" y="434" fill="#e2e4f0" font-size="12">SQL</text>
+        <text x="230" y="434" fill="#8b8fa8" font-size="11">technical</text>
+        <rect x="285" y="424" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="424" width="17" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="434" fill="#e2e4f0" font-size="11">17%</text>
+        <text x="358" y="434" fill="#8b8fa8" font-size="11">0%</text>
+        <text x="415" y="434" fill="#f06595" font-size="11">-3%</text>
+
+        <text x="36" y="467" fill="#a0a8d0" font-size="13">7</text>
+        <text x="82" y="467" fill="#e2e4f0" font-size="12">Airflow</text>
+        <text x="230" y="467" fill="#8b8fa8" font-size="11">tool</text>
+        <rect x="285" y="457" width="50" height="8" rx="2" fill="#5b6af0" opacity="0.3"/>
+        <rect x="285" y="457" width="14" height="8" rx="2" fill="#5b6af0"/>
+        <text x="344" y="467" fill="#e2e4f0" font-size="11">14%</text>
+        <text x="358" y="467" fill="#38d9a9" font-size="11">+6%</text>
+        <text x="415" y="467" fill="#38d9a9" font-size="11">+22%</text>
+
+        <!-- Trend chart panel -->
+        <rect x="472" y="196" width="410" height="320" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="484" y="218" fill="#e2e4f0" font-weight="600" font-size="13">Skill Share Over Time — dbt</text>
+        <rect x="472" y="224" width="410" height="1" fill="#2e3147"/>
+        <!-- Y axis labels -->
+        <text x="484" y="260" fill="#546e7a" font-size="10">40%</text>
+        <text x="484" y="300" fill="#546e7a" font-size="10">30%</text>
+        <text x="484" y="340" fill="#546e7a" font-size="10">20%</text>
+        <text x="484" y="380" fill="#546e7a" font-size="10">10%</text>
+        <text x="484" y="416" fill="#546e7a" font-size="10">0%</text>
+        <!-- Grid lines -->
+        <line x1="510" y1="255" x2="870" y2="255" stroke="#2e3147" stroke-width="0.5"/>
+        <line x1="510" y1="295" x2="870" y2="295" stroke="#2e3147" stroke-width="0.5"/>
+        <line x1="510" y1="335" x2="870" y2="335" stroke="#2e3147" stroke-width="0.5"/>
+        <line x1="510" y1="375" x2="870" y2="375" stroke="#2e3147" stroke-width="0.5"/>
+        <line x1="510" y1="415" x2="870" y2="415" stroke="#2e3147" stroke-width="0.5"/>
+        <!-- dbt area chart -->
+        <defs>
+          <linearGradient id="dbtGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5b6af0" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#5b6af0" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <path d="M510,395 L570,385 L630,370 L690,355 L750,338 L810,320 L870,295 L870,415 L510,415 Z" fill="url(#dbtGrad)"/>
+        <polyline points="510,395 570,385 630,370 690,355 750,338 810,320 870,295" fill="none" stroke="#5b6af0" stroke-width="2"/>
+        <!-- X axis labels -->
+        <text x="510" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Sep</text>
+        <text x="570" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Oct</text>
+        <text x="630" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Nov</text>
+        <text x="690" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Dec</text>
+        <text x="750" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Jan</text>
+        <text x="810" y="432" fill="#546e7a" font-size="10" text-anchor="middle">Feb</text>
+        <text x="870" y="432" fill="#e2e4f0" font-size="10" text-anchor="middle">Mar</text>
+        <!-- Tooltip -->
+        <rect x="840" y="265" width="80" height="48" rx="4" fill="#1a1d27" stroke="#5b6af0" stroke-width="1"/>
+        <text x="880" y="281" text-anchor="middle" fill="#8b8fa8" font-size="9">Mar 2026</text>
+        <text x="880" y="296" text-anchor="middle" fill="#e2e4f0" font-size="12" font-weight="700">34%</text>
+        <text x="880" y="308" text-anchor="middle" fill="#38d9a9" font-size="9">↑ +31% YoY</text>
+        <circle cx="870" cy="295" r="4" fill="#5b6af0" stroke="#e2e4f0" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- WF 2: Job Search -->
+  <div class="wireframe-section" style="margin-top:32px">
+    <div class="wireframe-label">Wireframe 2 — Job Search & Filter</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">jobsignals.io/jobs?q=data+engineer&modality=remote</div>
+      </div>
+      <svg width="100%" viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+        <!-- Top nav -->
+        <rect width="900" height="44" fill="#1a1d27"/>
+        <text x="20" y="28" fill="#5b6af0" font-weight="700" font-size="14">Job<tspan fill="#e2e4f0">Signals</tspan></text>
+        <!-- Search bar -->
+        <rect x="0" y="44" width="900" height="56" fill="#222535"/>
+        <rect x="16" y="56" width="540" height="30" rx="6" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="30" y="75" fill="#546e7a" font-size="12">🔍  data engineer</text>
+        <rect x="570" y="56" width="110" height="30" rx="6" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="625" y="75" text-anchor="middle" fill="#a0a8d0" font-size="11">Remote ▾</text>
+        <rect x="692" y="56" width="100" height="30" rx="6" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="742" y="75" text-anchor="middle" fill="#a0a8d0" font-size="11">Senior ▾</text>
+        <rect x="806" y="56" width="80" height="30" rx="6" fill="#5b6af0"/>
+        <text x="846" y="75" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Search</text>
+
+        <!-- Left sidebar filters -->
+        <rect x="16" y="116" width="190" height="324" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="28" y="140" fill="#e2e4f0" font-weight="600" font-size="13">Filters</text>
+        <text x="28" y="164" fill="#8b8fa8" font-size="10" letter-spacing="0.5">TITLE FAMILY</text>
+        <rect x="28" y="172" width="12" height="12" rx="2" fill="#5b6af0"/>
+        <text x="46" y="182" fill="#e2e4f0" font-size="11">Data Engineering</text>
+        <rect x="28" y="190" width="12" height="12" rx="2" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="46" y="200" fill="#8b8fa8" font-size="11">Data Science</text>
+        <rect x="28" y="208" width="12" height="12" rx="2" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="46" y="218" fill="#8b8fa8" font-size="11">ML Engineering</text>
+        <text x="28" y="242" fill="#8b8fa8" font-size="10" letter-spacing="0.5">SALARY RANGE</text>
+        <rect x="28" y="252" width="158" height="6" rx="3" fill="#2e3147"/>
+        <rect x="28" y="252" width="100" height="6" rx="3" fill="#5b6af0"/>
+        <circle cx="128" cy="255" r="6" fill="#fff" stroke="#5b6af0" stroke-width="2"/>
+        <text x="28" y="276" fill="#8b8fa8" font-size="11">$120k — $300k+</text>
+        <text x="28" y="304" fill="#8b8fa8" font-size="10" letter-spacing="0.5">SKILLS (required)</text>
+        <rect x="28" y="312" width="80" height="20" rx="10" fill="rgba(91,106,240,0.15)" stroke="rgba(91,106,240,0.4)" stroke-width="1"/>
+        <text x="68" y="326" text-anchor="middle" fill="#5b6af0" font-size="10">Python ✕</text>
+        <rect x="114" y="312" width="66" height="20" rx="10" fill="rgba(91,106,240,0.15)" stroke="rgba(91,106,240,0.4)" stroke-width="1"/>
+        <text x="147" y="326" text-anchor="middle" fill="#5b6af0" font-size="10">dbt ✕</text>
+        <text x="28" y="358" fill="#8b8fa8" font-size="10" letter-spacing="0.5">COMPANY STAGE</text>
+        <rect x="28" y="366" width="12" height="12" rx="2" fill="#5b6af0"/>
+        <text x="46" y="376" fill="#e2e4f0" font-size="11">Startup (A–C)</text>
+        <rect x="28" y="384" width="12" height="12" rx="2" fill="#5b6af0"/>
+        <text x="46" y="394" fill="#e2e4f0" font-size="11">Growth / Public</text>
+        <rect x="28" y="402" width="12" height="12" rx="2" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="46" y="412" fill="#8b8fa8" font-size="11">Enterprise</text>
+
+        <!-- Results list -->
+        <!-- Result 1 -->
+        <rect x="222" y="116" width="660" height="92" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <rect x="234" y="128" width="36" height="36" rx="6" fill="#2e3a55"/>
+        <text x="252" y="151" text-anchor="middle" fill="#5b6af0" font-size="16" font-weight="700">S</text>
+        <text x="282" y="144" fill="#e2e4f0" font-size="13" font-weight="600">Senior Data Engineer</text>
+        <text x="282" y="160" fill="#8b8fa8" font-size="11">Stripe · San Francisco, CA · Remote</text>
+        <rect x="282" y="170" width="54" height="18" rx="9" fill="rgba(56,217,169,0.12)" stroke="rgba(56,217,169,0.3)" stroke-width="1"/>
+        <text x="309" y="182" text-anchor="middle" fill="#38d9a9" font-size="10">remote</text>
+        <rect x="344" y="170" width="40" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="364" y="182" text-anchor="middle" fill="#5b6af0" font-size="10">senior</text>
+        <rect x="392" y="170" width="36" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="410" y="182" text-anchor="middle" fill="#5b6af0" font-size="10">dbt</text>
+        <rect x="436" y="170" width="48" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="460" y="182" text-anchor="middle" fill="#5b6af0" font-size="10">Python</text>
+        <rect x="492" y="170" width="42" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="513" y="182" text-anchor="middle" fill="#5b6af0" font-size="10">Kafka</text>
+        <text x="820" y="144" fill="#38d9a9" font-size="13" font-weight="600">$180–240k</text>
+        <text x="820" y="160" fill="#546e7a" font-size="10">3 days ago</text>
+
+        <!-- Result 2 -->
+        <rect x="222" y="218" width="660" height="92" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <rect x="234" y="230" width="36" height="36" rx="6" fill="#1e2a20"/>
+        <text x="252" y="253" text-anchor="middle" fill="#38d9a9" font-size="16" font-weight="700">A</text>
+        <text x="282" y="246" fill="#e2e4f0" font-size="13" font-weight="600">Data Engineer, Platform</text>
+        <text x="282" y="262" fill="#8b8fa8" font-size="11">Anthropic · San Francisco, CA · Remote</text>
+        <rect x="282" y="272" width="54" height="18" rx="9" fill="rgba(56,217,169,0.12)" stroke="rgba(56,217,169,0.3)" stroke-width="1"/>
+        <text x="309" y="284" text-anchor="middle" fill="#38d9a9" font-size="10">remote</text>
+        <rect x="344" y="272" width="26" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="357" y="284" text-anchor="middle" fill="#5b6af0" font-size="10">mid</text>
+        <rect x="378" y="272" width="48" height="18" rx="9" fill="rgba(91,106,240,0.12)" stroke="rgba(91,106,240,0.3)" stroke-width="1"/>
+        <text x="402" y="284" text-anchor="middle" fill="#5b6af0" font-size="10">Spark</text>
+        <text x="820" y="246" fill="#38d9a9" font-size="13" font-weight="600">$160–210k</text>
+        <text x="820" y="262" fill="#546e7a" font-size="10">1 day ago</text>
+
+        <!-- Result 3 -->
+        <rect x="222" y="320" width="660" height="92" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <rect x="234" y="332" width="36" height="36" rx="6" fill="#2a1e35"/>
+        <text x="252" y="355" text-anchor="middle" fill="#c792ea" font-size="16" font-weight="700">L</text>
+        <text x="282" y="348" fill="#e2e4f0" font-size="13" font-weight="600">Staff Data Engineer</text>
+        <text x="282" y="364" fill="#8b8fa8" font-size="11">Linear · New York, NY · Remote</text>
+        <rect x="282" y="374" width="54" height="18" rx="9" fill="rgba(56,217,169,0.12)" stroke="rgba(56,217,169,0.3)" stroke-width="1"/>
+        <text x="309" y="386" text-anchor="middle" fill="#38d9a9" font-size="10">remote</text>
+        <rect x="344" y="374" width="30" height="18" rx="9" fill="rgba(247,183,49,0.12)" stroke="rgba(247,183,49,0.3)" stroke-width="1"/>
+        <text x="359" y="386" text-anchor="middle" fill="#f7b731" font-size="10">staff</text>
+        <text x="820" y="348" fill="#38d9a9" font-size="13" font-weight="600">$220–290k</text>
+        <text x="820" y="364" fill="#546e7a" font-size="10">5 days ago</text>
+
+        <!-- Pagination -->
+        <text x="222" y="432" fill="#8b8fa8" font-size="12">Showing 1–20 of 4,820 results</text>
+        <rect x="700" y="418" width="30" height="24" rx="4" fill="#5b6af0"/>
+        <text x="715" y="434" text-anchor="middle" fill="#fff" font-size="12">1</text>
+        <rect x="738" y="418" width="30" height="24" rx="4" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="753" y="434" text-anchor="middle" fill="#8b8fa8" font-size="12">2</text>
+        <rect x="776" y="418" width="30" height="24" rx="4" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="791" y="434" text-anchor="middle" fill="#8b8fa8" font-size="12">3</text>
+        <text x="822" y="434" fill="#8b8fa8" font-size="12">…</text>
+        <rect x="846" y="418" width="30" height="24" rx="4" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="861" y="434" text-anchor="middle" fill="#8b8fa8" font-size="12">→</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- WF 3: Company Signals -->
+  <div class="wireframe-section" style="margin-top:32px">
+    <div class="wireframe-label">Wireframe 3 — Company Signals View</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">jobsignals.io/companies/stripe</div>
+      </div>
+      <svg width="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+        <!-- Header -->
+        <rect width="900" height="80" fill="#1a1d27"/>
+        <rect x="20" y="18" width="44" height="44" rx="8" fill="#2e3a55"/>
+        <text x="42" y="46" text-anchor="middle" fill="#5b6af0" font-size="22" font-weight="800">S</text>
+        <text x="76" y="36" fill="#e2e4f0" font-size="18" font-weight="700">Stripe</text>
+        <text x="76" y="54" fill="#8b8fa8" font-size="12">Fintech · Public · 5,000+ employees</text>
+        <rect x="820" y="24" width="60" height="28" rx="6" fill="rgba(56,217,169,0.12)" stroke="rgba(56,217,169,0.3)" stroke-width="1"/>
+        <text x="850" y="42" text-anchor="middle" fill="#38d9a9" font-size="11" font-weight="600">Watch ☆</text>
+        <!-- Stats row -->
+        <rect x="0" y="80" width="900" height="1" fill="#2e3147"/>
+        <rect x="0" y="81" width="900" height="72" fill="#1e2129"/>
+        <text x="50" y="108" text-anchor="middle" fill="#8b8fa8" font-size="10">ACTIVE POSTINGS</text>
+        <text x="50" y="134" text-anchor="middle" fill="#e2e4f0" font-size="22" font-weight="700">58</text>
+        <rect x="120" y="95" width="1" height="48" fill="#2e3147"/>
+        <text x="200" y="108" text-anchor="middle" fill="#8b8fa8" font-size="10">90-DAY POSTINGS</text>
+        <text x="200" y="134" text-anchor="middle" fill="#e2e4f0" font-size="22" font-weight="700">143</text>
+        <rect x="280" y="95" width="1" height="48" fill="#2e3147"/>
+        <text x="370" y="108" text-anchor="middle" fill="#8b8fa8" font-size="10">VELOCITY SCORE</text>
+        <text x="370" y="134" text-anchor="middle" fill="#38d9a9" font-size="22" font-weight="700">82.4</text>
+        <rect x="450" y="95" width="1" height="48" fill="#2e3147"/>
+        <text x="540" y="108" text-anchor="middle" fill="#8b8fa8" font-size="10">MEDIAN SALARY</text>
+        <text x="540" y="134" text-anchor="middle" fill="#e2e4f0" font-size="22" font-weight="700">$200k</text>
+        <rect x="620" y="95" width="1" height="48" fill="#2e3147"/>
+        <text x="730" y="108" text-anchor="middle" fill="#8b8fa8" font-size="10">TOP ROLE FAMILY</text>
+        <text x="730" y="134" text-anchor="middle" fill="#e2e4f0" font-size="14" font-weight="700">Backend Eng</text>
+        <!-- Hiring chart -->
+        <rect x="16" y="170" width="450" height="230" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="28" y="192" fill="#e2e4f0" font-weight="600" font-size="13">Hiring Velocity (Monthly)</text>
+        <!-- Bar chart -->
+        <rect x="50" y="290" width="32" height="60" rx="3" fill="#5b6af0" opacity="0.4"/>
+        <text x="66" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Aug</text>
+        <rect x="110" y="280" width="32" height="70" rx="3" fill="#5b6af0" opacity="0.5"/>
+        <text x="126" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Sep</text>
+        <rect x="170" y="295" width="32" height="55" rx="3" fill="#5b6af0" opacity="0.5"/>
+        <text x="186" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Oct</text>
+        <rect x="230" y="270" width="32" height="80" rx="3" fill="#5b6af0" opacity="0.6"/>
+        <text x="246" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Nov</text>
+        <rect x="290" y="258" width="32" height="92" rx="3" fill="#5b6af0" opacity="0.7"/>
+        <text x="306" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Dec</text>
+        <rect x="350" y="246" width="32" height="104" rx="3" fill="#5b6af0" opacity="0.85"/>
+        <text x="366" y="363" text-anchor="middle" fill="#546e7a" font-size="10">Jan</text>
+        <rect x="410" y="230" width="32" height="120" rx="3" fill="#5b6af0"/>
+        <text x="426" y="363" text-anchor="middle" fill="#e2e4f0" font-size="10">Feb</text>
+        <!-- Top skills panel -->
+        <rect x="482" y="170" width="400" height="230" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="494" y="192" fill="#e2e4f0" font-weight="600" font-size="13">Top Skills Hired For (90 days)</text>
+        <rect x="494" y="200" width="376" height="1" fill="#2e3147"/>
+        <!-- Horizontal bars -->
+        <text x="494" y="224" fill="#e2e4f0" font-size="12">Python</text>
+        <rect x="570" y="212" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="212" width="230" height="14" rx="3" fill="#5b6af0"/>
+        <text x="808" y="224" fill="#a0a8d0" font-size="11">85%</text>
+
+        <text x="494" y="252" fill="#e2e4f0" font-size="12">Go</text>
+        <rect x="570" y="240" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="240" width="195" height="14" rx="3" fill="#5b6af0"/>
+        <text x="773" y="252" fill="#a0a8d0" font-size="11">72%</text>
+
+        <text x="494" y="280" fill="#e2e4f0" font-size="12">Kubernetes</text>
+        <rect x="570" y="268" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="268" width="162" height="14" rx="3" fill="#5b6af0"/>
+        <text x="740" y="280" fill="#a0a8d0" font-size="11">60%</text>
+
+        <text x="494" y="308" fill="#e2e4f0" font-size="12">PostgreSQL</text>
+        <rect x="570" y="296" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="296" width="135" height="14" rx="3" fill="#5b6af0"/>
+        <text x="713" y="308" fill="#a0a8d0" font-size="11">50%</text>
+
+        <text x="494" y="336" fill="#e2e4f0" font-size="12">dbt</text>
+        <rect x="570" y="324" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="324" width="108" height="14" rx="3" fill="#5b6af0"/>
+        <text x="686" y="336" fill="#a0a8d0" font-size="11">40%</text>
+
+        <text x="494" y="364" fill="#e2e4f0" font-size="12">Kafka</text>
+        <rect x="570" y="352" width="270" height="14" rx="3" fill="#2e3147"/>
+        <rect x="570" y="352" width="81" height="14" rx="3" fill="#5b6af0"/>
+        <text x="659" y="364" fill="#a0a8d0" font-size="11">30%</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- WF 4: Salary Benchmark -->
+  <div class="wireframe-section" style="margin-top:32px">
+    <div class="wireframe-label">Wireframe 4 — Salary Benchmark Tool</div>
+    <div class="wireframe-box">
+      <div class="wf-titlebar">
+        <div class="wf-dot r"></div><div class="wf-dot y"></div><div class="wf-dot g"></div>
+        <div class="wf-url">jobsignals.io/salaries?role=data-engineering&seniority=senior</div>
+      </div>
+      <svg width="100%" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+        <!-- Header -->
+        <rect width="900" height="44" fill="#1a1d27"/>
+        <text x="20" y="28" fill="#5b6af0" font-weight="700" font-size="14">Job<tspan fill="#e2e4f0">Signals</tspan></text>
+        <text x="480" y="28" fill="#e2e4f0" font-size="12" text-anchor="middle">Salary Intelligence</text>
+        <!-- Filter row -->
+        <rect x="0" y="44" width="900" height="52" fill="#222535"/>
+        <text x="24" y="72" fill="#8b8fa8" font-size="12">Role:</text>
+        <rect x="60" y="56" width="160" height="28" rx="5" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="140" y="74" text-anchor="middle" fill="#e2e4f0" font-size="12">Data Engineering ▾</text>
+        <text x="234" y="72" fill="#8b8fa8" font-size="12">Level:</text>
+        <rect x="276" y="56" width="110" height="28" rx="5" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="331" y="74" text-anchor="middle" fill="#e2e4f0" font-size="12">Senior ▾</text>
+        <text x="400" y="72" fill="#8b8fa8" font-size="12">Country:</text>
+        <rect x="454" y="56" width="110" height="28" rx="5" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="509" y="74" text-anchor="middle" fill="#e2e4f0" font-size="12">United States ▾</text>
+        <text x="578" y="72" fill="#8b8fa8" font-size="12">Stage:</text>
+        <rect x="620" y="56" width="120" height="28" rx="5" fill="#2e3147" stroke="#3b4060" stroke-width="1"/>
+        <text x="680" y="74" text-anchor="middle" fill="#e2e4f0" font-size="12">All Stages ▾</text>
+        <!-- Distribution viz -->
+        <rect x="16" y="112" width="560" height="240" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="28" y="134" fill="#e2e4f0" font-weight="600" font-size="13">Salary Distribution — Senior Data Engineer · US</text>
+        <text x="28" y="150" fill="#546e7a" font-size="11">Based on 2,840 postings (last 90 days)</text>
+        <!-- Distribution curve (bell-ish) using path -->
+        <defs>
+          <linearGradient id="salGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5b6af0" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#5b6af0" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+        <path d="M50,300 Q100,300 120,290 Q150,270 180,240 Q200,210 220,185 Q240,160 270,148 Q295,138 320,148 Q350,160 370,185 Q395,215 415,248 Q435,272 460,290 Q490,300 530,300" fill="url(#salGrad)" stroke="#5b6af0" stroke-width="2"/>
+        <!-- Percentile lines -->
+        <line x1="130" y1="165" x2="130" y2="300" stroke="#3b4060" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="130" y="160" text-anchor="middle" fill="#8b8fa8" font-size="10">P10</text>
+        <text x="130" y="315" text-anchor="middle" fill="#8b8fa8" font-size="10">$140k</text>
+        <line x1="210" y1="165" x2="210" y2="300" stroke="#3b4060" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="210" y="160" text-anchor="middle" fill="#8b8fa8" font-size="10">P25</text>
+        <text x="210" y="315" text-anchor="middle" fill="#8b8fa8" font-size="10">$165k</text>
+        <line x1="315" y1="135" x2="315" y2="300" stroke="#38d9a9" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="315" y="128" text-anchor="middle" fill="#38d9a9" font-size="11" font-weight="700">P50</text>
+        <text x="315" y="315" text-anchor="middle" fill="#38d9a9" font-size="11" font-weight="700">$195k</text>
+        <line x1="405" y1="165" x2="405" y2="300" stroke="#3b4060" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="405" y="160" text-anchor="middle" fill="#8b8fa8" font-size="10">P75</text>
+        <text x="405" y="315" text-anchor="middle" fill="#8b8fa8" font-size="10">$230k</text>
+        <line x1="490" y1="165" x2="490" y2="300" stroke="#3b4060" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="490" y="160" text-anchor="middle" fill="#8b8fa8" font-size="10">P90</text>
+        <text x="490" y="315" text-anchor="middle" fill="#8b8fa8" font-size="10">$270k</text>
+        <!-- Stats panel -->
+        <rect x="592" y="112" width="290" height="240" rx="6" fill="#222535" stroke="#2e3147" stroke-width="1"/>
+        <text x="604" y="134" fill="#e2e4f0" font-weight="600" font-size="13">Salary Summary</text>
+        <rect x="604" y="144" width="266" height="1" fill="#2e3147"/>
+        <text x="604" y="170" fill="#8b8fa8" font-size="11">10th percentile</text>
+        <text x="870" y="170" text-anchor="end" fill="#a0a8d0" font-size="12" font-weight="600">$140,000</text>
+        <text x="604" y="196" fill="#8b8fa8" font-size="11">25th percentile</text>
+        <text x="870" y="196" text-anchor="end" fill="#a0a8d0" font-size="12" font-weight="600">$165,000</text>
+        <rect x="604" y="206" width="266" height="30" rx="4" fill="rgba(56,217,169,0.06)"/>
+        <text x="604" y="226" fill="#38d9a9" font-size="11" font-weight="600">Median (P50)</text>
+        <text x="870" y="226" text-anchor="end" fill="#38d9a9" font-size="14" font-weight="700">$195,000</text>
+        <text x="604" y="252" fill="#8b8fa8" font-size="11">75th percentile</text>
+        <text x="870" y="252" text-anchor="end" fill="#a0a8d0" font-size="12" font-weight="600">$230,000</text>
+        <text x="604" y="278" fill="#8b8fa8" font-size="11">90th percentile</text>
+        <text x="870" y="278" text-anchor="end" fill="#a0a8d0" font-size="12" font-weight="600">$270,000</text>
+        <rect x="604" y="295" width="266" height="1" fill="#2e3147"/>
+        <text x="604" y="318" fill="#546e7a" font-size="10">Sample: 2,840 postings · last 90 days</text>
+        <text x="604" y="334" fill="#546e7a" font-size="10">Salary source: posted + inferred</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 11: FEATURES -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="features"></a>
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <h2>Product Features</h2>
+  </div>
+
+  <h3>Feature Registry</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Feature</th><th>Consumer</th><th>Priority</th><th>MVP</th></tr></thead>
+      <tbody>
+        <tr><td>F-01</td><td>Job Search API (filtered, paginated)</td><td>All</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>F-02</td><td>Skill Trends API (ranked demand with trend signals)</td><td>All</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>F-03</td><td>Company Signals API (velocity + patterns)</td><td>TA, VC</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>F-04</td><td>Salary Benchmark API (percentile ranges)</td><td>Seekers, TA</td><td><span class="tag tag-p0">P0</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>F-05</td><td>Skill Taxonomy Browser UI</td><td>Internal</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-06</td><td>Bulk Dataset Export (Parquet / CSV)</td><td>Researcher, Analyst</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-07</td><td>Hiring Trend Dashboard (Metabase/Superset)</td><td>Non-technical</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-08</td><td>Company Hiring Alerts (webhook/email)</td><td>TA, VC</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-09</td><td>Data Catalog Auto-sync (DataHub/Atlan)</td><td>Internal</td><td><span class="tag tag-p1">P1</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-10</td><td>GraphQL API</td><td>Developer</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+        <tr><td>F-11</td><td>Embeddings / Semantic Search API</td><td>ML / Developer</td><td><span class="tag tag-p2">P2</span></td><td><span class="tag tag-no">No</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Access Tiers</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Free</th><th>Standard</th><th>Premium</th></tr></thead>
+      <tbody>
+        <tr><td>Job Search API</td><td>100 req/day</td><td>10,000 req/day</td><td>Unlimited</td></tr>
+        <tr><td>Skill Trends</td><td>Last 30 days</td><td>Last 12 months</td><td>Full history</td></tr>
+        <tr><td>Company Signals</td><td>Top 500 companies</td><td>All companies</td><td>All companies</td></tr>
+        <tr><td>Salary Benchmarks</td><td>5 queries/day</td><td>Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Bulk Export</td><td><span class="tag tag-no">No</span></td><td><span class="tag tag-no">No</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>Webhooks / Alerts</td><td><span class="tag tag-no">No</span></td><td><span class="tag tag-no">No</span></td><td><span class="tag tag-yes">Yes</span></td></tr>
+        <tr><td>Uptime SLA</td><td>Best effort</td><td>99.5%</td><td>99.9% + dedicated support</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 12: NFR -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="nfr"></a>
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <h2>Non-Functional Requirements</h2>
+  </div>
+
+  <h3>Performance</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Requirement</th><th>Target</th><th>Measurement</th></tr></thead>
+      <tbody>
+        <tr><td>API P50 latency</td><td>&lt; 80ms</td><td>Measured at API gateway</td></tr>
+        <tr><td>API P99 latency</td><td>&lt; 400ms</td><td>Measured at API gateway</td></tr>
+        <tr><td>Search query P50</td><td>&lt; 200ms</td><td>Elasticsearch response time</td></tr>
+        <tr><td>Dashboard load time</td><td>&lt; 3 seconds</td><td>Lighthouse FCP metric</td></tr>
+        <tr><td>Bulk export generation</td><td>&lt; 10 minutes</td><td>Request to download ready</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Availability & Reliability</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Requirement</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>API uptime (Standard tier)</td><td>99.5% monthly</td></tr>
+        <tr><td>API uptime (Premium tier)</td><td>99.9% monthly</td></tr>
+        <tr><td>Pipeline recovery from failure</td><td>Resume from last checkpoint within 30 min</td></tr>
+        <tr><td>Data freshness (Standard)</td><td>All sources ingested within 24 hours</td></tr>
+        <tr><td>Data freshness (Premium)</td><td>Core sources within 1 hour</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Security</h3>
+  <ul>
+    <li>All data in transit encrypted (TLS 1.3); at rest (AES-256)</li>
+    <li>No PII stored — recruiter/poster identity stripped at ingestion</li>
+    <li>RBAC for internal warehouse access: <code>read_raw</code>, <code>read_curated</code>, <code>admin</code></li>
+    <li>API keys rotatable; 90-day audit log of all key usage retained</li>
+    <li>API layer is read-only; no write paths exposed publicly</li>
+  </ul>
+
+  <h3>Observability</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Signal</th><th>Tooling</th></tr></thead>
+      <tbody>
+        <tr><td>Pipeline health</td><td>Airflow / Prefect DAG monitoring + Datadog</td></tr>
+        <tr><td>Data quality</td><td>dbt tests + Great Expectations</td></tr>
+        <tr><td>API metrics</td><td>Datadog APM (latency, error rate, throughput)</td></tr>
+        <tr><td>Freshness alerts</td><td>dbt freshness checks → PagerDuty</td></tr>
+        <tr><td>Data lineage</td><td>dbt lineage graph in DataHub/Atlan catalog</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 13: GOVERNANCE -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="governance"></a>
+  <div class="section-header">
+    <div class="section-num">13</div>
+    <h2>Data Governance & Quality</h2>
+  </div>
+
+  <h3>Data Quality Dimensions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Dimension</th><th>Definition</th><th>Target</th><th>How Measured</th></tr></thead>
+      <tbody>
+        <tr><td>Completeness</td><td>Required fields populated</td><td>≥ 95%</td><td>dbt: not_null on required fields</td></tr>
+        <tr><td>Freshness</td><td>Data age relative to SLA</td><td>≤ 24h lag</td><td>dbt freshness check on <code>ingested_at</code></td></tr>
+        <tr><td>Accuracy</td><td>Normalized fields map correctly to taxonomy</td><td>≥ 98%</td><td>Manual sample audit (weekly, n=100)</td></tr>
+        <tr><td>Uniqueness</td><td>No duplicate <code>job_id</code> in canonical table</td><td>100%</td><td>dbt: unique on <code>job_id</code></td></tr>
+        <tr><td>Consistency</td><td>Same company resolves to same <code>company_id</code></td><td>≥ 99%</td><td>dbt test on entity resolution</td></tr>
+        <tr><td>Validity</td><td>Salary in plausible range; dates parseable</td><td>≥ 99%</td><td>dbt: accepted_range on salary fields</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Schema Change Management</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Change Type</th><th>Process</th></tr></thead>
+      <tbody>
+        <tr><td>Add new optional column</td><td>MINOR version bump; published to changelog; no consumer action required</td></tr>
+        <tr><td>Rename or remove column</td><td>MAJOR version bump; 90-day deprecation window; both versions served in parallel</td></tr>
+        <tr><td>Change enum values</td><td>MINOR if additive; MAJOR if removing existing value</td></tr>
+        <tr><td>Change aggregation logic</td><td>MAJOR; recomputation of historical values required; changelog explanation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout yellow">
+    <div class="callout-title">Privacy & Compliance</div>
+    No PII policy: recruiter names, poster emails stripped at ingestion. Right to erasure: company blocklist suppresses records from all serving paths within 24 hours. Legal review of scraping ToS: quarterly cadence; any source ToS update triggers immediate review before next crawl.
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 14: METRICS -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="metrics"></a>
+  <div class="section-header">
+    <div class="section-num">14</div>
+    <h2>Product Metrics</h2>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">North Star Metric</div>
+    <strong>Weekly Active Dataset Consumers (WADC)</strong> — the number of distinct teams or external API consumers that make at least one meaningful query to JobSignals data within a rolling 7-day window. Rewards breadth of adoption; penalizes data products that are built but not consumed.
+  </div>
+
+  <h3>Supply-Side Metrics (Data Quality)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Target</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>Pipeline success rate</td><td>≥ 99% daily</td><td>Data product is only valuable if fresh</td></tr>
+        <tr><td>Data freshness SLA adherence</td><td>≥ 98%</td><td>Trust is broken by stale data</td></tr>
+        <tr><td>Schema test pass rate</td><td>100%</td><td>Contract reliability</td></tr>
+        <tr><td>Skill extraction accuracy</td><td>≥ 95% (audited sample)</td><td>Core value depends on extraction quality</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Demand-Side Metrics (Adoption)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Target (EOY)</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td>Unique API consumers</td><td>25 teams / accounts</td><td>Breadth of reuse</td></tr>
+        <tr><td>API calls per week</td><td>500K</td><td>Volume signal</td></tr>
+        <tr><td>Dataset export downloads / month</td><td>50</td><td>Research / bulk usage</td></tr>
+        <tr><td>Dashboard weekly active viewers</td><td>200</td><td>Non-technical reach</td></tr>
+        <tr><td>Consumer-reported data issues / week</td><td>&lt; 5</td><td>Quality perception</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Anti-Metrics</h3>
+  <ul>
+    <li><strong>Number of job postings ingested:</strong> Volume ≠ quality. More noise reduces product value.</li>
+    <li><strong>Dashboard pageviews:</strong> Vanity metric — does not reflect whether data is informing decisions.</li>
+    <li><strong>Number of data sources:</strong> More sources create maintenance burden without proportional signal gain.</li>
+  </ul>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 15: MVP -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="mvp"></a>
+  <div class="section-header">
+    <div class="section-num">15</div>
+    <h2>MVP Scope</h2>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">MVP Hypothesis</div>
+    A standardized, governed job postings dataset with a thin API layer will be actively reused by at least 3 distinct consumer teams within 60 days of launch.
+  </div>
+
+  <h3>MVP Inclusions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Component</th><th>Scope</th></tr></thead>
+      <tbody>
+        <tr><td>Data sources</td><td>LinkedIn + Indeed only (Tier 1)</td></tr>
+        <tr><td>Geographies</td><td>United States only</td></tr>
+        <tr><td>Role families</td><td>5: Data Engineering, Data Science, ML Engineering, Software Engineering, Product Management</td></tr>
+        <tr><td>Refresh cadence</td><td>Daily (no intraday updates)</td></tr>
+        <tr><td>Tables delivered</td><td><code>job_postings</code>, <code>job_skills</code>, <code>companies</code>, <code>skill_trends</code></td></tr>
+        <tr><td>API endpoints</td><td><code>GET /v1/jobs</code>, <code>GET /v1/skills/trends</code>, <code>GET /v1/companies/{id}/signals</code>, <code>GET /v1/salaries/benchmark</code></td></tr>
+        <tr><td>Auth</td><td>API key only</td></tr>
+        <tr><td>Dashboard</td><td>1 pre-built Metabase dashboard: Skill Demand Overview</td></tr>
+        <tr><td>Data catalog</td><td>Manual entry (no automated sync)</td></tr>
+        <tr><td>Consumer support</td><td>Office hours + Slack channel <code>#jobsignals-users</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>MVP Timeline</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Milestone</th><th>Week</th><th>Deliverable</th></tr></thead>
+      <tbody>
+        <tr><td>Kickoff + source contracts</td><td>W1</td><td>LinkedIn / Indeed crawl access confirmed</td></tr>
+        <tr><td>Bronze pipeline live</td><td>W2–W3</td><td>Raw data landing in GCS; DAGs running</td></tr>
+        <tr><td>dbt models + canonical dataset</td><td>W4–W5</td><td><code>job_postings</code>, <code>job_skills</code>, <code>companies</code> populated</td></tr>
+        <tr><td>Skill extraction pipeline</td><td>W5–W6</td><td>LLM extraction running; <code>job_skills</code> validated</td></tr>
+        <tr><td>API v1 (core endpoints)</td><td>W6–W7</td><td>4 endpoints live; auth working</td></tr>
+        <tr><td>Aggregations + trends</td><td>W7</td><td><code>skill_trends</code>, <code>company_signals</code> daily refresh live</td></tr>
+        <tr><td>Internal soft launch</td><td>W8</td><td>2 pilot teams onboarded; feedback collected</td></tr>
+        <tr><td>Dashboard live</td><td>W9</td><td>Metabase dashboard published</td></tr>
+        <tr><td>GA launch</td><td>W10</td><td>Announced to internal consumers; catalog entry published</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>MVP Success Criteria</h3>
+  <ul>
+    <li>≥ 3 distinct internal teams making regular API queries by day 30 post-launch</li>
+    <li>Pipeline success rate ≥ 98% in first 30 days</li>
+    <li>Zero P0 data quality incidents (schema breaks, widespread nulls in required fields)</li>
+    <li>Consumer NPS ≥ 30 in post-launch survey (n ≥ 10)</li>
+  </ul>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 16: RISKS -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="risks"></a>
+  <div class="section-header">
+    <div class="section-num">16</div>
+    <h2>Risks & Mitigation</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>R-01</td>
+          <td>LinkedIn/Indeed blocks scraping via ToS or IP blocking</td>
+          <td><span class="risk-high">High</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>Pursue official data partnerships; proxy rotation + rate limiting; adapter layer makes source swappable</td>
+        </tr>
+        <tr>
+          <td>R-02</td>
+          <td>Skill extraction quality too low, degrading trust</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>Ship rule-based extraction first; use LLM as enrichment layer; publish confidence scores for consumer filtering</td>
+        </tr>
+        <tr>
+          <td>R-03</td>
+          <td>Consumer adoption lower than expected; teams build their own</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>Onboard 2 pilot teams pre-GA; invest in consumer DX (docs, office hours, Slack); tie roadmap to feedback</td>
+        </tr>
+        <tr>
+          <td>R-04</td>
+          <td>Salary data too sparse to be statistically meaningful</td>
+          <td><span class="risk-high">High</span></td>
+          <td><span class="risk-med">Medium</span></td>
+          <td>Suppress benchmarks below n=30; show confidence intervals; add Glassdoor enrichment post-MVP</td>
+        </tr>
+        <tr>
+          <td>R-05</td>
+          <td>Schema churn creates breaking changes for consumers</td>
+          <td><span class="risk-low">Low</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>Enforce semantic versioning strictly; schema change review in weekly governance meeting; 90-day deprecation window</td>
+        </tr>
+        <tr>
+          <td>R-06</td>
+          <td>LLM extraction costs scale non-linearly with volume</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-med">Medium</span></td>
+          <td>Batch processing (not real-time); cache results; rule-based pre-filter reduces LLM call volume by 60–70%</td>
+        </tr>
+        <tr>
+          <td>R-07</td>
+          <td>PII inadvertently captured from career pages / niche sources</td>
+          <td><span class="risk-low">Low</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>PII scan step in ingestion pipeline (regex + model-based); never store; legal review for all new source types</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<!-- SECTION 17: ROADMAP -->
+<!-- ─────────────────────────────────────────── -->
+<div class="section">
+  <a class="section-anchor" id="roadmap"></a>
+  <div class="section-header">
+    <div class="section-num">17</div>
+    <h2>Future Roadmap</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>Timeline</th><th>Key Deliverables</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>MVP</strong></td>
+          <td>Now → Month 2.5</td>
+          <td>US-only · LinkedIn + Indeed · 4 API endpoints · Daily refresh · 1 dashboard</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 2 — Expansion</strong></td>
+          <td>Month 3–6</td>
+          <td>EU + APAC geographies · YC Jobs + career pages · Bulk export · GraphQL API · Glassdoor salary enrichment · Data catalog auto-sync</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 3 — Intelligence Layer</strong></td>
+          <td>Month 6–12</td>
+          <td>Emerging Skills Detector · Company Growth Score · Role Evolution Tracking · Intraday refresh (1h SLA for premium) · Alerts API</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 4 — Platform</strong></td>
+          <td>Month 12–18</td>
+          <td>External API launch (tiered pricing) · Self-serve data catalog · Embeddings API · Custom report builder · Data sharing partnerships</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Visual Timeline</h3>
+  <div class="wireframe-box" style="padding:20px">
+    <svg width="100%" viewBox="0 0 820 140" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif" font-size="11">
+      <!-- Track -->
+      <line x1="30" y1="60" x2="790" y2="60" stroke="#2e3147" stroke-width="2"/>
+      <!-- Phase nodes -->
+      <!-- MVP -->
+      <circle cx="60" cy="60" r="10" fill="#5b6af0"/>
+      <text x="60" y="30" text-anchor="middle" fill="#5b6af0" font-weight="700" font-size="12">MVP</text>
+      <text x="60" y="44" text-anchor="middle" fill="#546e7a">Now</text>
+      <text x="60" y="82" text-anchor="middle" fill="#8b8fa8" font-size="10">US · 2 sources</text>
+      <text x="60" y="95" text-anchor="middle" fill="#8b8fa8" font-size="10">4 APIs · Daily</text>
+      <!-- Phase 2 -->
+      <circle cx="280" cy="60" r="10" fill="#38d9a9"/>
+      <text x="280" y="30" text-anchor="middle" fill="#38d9a9" font-weight="700" font-size="12">Phase 2</text>
+      <text x="280" y="44" text-anchor="middle" fill="#546e7a">Month 3–6</text>
+      <text x="280" y="82" text-anchor="middle" fill="#8b8fa8" font-size="10">EU/APAC · 5+ sources</text>
+      <text x="280" y="95" text-anchor="middle" fill="#8b8fa8" font-size="10">Bulk export · GraphQL</text>
+      <!-- Phase 3 -->
+      <circle cx="540" cy="60" r="10" fill="#f7b731"/>
+      <text x="540" y="30" text-anchor="middle" fill="#f7b731" font-weight="700" font-size="12">Phase 3</text>
+      <text x="540" y="44" text-anchor="middle" fill="#546e7a">Month 6–12</text>
+      <text x="540" y="82" text-anchor="middle" fill="#8b8fa8" font-size="10">Intelligence layer</text>
+      <text x="540" y="95" text-anchor="middle" fill="#8b8fa8" font-size="10">Growth score · Alerts</text>
+      <!-- Phase 4 -->
+      <circle cx="760" cy="60" r="10" fill="#f06595"/>
+      <text x="760" y="30" text-anchor="middle" fill="#f06595" font-weight="700" font-size="12">Phase 4</text>
+      <text x="760" y="44" text-anchor="middle" fill="#546e7a">Month 12–18</text>
+      <text x="760" y="82" text-anchor="middle" fill="#8b8fa8" font-size="10">External API</text>
+      <text x="760" y="95" text-anchor="middle" fill="#8b8fa8" font-size="10">Self-serve · Embeddings</text>
+      <!-- connecting dots on line -->
+      <line x1="60" y1="60" x2="280" y2="60" stroke="#38d9a9" stroke-width="2" stroke-dasharray="6,4"/>
+      <line x1="280" y1="60" x2="540" y2="60" stroke="#f7b731" stroke-width="2" stroke-dasharray="6,4"/>
+      <line x1="540" y1="60" x2="760" y2="60" stroke="#f06595" stroke-width="2" stroke-dasharray="6,4"/>
+    </svg>
+  </div>
+
+  <hr class="divider">
+  <p style="color: var(--muted); font-size:12px; text-align:center">
+    Document Owner: [Product Owner Name] &nbsp;·&nbsp; Last Reviewed: 2026-03-13 &nbsp;·&nbsp; Next Review: 2026-04-13<br>
+    Questions: <code>#jobsignals-team</code> (Slack) &nbsp;·&nbsp; <code>jobsignals-pm@[company].com</code>
+  </p>
+</div>
+
+</main>
+</div>
+</body>
+</html>
+</div>
+</body>
+</html>
