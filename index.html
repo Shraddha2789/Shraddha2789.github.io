@@ -266,6 +266,23 @@
     .cert-status.active{background:#f0fdf4;color:#065f46;border:1px solid #bbf7d0;}
     .cert-status.completed{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;}
 
+    /* ── WRITING WIDE CARD ── */
+    .art-wide{grid-column:span 2;background:linear-gradient(135deg,var(--navy) 0%,#1a2e55 100%);border-radius:var(--r);border:none;display:flex;flex-direction:column;justify-content:center;padding:2rem 2.5rem;gap:.75rem;min-height:160px;}
+    .art-wide:hover{box-shadow:var(--sh-lg);transform:translateY(-2px);}
+    .art-wide-eyebrow{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#64748b;}
+    .art-wide-title{font-size:1.2rem;font-weight:800;color:#fff;line-height:1.35;letter-spacing:-.25px;}
+    .art-wide-sub{font-size:.85rem;color:#94a3b8;line-height:1.7;max-width:580px;}
+    .art-wide-cta{display:inline-flex;align-items:center;gap:.35rem;color:#93c5fd;font-size:.83rem;font-weight:600;text-decoration:none;margin-top:.25rem;width:fit-content;}
+    .art-wide-cta:hover{text-decoration:underline;}
+
+    /* ── ABOUT — PERSONAL ── */
+    .about-para{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+    .about-para strong{color:var(--text);}
+    .currently-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1.5rem;}
+    .currently-item{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:.85rem 1rem;}
+    .currently-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem;}
+    .currently-value{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.4;}
+
     /* ── FOOTER ── */
     footer{background:#060e1f;padding:1.5rem 2rem;text-align:center;font-size:.78rem;color:#334155;}
 
@@ -744,6 +761,18 @@
       </div>
       <div class="art">
         <div class="art-cover">
+          <img src="https://cdn-images-1.medium.com/max/1024/0*aD_Ys0EdeKi9t6oe" alt="Digital Banking article cover" loading="lazy"/>
+        </div>
+        <div class="art-body">
+          <div class="art-date">May 2025</div>
+          <div class="art-title">From Requirements to Results: How I Transformed Digital Banking Through Strategic Analysis</div>
+          <p class="art-desc">First-person account of implementing API integration strategy in banking — cutting onboarding 40% and improving KYC accuracy 35%.</p>
+          <div class="art-tags"><span class="art-tag tag-fintech">Fintech</span><span class="art-tag tag-discovery">Discovery</span></div>
+          <a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
+        </div>
+      </div>
+      <div class="art">
+        <div class="art-cover">
           <img src="https://cdn-images-1.medium.com/max/1024/0*jgeJRZq9_O1pQWvA" alt="User Stories article cover" loading="lazy"/>
         </div>
         <div class="art-body">
@@ -788,6 +817,13 @@
           <a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium ↗</a>
         </div>
       </div>
+
+      <div class="art-wide">
+        <div class="art-wide-eyebrow">✍️ Why I write</div>
+        <div class="art-wide-title">Writing is how I think out loud about product.</div>
+        <p class="art-wide-sub">Most PM thinking lives in Confluence docs nobody reads. I write to force the clarity I need before I can build — and to share what I wish I'd known earlier. Everything I publish starts with a real problem I ran into at work.</p>
+        <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="art-wide-cta">Follow on Medium ↗</a>
+      </div>
     </div>
   </div>
 </section>
@@ -798,7 +834,7 @@
     <div class="sec-hdr">
       <div class="sec-tag">👋 About</div>
       <h2 class="sec-h">How I got here</h2>
-      <p class="sec-sub">Six years. Four companies. One constant — asking why before deciding what to build.</p>
+      <p class="sec-sub">The person behind the portfolio — what drives me, what I'm working on, and how I think.</p>
     </div>
 
     <div class="position-quote" style="margin-bottom:2.75rem;">
@@ -806,44 +842,30 @@
     </div>
 
     <div class="about-grid">
-      <!-- LEFT: Career chapters -->
+      <!-- LEFT: Personal -->
       <div>
-        <div class="journey-label">The journey</div>
-        <div class="journey-chapters">
-          <div class="chapter-card">
-            <div class="chapter-num">01</div>
-            <div>
-              <div class="chapter-co">Iksula · E-commerce · 2019–2021</div>
-              <div class="chapter-lesson">"Ship fast. Let the data change your mind."</div>
-              <p class="chapter-detail">Started as a BA, ended up owning 6 products end-to-end. Made the counter-intuitive call — fix discovery before checkout — and drove +16pp conversion. Got the Excellence Award for "PM mindset in a BA role."</p>
-            </div>
+        <div class="journey-label">Beyond the resume</div>
+        <p class="about-para">I got into product because I was tired of watching good ideas fail — not for lack of vision, but for lack of clarity on the problem, the constraints, and who we were actually building for. That frustration became a discipline.</p>
+        <p class="about-para">I'm equal parts obsessive about <strong>how regulated markets shape product decisions</strong> and how AI is quietly rewiring what's possible in B2B software. I read widely — strategy, product leadership, the occasional deep dive into macroeconomics or AI research.</p>
+        <p class="about-para">Based in <strong>Bengaluru</strong>. Open to Fintech, Insurtech, and B2B SaaS roles — especially teams where the product has to earn trust before it earns adoption.</p>
+        <div class="currently-grid">
+          <div class="currently-item">
+            <div class="currently-label">Currently building</div>
+            <div class="currently-value">JobSignals — labor market intelligence data product</div>
           </div>
-          <div class="chapter-card">
-            <div class="chapter-num">02</div>
-            <div>
-              <div class="chapter-co">Deloitte Digital · Enterprise AI · 2021–2024</div>
-              <div class="chapter-lesson">"Stakeholder alignment is product work. Not admin."</div>
-              <p class="chapter-detail">Led a $10M GenAI transformation for HCSC. Mapped 180+ agent tasks. Made the unpopular call to ship email drafting before real-time assist — 78% AI acceptance rate proved it right. Delivered 20% ahead of schedule.</p>
-            </div>
+          <div class="currently-item">
+            <div class="currently-label">Currently reading</div>
+            <div class="currently-value">Continuous Discovery Habits · Teresa Torres</div>
           </div>
-          <div class="chapter-card">
-            <div class="chapter-num">03</div>
-            <div>
-              <div class="chapter-co">Signzy · Fintech / KYC · 2024</div>
-              <div class="chapter-lesson">"Compliance constraints can become competitive moats."</div>
-              <p class="chapter-detail">Owned B2B digital banking for Yes Bank and IndusInd. Cut onboarding from 72 hours to under 2 hours. Found the real failure mode (silent drop-offs at document upload, not slow processing) through 3 months of transaction log analysis.</p>
-            </div>
+          <div class="currently-item">
+            <div class="currently-label">Thinking about</div>
+            <div class="currently-value">AI agents as product infrastructure, not just features</div>
           </div>
-          <div class="chapter-card">
-            <div class="chapter-num">04</div>
-            <div>
-              <div class="chapter-co">Sapiens International · Insurtech · 2024–Now</div>
-              <div class="chapter-lesson">"Enterprise roadmap is its own discipline."</div>
-              <p class="chapter-detail">Owning roadmap strategy for an insurance platform serving 500K+ customers. Built a 4-factor prioritization framework from a 50+ item backlog chaos. Learning to make trade-offs explicit, in writing, before anyone disagrees.</p>
-            </div>
+          <div class="currently-item">
+            <div class="currently-label">Open to</div>
+            <div class="currently-value">PM / PO roles · Fintech · Insurtech · B2B SaaS</div>
           </div>
         </div>
-        <p class="thread-text">The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>
       </div>
 
       <!-- RIGHT: How I work -->
