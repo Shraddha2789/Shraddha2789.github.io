@@ -115,6 +115,22 @@
     .skill-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
     .skill-tag{background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:.75rem;font-weight:500;padding:.25rem .6rem;border-radius:6px;}
 
+    /* ── CRAFT NOTE CARD ── */
+    .craft-card{background:linear-gradient(145deg,var(--navy) 0%,#1a2e55 60%,#0f2040 100%);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;position:relative;}
+    .craft-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(37,99,235,.2) 0%,transparent 70%);pointer-events:none;}
+    .craft-band{height:4px;background:linear-gradient(90deg,var(--blue),var(--purple),var(--green),var(--amber));flex-shrink:0;}
+    .craft-body{padding:1.75rem 1.75rem 1.5rem;display:flex;flex-direction:column;flex:1;position:relative;z-index:1;}
+    .craft-eyebrow{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#64748b;margin-bottom:1.25rem;}
+    .craft-quote{font-size:1.05rem;font-weight:700;color:#fff;line-height:1.55;letter-spacing:-.15px;margin-bottom:1.5rem;flex:1;}
+    .craft-quote em{color:#93c5fd;font-style:normal;}
+    .craft-divider{height:1px;background:rgba(255,255,255,.08);margin-bottom:1.25rem;}
+    .craft-principles{display:flex;flex-direction:column;gap:.6rem;}
+    .craft-principle{display:flex;align-items:flex-start;gap:.65rem;font-size:.8rem;color:#94a3b8;line-height:1.5;}
+    .craft-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:.45rem;}
+    .craft-principle:nth-child(2) .craft-dot{background:var(--purple);}
+    .craft-principle:nth-child(3) .craft-dot{background:var(--green);}
+    .craft-principle strong{color:#e2e8f0;font-weight:600;}
+
     /* ── WORK / TEARDOWN ── */
     .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;}
     .work-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:box-shadow .2s,transform .2s;text-decoration:none;display:flex;flex-direction:column;}
@@ -675,6 +691,20 @@
           <div class="work-link">Read PDF →</div>
         </div>
       </a>
+
+      <div class="craft-card">
+        <div class="craft-band"></div>
+        <div class="craft-body">
+          <div class="craft-eyebrow">📐 On the craft</div>
+          <div class="craft-quote">A good artifact isn't a deliverable.<br><em>It's a decision made visible.</em></div>
+          <div class="craft-divider"></div>
+          <div class="craft-principles">
+            <div class="craft-principle"><div class="craft-dot"></div><span><strong>Problem before solution.</strong> Every artifact starts with a crisp problem statement — not a feature list.</span></div>
+            <div class="craft-principle"><div class="craft-dot"></div><span><strong>Trade-offs explicit, not buried.</strong> What got cut matters as much as what got built.</span></div>
+            <div class="craft-principle"><div class="craft-dot"></div><span><strong>Written for the reader.</strong> If engineering needs to decode it, the spec has failed before it ships.</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
