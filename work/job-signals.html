@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JobSignals — Data Product PRD · Shraddha Singh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── DESIGN TOKENS (matches main site) ── */
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --green:#10b981;
+      --purple:#8b5cf6; --amber:#f59e0b; --rose:#f43f5e;
+      --bg:#f8fafc; --white:#fff; --text:#0f172a;
+      --muted:#64748b; --border:#e2e8f0;
+    }
+
+    body.theme-green { --accent:#10b981; --accent-dark:#064e3b; --accent-mid:#047857; --accent-lt:#f0fdf4; --accent-text:#065f46; --accent-soft:rgba(16,185,129,.18); --accent-ring:rgba(16,185,129,.3); --accent-muted:#6ee7b7; }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+
+    /* ── NAV ── */
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,var(--navy),var(--accent-dark,#1e3a5f));padding:3.5rem 2rem 2.5rem;text-align:center;}
+    .hero-tag{display:inline-block;background:var(--accent-soft);border:1px solid var(--accent-ring);color:var(--accent-muted);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.3px;margin-bottom:.65rem;line-height:1.2;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:600px;margin:0 auto 1.5rem;line-height:1.7;}
+    .meta-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+    .meta-row span{font-size:.78rem;color:#64748b;font-weight:500;}
+
+    /* ── PAGE WRAPPER ── */
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 5rem;}
+
+    /* ── PROJECT CARD — core component ── */
+    .project-card{display:flex;flex-direction:column;gap:1.25rem;}
+
+    /* Context bar */
+    .pc-context{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .pc-context-item{font-size:.82rem;font-weight:600;color:var(--text);}
+    .pc-context-sep{color:var(--border);font-size:.9rem;}
+    .pc-context-badge{background:var(--accent-lt,#eff6ff);color:var(--accent-text,#1e40af);border:1px solid var(--accent-ring,rgba(37,99,235,.3));font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:100px;}
+
+    /* Section block */
+    .pc-section{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    .pc-section-hdr{padding:1rem 1.5rem;background:#f8fafc;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+    .pc-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+    .pc-ico.blue{background:#eff6ff;}
+    .pc-ico.green{background:#f0fdf4;}
+    .pc-ico.purple{background:#f5f3ff;}
+    .pc-ico.amber{background:#fffbeb;}
+    .pc-section-title{font-size:.88rem;font-weight:800;color:var(--navy);}
+    .pc-section-sub{font-size:.76rem;color:var(--muted);margin-top:.1rem;}
+    .pc-body{padding:1.35rem 1.5rem;}
+    .pc-body p{font-size:.875rem;color:var(--muted);line-height:1.78;margin-bottom:.75rem;}
+    .pc-body p:last-child{margin-bottom:0;}
+    .pc-body strong{color:var(--text);}
+    .pc-body ul{margin:.5rem 0 .75rem 1.25rem;}
+    .pc-body li{font-size:.875rem;color:var(--muted);line-height:1.72;margin-bottom:.35rem;}
+
+    /* Two-column grid inside pc-body */
+    .pc-two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:.5rem;}
+    .pc-mini{background:#f8fafc;border-radius:9px;padding:1rem 1.1rem;border:1px solid var(--border);}
+    .pc-mini h5{font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;}
+    .pc-mini p{font-size:.83rem;color:var(--text);line-height:1.58;margin:0;}
+    .pc-mini ul{margin:.35rem 0 0 1rem;}
+    .pc-mini li{font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:.25rem;}
+
+    /* Execution steps */
+    .pc-steps{display:flex;flex-direction:column;gap:0;}
+    .pc-step{display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid #f1f5f9;}
+    .pc-step:last-child{border-bottom:none;}
+    .pc-step-num{width:26px;height:26px;background:var(--accent,#10b981);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;margin-top:.05rem;}
+    .pc-step-content strong{display:block;font-size:.875rem;color:var(--navy);margin-bottom:.2rem;font-weight:700;}
+    .pc-step-content span{font-size:.84rem;color:var(--muted);line-height:1.65;}
+
+    /* Metrics row */
+    .pc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .pc-metric{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1.1rem 1rem;text-align:center;}
+    .pc-metric-num{font-size:1.6rem;font-weight:900;color:#065f46;letter-spacing:-.5px;line-height:1;}
+    .pc-metric-lbl{font-size:.72rem;color:#047857;font-weight:600;margin-top:.35rem;line-height:1.4;}
+
+    /* Outcome / highlight block */
+    .pc-outcome{background:linear-gradient(135deg,var(--navy),#1a2e55);border-radius:12px;padding:1.5rem 1.75rem;}
+    .pc-outcome-label{font-size:.7rem;font-weight:700;color:var(--accent-muted,#6ee7b7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
+    .pc-outcome p{font-size:.93rem;color:#e2e8f0;line-height:1.75;margin:0;}
+    .pc-outcome strong{color:#fff;}
+
+    /* Skills */
+    .pc-skills{display:flex;gap:.45rem;flex-wrap:wrap;}
+    .pc-skill{background:var(--accent-lt,#f0fdf4);color:var(--accent-text,#065f46);border:1px solid var(--accent-ring,rgba(16,185,129,.25));font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:6px;}
+
+    /* PRD CTA block */
+    .pc-prd-cta{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    .pc-prd-cta-bar{background:#f8fafc;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .pc-prd-cta-bar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .pc-prd-meta{display:flex;gap:1rem;flex-wrap:wrap;padding:1.25rem 1.5rem;}
+    .pc-prd-chip{background:var(--accent-lt);color:var(--accent-text);border:1px solid var(--accent-ring);border-radius:8px;padding:.6rem 1rem;font-size:.78rem;font-weight:600;display:flex;flex-direction:column;gap:.15rem;}
+    .pc-prd-chip small{font-size:.65rem;font-weight:500;opacity:.7;text-transform:uppercase;letter-spacing:.06em;}
+    .prd-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;padding:.5rem 1.1rem;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;transition:background .2s;}
+    .prd-btn:hover{background:var(--accent-mid);}
+
+    /* Footer */
+    footer{background:var(--navy);padding:1.75rem 2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    /* Responsive */
+    @media(max-width:640px){
+      .pc-two-col,.pc-metrics{grid-template-columns:1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+      .pc-prd-meta{gap:.6rem;}
+    }
+  </style>
+</head>
+
+<body class="theme-green">
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Work Sample · Data Product PRD</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">📊 Data Product · Labor Market Intelligence</div>
+  <h1>JobSignals<br><span style="color:var(--accent-muted)">The canonical dataset for job market intelligence</span></h1>
+  <p class="hero-sub">Designed a governed, reusable data product that transforms fragmented job posting data into structured hiring signals — served via REST/GraphQL API to six distinct consumer personas.</p>
+  <div class="meta-row">
+    <span>✍️ Shraddha Singh</span>
+    <span>📂 Data Product · Labor Markets</span>
+    <span>🗓 March 2026</span>
+    <span>📋 17-Section PRD · v1.0 Draft</span>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page">
+  <div class="project-card">
+
+    <!-- ─── 1. CONTEXT ─────────────────────────────────────── -->
+    <div class="pc-context">
+      <span class="pc-context-item">📊 Independent Project</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">Product Manager</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">March 2026</span>
+      <span class="pc-context-sep">·</span>
+      <span class="pc-context-item">MVP Target: W10 from Kickoff</span>
+      <span class="pc-context-badge">Data Product · API Design · LLM Extraction</span>
+    </div>
+
+    <!-- ─── 2. PROBLEM ─────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico blue">🎯</div>
+        <div>
+          <div class="pc-section-title">Problem Statement</div>
+          <div class="pc-section-sub">What was broken and why it mattered</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <p><strong>Current state:</strong> Job market data is fragmented, noisy, and inaccessible as a reusable asset. Any team wanting to answer "Which ML skills are companies hiring for most in Q1 2026?" has to manually scrape or purchase data, spend weeks cleaning it, build bespoke pipelines, and produce an answer that goes stale within days.</p>
+        <p><strong>Root cause:</strong> This work is being done redundantly — by bootcamps building curriculum, VCs doing diligence, job seekers benchmarking salaries, and HR teams setting headcount budgets. Each consumer solves the same underlying data problem independently, with no shared standard or infrastructure. Without continuous pipelines, job market signals decay within days. Skill names, job titles, and company identifiers are inconsistent across sources.</p>
+        <p><strong>Target outcome:</strong> A governed, reusable data product that solves this once, centrally — with clear ownership, documented contracts, versioned schemas, and accessible via APIs. JobSignals as the single authoritative source for job market intelligence.</p>
+      </div>
+    </div>
+
+    <!-- ─── 3. STRATEGY ────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico purple">🧭</div>
+        <div>
+          <div class="pc-section-title">Strategy &amp; Approach</div>
+          <div class="pc-section-sub">How I framed the problem and chose a path</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-two-col">
+          <div class="pc-mini">
+            <h5>What we decided</h5>
+            <p>Build a Data Mesh-aligned data product — not a job board. Centralize extraction, normalization, and enrichment once; expose outputs via versioned REST + GraphQL APIs. LLM-powered parsing of unstructured job descriptions into structured skill/role taxonomy.</p>
+          </div>
+          <div class="pc-mini">
+            <h5>What we ruled out</h5>
+            <p>Avoided building a consumer-facing job board (too crowded, wrong positioning). Ruled out one-off scraping solutions — they don't build compounding value. Rejected real-time streaming for MVP in favor of reliable batch pipelines first.</p>
+          </div>
+          <div class="pc-mini">
+            <h5>Key constraints</h5>
+            <ul>
+              <li>ToS compliance on public data sources (LinkedIn, Indeed, YC Jobs)</li>
+              <li>LLM extraction cost and latency at scale</li>
+              <li>Schema versioning to avoid breaking downstream consumers</li>
+              <li>MVP delivered in 10 weeks from kickoff</li>
+            </ul>
+          </div>
+          <div class="pc-mini">
+            <h5>Consumer personas served</h5>
+            <ul>
+              <li>Career Navigator — dashboard, salary benchmarking</li>
+              <li>Talent Strategist — pipeline health, competitor signals</li>
+              <li>Curriculum Architect — edtech skill gap analysis</li>
+              <li>Workforce Analyst — headcount planning via API</li>
+              <li>Investment Analyst — hiring velocity signals</li>
+              <li>Labor Economist — bulk dataset export</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 4. EXECUTION ───────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico amber">⚙️</div>
+        <div>
+          <div class="pc-section-title">Execution</div>
+          <div class="pc-section-sub">How the PRD was structured and the product phased</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-steps">
+          <div class="pc-step">
+            <div class="pc-step-num">1</div>
+            <div class="pc-step-content">
+              <strong>Market &amp; Persona Research</strong>
+              <span>Mapped the $26B+ labor intelligence market (Lightcast, Visier, LinkedIn Recruiter) and identified six distinct consumer archetypes with divergent access modes — from dashboard-first career seekers to API-first economists needing bulk exports. Each persona got a full deep-dive in the PRD.</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">2</div>
+            <div class="pc-step-content">
+              <strong>Data Architecture &amp; Source Strategy</strong>
+              <span>Designed a four-layer data architecture: ingestion (multi-source scraping with ToS-compliant rate limiting) → normalization (LLM-powered entity extraction) → enrichment (derived signals: skill demand velocity, salary bands, company hiring trajectory) → serving (REST + GraphQL API with versioned contracts).</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">3</div>
+            <div class="pc-step-content">
+              <strong>Feature Scoping &amp; MVP Definition</strong>
+              <span>Defined MVP as: canonical job posting dataset (LinkedIn + Indeed + YC Jobs), LLM skill extraction pipeline, REST API v1 with rate limiting, and one embedded dashboard. Deferred GraphQL, salary inference, and geographic clustering to Phase 2. Used a value/complexity matrix to sequence features.</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">4</div>
+            <div class="pc-step-content">
+              <strong>Data Governance &amp; Risk Mitigation</strong>
+              <span>Authored governance model covering schema versioning (SemVer), SLA definitions (95th-percentile latency targets, freshness guarantees), PII handling (no personal data in canonical dataset), and a risk register with 8 identified risks — including LLM hallucination rates, scraping legal risk, and data staleness. Each risk paired with a mitigation and owner.</span>
+            </div>
+          </div>
+          <div class="pc-step">
+            <div class="pc-step-num">5</div>
+            <div class="pc-step-content">
+              <strong>18-Month Roadmap</strong>
+              <span>Structured a three-phase roadmap: Phase 1 (W1–W10) MVP data product and API; Phase 2 (W11–W26) salary inference, GraphQL, geographic clustering, webhook support; Phase 3 (W27–W52) real-time streaming, predictive signals, self-serve dashboard builder. Included SVG timeline visualization in the PRD.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 5. METRICS ─────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico green">📊</div>
+        <div>
+          <div class="pc-section-title">Product Design Targets</div>
+          <div class="pc-section-sub">Success metrics defined in the PRD</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-metrics">
+          <div class="pc-metric">
+            <div class="pc-metric-num">6</div>
+            <div class="pc-metric-lbl">Consumer personas with distinct access modes</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-num">17</div>
+            <div class="pc-metric-lbl">PRD sections covering full product lifecycle</div>
+          </div>
+          <div class="pc-metric">
+            <div class="pc-metric-num">W10</div>
+            <div class="pc-metric-lbl">MVP target from kickoff — scoped and phased</div>
+          </div>
+        </div>
+        <p style="margin-top:1rem;">PRD-defined product metrics include: API p95 latency &lt;200ms, dataset freshness &lt;24h, LLM extraction accuracy &gt;92%, and 3 active downstream consumers at Phase 1 close. Instrumented via data catalog with lineage tracking.</p>
+      </div>
+    </div>
+
+    <!-- ─── 6. OUTCOME ─────────────────────────────────────── -->
+    <div class="pc-outcome">
+      <div class="pc-outcome-label">✦ Outcome &amp; Learnings</div>
+      <p>JobSignals demonstrates how to apply <strong>data product thinking</strong> — not just building a dataset, but defining ownership, SLAs, versioning contracts, and consumer-specific interfaces. The key insight: <strong>most teams conflate a data pipeline with a data product</strong>. A pipeline delivers data; a product makes that data trustworthy, discoverable, and reusable without additional engineering from the consumer. Designing for six distinct personas forced explicit trade-offs on access modes, which surfaced the need for both an API and embedded dashboards — two very different engineering investments that serve the same underlying dataset.</p>
+    </div>
+
+    <!-- ─── 7. SKILLS ──────────────────────────────────────── -->
+    <div class="pc-section">
+      <div class="pc-section-hdr">
+        <div class="pc-ico blue">🛠</div>
+        <div>
+          <div class="pc-section-title">Skills Demonstrated</div>
+          <div class="pc-section-sub">Capabilities this project evidences</div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-skills">
+          <span class="pc-skill">Data Product Management</span>
+          <span class="pc-skill">API Design (REST + GraphQL)</span>
+          <span class="pc-skill">LLM Integration</span>
+          <span class="pc-skill">Data Governance</span>
+          <span class="pc-skill">Persona Research</span>
+          <span class="pc-skill">Roadmap Prioritization</span>
+          <span class="pc-skill">Risk Management</span>
+          <span class="pc-skill">Data Mesh Architecture</span>
+          <span class="pc-skill">Market Sizing</span>
+          <span class="pc-skill">Technical PRD Writing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 8. PRD LINK ────────────────────────────────────── -->
+    <div class="pc-prd-cta">
+      <div class="pc-prd-cta-bar">
+        <span>📄 Full PRD — JobSignals v1.0</span>
+        <a href="../artifacts/jobsignals-prd.html" target="_blank" rel="noopener" class="prd-btn">View Full PRD ↗</a>
+      </div>
+      <div class="pc-prd-meta">
+        <div class="pc-prd-chip"><small>Version</small>1.0 — Draft</div>
+        <div class="pc-prd-chip"><small>Sections</small>17 sections</div>
+        <div class="pc-prd-chip"><small>Covers</small>Personas, Architecture, API, Governance, Risks, Roadmap</div>
+        <div class="pc-prd-chip"><small>Status</small>In Review</div>
+      </div>
+    </div>
+
+  </div><!-- /project-card -->
+</div><!-- /page -->
+
+<footer>
+  <p>Work sample by <a href="../index.html">Shraddha Singh</a> · Product Manager · Bengaluru</p>
+</footer>
+
+</body>
+</html>
