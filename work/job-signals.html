@@ -115,6 +115,9 @@
       .page{padding:2rem 1.25rem 4rem;}
       .pc-prd-meta{gap:.6rem;}
     }
+    @media(max-width:768px){
+      .pc-prd-cta iframe{height:600px;}
+    }
   </style>
 </head>
 
@@ -323,18 +326,18 @@
       </div>
     </div>
 
-    <!-- ─── 8. PRD LINK ────────────────────────────────────── -->
+    <!-- ─── 8. EMBEDDED PRD ────────────────────────────────── -->
     <div class="pc-prd-cta">
       <div class="pc-prd-cta-bar">
-        <span>📄 Full PRD — JobSignals v1.0</span>
-        <a href="../artifacts/jobsignals-prd.html" target="_blank" rel="noopener" class="prd-btn">View Full PRD ↗</a>
+        <span>📄 Full PRD — JobSignals v1.0 &nbsp;·&nbsp; 17 sections &nbsp;·&nbsp; Personas, Architecture, API, Governance, Risks, Roadmap</span>
+        <a href="../artifacts/jobsignals-prd.html" target="_blank" rel="noopener" class="prd-btn">Open in new tab ↗</a>
       </div>
-      <div class="pc-prd-meta">
-        <div class="pc-prd-chip"><small>Version</small>1.0 — Draft</div>
-        <div class="pc-prd-chip"><small>Sections</small>17 sections</div>
-        <div class="pc-prd-chip"><small>Covers</small>Personas, Architecture, API, Governance, Risks, Roadmap</div>
-        <div class="pc-prd-chip"><small>Status</small>In Review</div>
-      </div>
+      <iframe
+        src="../artifacts/jobsignals-prd.html"
+        title="JobSignals PRD"
+        style="display:block;width:100%;height:820px;border:none;"
+        loading="lazy">
+      </iframe>
     </div>
 
   </div><!-- /project-card -->

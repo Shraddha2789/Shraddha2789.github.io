@@ -211,6 +211,45 @@
     .cbtn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15);}
     .cbtn-ghost:hover{background:rgba(255,255,255,.15);}
 
+    /* ── ABOUT — JOURNEY CHAPTERS ── */
+    .journey-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .journey-chapters{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem;}
+    .chapter-card{display:flex;gap:1.1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.35rem;transition:box-shadow .2s,transform .2s;}
+    .chapter-card:hover{box-shadow:var(--sh);transform:translateY(-1px);}
+    .chapter-num{font-size:1.6rem;font-weight:900;color:var(--border);letter-spacing:-1px;flex-shrink:0;line-height:1;padding-top:.1rem;}
+    .chapter-co{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.2rem;}
+    .chapter-lesson{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;line-height:1.35;}
+    .chapter-detail{font-size:.8rem;color:var(--muted);line-height:1.6;margin:0;}
+    .thread-text{font-size:.875rem;color:var(--muted);line-height:1.8;font-style:italic;border-left:3px solid var(--blue);padding-left:1rem;margin-top:.25rem;}
+
+    /* ── EDUCATION ── */
+    .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+    .edu-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;}
+    .edu-band{height:4px;}
+    .edu-body{padding:1.75rem 2rem;flex:1;}
+    .edu-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.6rem;}
+    .edu-degree{font-size:1.05rem;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:.35rem;letter-spacing:-.2px;}
+    .edu-school{font-size:.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.4;}
+    .edu-rank{display:inline-flex;align-items:center;gap:.4rem;background:#fffbeb;color:#92400e;border:1px solid #fde68a;font-size:.72rem;font-weight:700;padding:.3rem .8rem;border-radius:100px;margin-bottom:1rem;}
+    .edu-highlights{list-style:none;padding:0;margin:0;}
+    .edu-highlights li{font-size:.82rem;color:var(--muted);line-height:1.68;padding:.2rem 0 .2rem 1rem;position:relative;}
+    .edu-highlights li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:700;font-size:.75rem;}
+
+    /* ── CERTIFICATIONS ── */
+    .certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .cert-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.75rem 1.5rem;display:flex;flex-direction:column;gap:.65rem;transition:box-shadow .2s,transform .2s;}
+    .cert-item:hover{box-shadow:var(--sh-lg);transform:translateY(-2px);}
+    .cert-icon-wrap{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .cert-icon-wrap.purple{background:#f5f3ff;}
+    .cert-icon-wrap.amber{background:#fffbeb;}
+    .cert-icon-wrap.blue{background:#eff6ff;}
+    .cert-name{font-size:.98rem;font-weight:800;color:var(--navy);line-height:1.3;letter-spacing:-.15px;}
+    .cert-issuer{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+    .cert-desc-text{font-size:.82rem;color:var(--muted);line-height:1.65;flex:1;}
+    .cert-status{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;padding:.25rem .7rem;border-radius:100px;width:fit-content;}
+    .cert-status.active{background:#f0fdf4;color:#065f46;border:1px solid #bbf7d0;}
+    .cert-status.completed{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;}
+
     /* ── FOOTER ── */
     footer{background:#060e1f;padding:1.5rem 2rem;text-align:center;font-size:.78rem;color:#334155;}
 
@@ -226,6 +265,8 @@
       .work-grid{grid-template-columns:1fr;}
       .writing-grid{grid-template-columns:repeat(2,1fr);}
       .about-grid{grid-template-columns:1fr;gap:2rem;}
+      .edu-grid{grid-template-columns:1fr;}
+      .certs-grid{grid-template-columns:1fr;}
       .skills-grid{grid-template-columns:repeat(2,1fr);}
       .teardown-feat{grid-template-columns:1fr;}
       .nav-links{display:none;}
@@ -235,6 +276,8 @@
       .writing-grid{grid-template-columns:1fr;}
       .cs-grid{grid-template-columns:1fr;}
       .skills-grid{grid-template-columns:1fr;}
+      .edu-grid{grid-template-columns:1fr;}
+      .certs-grid{grid-template-columns:1fr;}
       .stats-in{grid-template-columns:repeat(3,1fr);}
       .sec{padding:3.5rem 1.25rem;}
       .hero{padding:3.5rem 1.25rem 3rem;}
@@ -257,6 +300,8 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
   </div>
@@ -735,29 +780,138 @@
     <div class="sec-hdr">
       <div class="sec-tag">👋 About</div>
       <h2 class="sec-h">How I got here</h2>
+      <p class="sec-sub">Six years. Four companies. One constant — asking why before deciding what to build.</p>
     </div>
+
+    <div class="position-quote" style="margin-bottom:2.75rem;">
+      <p>I sit at the intersection of two things most PMs pick one of: <strong>regulated, compliance-heavy Fintech</strong> — and <strong>GenAI product development.</strong> Six years in KYC, insurance, and enterprise SaaS taught me that the hardest product problems aren't technical. They're trust problems. Now I apply that instinct to AI products, where trust is everything.</p>
+    </div>
+
     <div class="about-grid">
-      <div class="about-text">
-        <div class="position-quote">
-          <p>I sit at the intersection of two things most PMs pick one of: <strong>regulated, compliance-heavy Fintech</strong> — and <strong>GenAI product development.</strong> Six years in KYC, insurance, and enterprise SaaS taught me that the hardest product problems aren't technical. They're trust problems. Now I apply that instinct to AI products, where trust is everything.</p>
+      <!-- LEFT: Career chapters -->
+      <div>
+        <div class="journey-label">The journey</div>
+        <div class="journey-chapters">
+          <div class="chapter-card">
+            <div class="chapter-num">01</div>
+            <div>
+              <div class="chapter-co">Iksula · E-commerce · 2019–2021</div>
+              <div class="chapter-lesson">"Ship fast. Let the data change your mind."</div>
+              <p class="chapter-detail">Started as a BA, ended up owning 6 products end-to-end. Made the counter-intuitive call — fix discovery before checkout — and drove +16pp conversion. Got the Excellence Award for "PM mindset in a BA role."</p>
+            </div>
+          </div>
+          <div class="chapter-card">
+            <div class="chapter-num">02</div>
+            <div>
+              <div class="chapter-co">Deloitte Digital · Enterprise AI · 2021–2024</div>
+              <div class="chapter-lesson">"Stakeholder alignment is product work. Not admin."</div>
+              <p class="chapter-detail">Led a $10M GenAI transformation for HCSC. Mapped 180+ agent tasks. Made the unpopular call to ship email drafting before real-time assist — 78% AI acceptance rate proved it right. Delivered 20% ahead of schedule.</p>
+            </div>
+          </div>
+          <div class="chapter-card">
+            <div class="chapter-num">03</div>
+            <div>
+              <div class="chapter-co">Signzy · Fintech / KYC · 2024</div>
+              <div class="chapter-lesson">"Compliance constraints can become competitive moats."</div>
+              <p class="chapter-detail">Owned B2B digital banking for Yes Bank and IndusInd. Cut onboarding from 72 hours to under 2 hours. Found the real failure mode (silent drop-offs at document upload, not slow processing) through 3 months of transaction log analysis.</p>
+            </div>
+          </div>
+          <div class="chapter-card">
+            <div class="chapter-num">04</div>
+            <div>
+              <div class="chapter-co">Sapiens International · Insurtech · 2024–Now</div>
+              <div class="chapter-lesson">"Enterprise roadmap is its own discipline."</div>
+              <p class="chapter-detail">Owning roadmap strategy for an insurance platform serving 500K+ customers. Built a 4-factor prioritization framework from a 50+ item backlog chaos. Learning to make trade-offs explicit, in writing, before anyone disagrees.</p>
+            </div>
+          </div>
         </div>
-        <p>I started in e-commerce, moved into digital banking, pivoted into enterprise AI at Deloitte, and now lead insurance platform strategy at Sapiens. Each role forced me to build a different PM muscle.</p>
-        <p>At <strong>Iksula</strong>, I learned to ship fast and let data change my mind. At <strong>Deloitte</strong>, I learned that stakeholder alignment is product work, not admin overhead. At <strong>Signzy</strong>, I learned that B2B products live or die on client relationship depth — and that compliance constraints can become competitive moats. At <strong>Sapiens</strong>, I'm learning that enterprise roadmap prioritization is its own discipline: making trade-offs explicit, in writing, before anyone disagrees.</p>
-        <p>The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>
-        <p>MBA from <strong>JBIMS Mumbai</strong> (Top-10 India, 2025), BE in Information Technology, PSPO I certified, and AWS Cloud Practitioner. Based in Bengaluru.</p>
-        <div class="cert-row">
-          <span class="cert">🏅 PSPO I</span>
-          <span class="cert">☁️ AWS CP</span>
-          <span class="cert">📘 McKinsey Forward</span>
-          <span class="cert">🎓 MBA JBIMS 2025</span>
+        <p class="thread-text">The thread through all of it: I care deeply about understanding <em>why</em> a product decision matters before deciding <em>what</em> to build.</p>
+      </div>
+
+      <!-- RIGHT: How I work -->
+      <div>
+        <div class="journey-label">How I work</div>
+        <div class="how-stack">
+          <div class="how-item"><h4>Start with the user, not the feature</h4><p>Before writing a user story, I want to understand who it's for, what they're trying to do, and what's in their way. Discovery first — always.</p></div>
+          <div class="how-item"><h4>Make trade-offs visible</h4><p>Prioritization shouldn't be a black box. I use RICE, value/effort, and MoSCoW — and make every trade-off explicit to stakeholders before committing.</p></div>
+          <div class="how-item"><h4>Treat engineering as a partner</h4><p>The best product decisions I've made came from conversations with engineers who said "there's a smarter way." Technical feasibility is a product constraint.</p></div>
+          <div class="how-item"><h4>Outcome over output</h4><p>Shipped features are inputs. What matters is whether they moved the metric. I track post-launch performance obsessively — and I'm comfortable killing features that didn't work.</p></div>
+          <div class="how-item"><h4>Write specs people want to read</h4><p>Clear acceptance criteria, explicit edge cases, annotated wireframes. A vague spec is a tax on engineering velocity.</p></div>
         </div>
       </div>
-      <div class="how-stack">
-        <div class="how-item"><h4>Start with the user, not the feature</h4><p>Before writing a user story, I want to understand who it's for, what they're trying to do, and what's in their way. Discovery first — always.</p></div>
-        <div class="how-item"><h4>Make trade-offs visible</h4><p>Prioritization shouldn't be a black box. I use RICE, value/effort, and MoSCoW — and make every trade-off explicit to stakeholders before committing.</p></div>
-        <div class="how-item"><h4>Treat engineering as a partner</h4><p>The best product decisions I've made came from conversations with engineers who said "there's a smarter way." Technical feasibility is a product constraint.</p></div>
-        <div class="how-item"><h4>Outcome over output</h4><p>Shipped features are inputs. What matters is whether they moved the metric. I track post-launch performance obsessively — and I'm comfortable killing features that didn't work.</p></div>
-        <div class="how-item"><h4>Write specs people want to read</h4><p>Clear acceptance criteria, explicit edge cases, annotated wireframes. A vague spec is a tax on engineering velocity.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="sec-in">
+    <div class="sec-hdr">
+      <div class="sec-tag">🎓 Education</div>
+      <h2 class="sec-h">Academic Foundation</h2>
+      <p class="sec-sub">Business strategy meets engineering depth — the combination that shapes how I think about products.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-band" style="background:linear-gradient(90deg,var(--blue),#60a5fa);"></div>
+        <div class="edu-body">
+          <div class="edu-eyebrow">MBA · 2023 – 2025</div>
+          <div class="edu-degree">Master of Management Studies</div>
+          <div class="edu-school">Jamnalal Bajaj Institute of Management Studies (JBIMS), Mumbai</div>
+          <div class="edu-rank">🏆 Top-10 MBA program in India</div>
+          <ul class="edu-highlights">
+            <li>Specialization in Marketing &amp; Strategy</li>
+            <li>Capstone: JPMC Digital Banking Strategic Analysis — SWOT, QSPM matrices, $1.5B 3-year investment roadmap</li>
+            <li>Focus areas: Product Management, Digital Strategy, Financial Analytics, Consumer Behaviour</li>
+          </ul>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-band" style="background:linear-gradient(90deg,var(--purple),#c4b5fd);"></div>
+        <div class="edu-body">
+          <div class="edu-eyebrow">B.E. · 2015 – 2019</div>
+          <div class="edu-degree">Bachelor of Engineering — Information Technology</div>
+          <div class="edu-school">University of Mumbai</div>
+          <ul class="edu-highlights">
+            <li>Foundation in software engineering, data structures, algorithms, and systems design</li>
+            <li>Bridges technical and business thinking — enables writing specs that engineers actually trust</li>
+            <li>Early exposure to product thinking: built and led the college technical festival's web platform</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec alt" id="certifications">
+  <div class="sec-in">
+    <div class="sec-hdr">
+      <div class="sec-tag">🏅 Certifications</div>
+      <h2 class="sec-h">Credentials &amp; Training</h2>
+      <p class="sec-sub">Structured learning that reinforces the judgment behind the work.</p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-icon-wrap purple">🏅</div>
+        <div class="cert-name">Professional Scrum Product Owner I</div>
+        <div class="cert-issuer">Scrum.org</div>
+        <p class="cert-desc-text">Validated ability to manage product backlogs, define and communicate product value, and work effectively with Scrum teams in iterative delivery.</p>
+        <span class="cert-status active">✓ Active</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon-wrap amber">☁️</div>
+        <div class="cert-name">AWS Certified Cloud Practitioner</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+        <p class="cert-desc-text">Cloud fundamentals — compute, storage, databases, IAM, and core AWS services. Bridges PM-to-engineering conversations on infrastructure and scalability decisions.</p>
+        <span class="cert-status active">✓ Active</span>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon-wrap blue">📘</div>
+        <div class="cert-name">McKinsey Forward Program</div>
+        <div class="cert-issuer">McKinsey &amp; Company</div>
+        <p class="cert-desc-text">Structured problem-solving, communicating under uncertainty, and digital strategy frameworks from McKinsey's flagship leadership and capability-building program.</p>
+        <span class="cert-status completed">Completed</span>
       </div>
     </div>
   </div>
