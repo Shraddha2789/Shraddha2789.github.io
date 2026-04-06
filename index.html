@@ -8,6 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
   <style>
     :root{
       --navy:#0d1b35; --navy-mid:#162444; --blue:#2563eb; --blue-lt:#eff6ff;
@@ -335,6 +343,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#certifications">Certifications</a></li>
+      <li><a href="assets/ShraddhaSingh JPMC.pdf" download="Shraddha_Singh_Resume.pdf" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'nav'})">Resume ↓</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
   </div>
@@ -350,6 +359,7 @@
       <p class="hero-bio">6+ years building products where <strong>regulatory complexity meets user trust</strong>. I've shipped AI-powered KYC for tier-1 Indian banks, led a $10M GenAI transformation for a US healthcare company, and currently own roadmap strategy for an insurance platform serving 500K+ customers.</p>
       <div class="hero-actions">
         <a href="#experience" class="btn btn-blue">View Experience ↓</a>
+        <a href="assets/ShraddhaSingh JPMC.pdf" download="Shraddha_Singh_Resume.pdf" class="btn btn-ghost" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'hero'})">↓ Download Resume</a>
         <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
         <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="btn btn-ghost">Medium ↗</a>
       </div>
@@ -965,6 +975,7 @@
     <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries.</p>
     <div class="contact-btns">
       <a href="mailto:shraddhasingh8968@gmail.com" class="cbtn cbtn-blue">✉️ shraddhasingh8968@gmail.com</a>
+      <a href="assets/ShraddhaSingh JPMC.pdf" download="Shraddha_Singh_Resume.pdf" class="cbtn cbtn-ghost" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'contact'})">↓ Download Resume</a>
       <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="cbtn cbtn-ghost">LinkedIn ↗</a>
       <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="cbtn cbtn-ghost">Medium ↗</a>
     </div>
