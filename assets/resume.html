@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shraddha Singh — Product Manager Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0d1b35;
+      --blue: #2563eb;
+      --muted: #475569;
+      --light: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #fff;
+      color: #0f172a;
+      font-size: 9.5pt;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 36px 44px 36px;
+      background: #fff;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: start;
+      border-bottom: 2.5px solid var(--navy);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+    .name {
+      font-size: 24pt;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .name span { color: var(--blue); }
+    .title-line {
+      font-size: 10pt;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+    .contact-block {
+      text-align: right;
+      font-size: 8.5pt;
+      color: var(--light);
+      line-height: 1.7;
+    }
+    .contact-block a { color: var(--blue); text-decoration: none; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      background: var(--navy);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 8px 6px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-n { font-size: 13pt; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1; }
+    .stat-n em { color: #f59e0b; font-style: normal; }
+    .stat-l { font-size: 6.5pt; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-top: 2px; }
+
+    /* ── SECTION ── */
+    .sec { margin-bottom: 14px; }
+    .sec-title {
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+    }
+
+    /* ── SUMMARY ── */
+    .summary {
+      font-size: 9.5pt;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .summary strong { color: #0f172a; font-weight: 600; }
+
+    /* ── EXPERIENCE ── */
+    .job { margin-bottom: 12px; }
+    .job:last-child { margin-bottom: 0; }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1px;
+    }
+    .job-co {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .job-period {
+      font-size: 8pt;
+      color: var(--light);
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .job-role {
+      font-size: 8.5pt;
+      font-weight: 500;
+      color: var(--blue);
+      margin-bottom: 5px;
+    }
+    .job-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+    .pill {
+      font-size: 7pt;
+      font-weight: 600;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      padding: 1px 6px;
+      border-radius: 100px;
+    }
+    .bullets { list-style: none; padding: 0; }
+    .bullets li {
+      font-size: 8.8pt;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 12px;
+      position: relative;
+      margin-bottom: 1px;
+    }
+    .bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 8pt;
+    }
+    .bullets li strong { color: #0f172a; font-weight: 600; }
+
+    /* ── TWO-COL LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* ── SKILLS ── */
+    .skill-group { margin-bottom: 7px; }
+    .skill-group:last-child { margin-bottom: 0; }
+    .skill-cat {
+      font-size: 7.8pt;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .skill-list {
+      font-size: 8.2pt;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item { margin-bottom: 9px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-degree {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .edu-school {
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .edu-detail {
+      font-size: 8pt;
+      color: var(--light);
+    }
+
+    /* ── CERTS ── */
+    .cert-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      gap: .5rem;
+    }
+    .cert-name { font-size: 8.8pt; font-weight: 600; color: var(--navy); }
+    .cert-issuer { font-size: 8pt; color: var(--muted); }
+    .cert-badge {
+      font-size: 7pt;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .active { background: #f0fdf4; color: #065f46; border: 1px solid #bbf7d0; }
+    .done { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; }
+      .page { max-width: 100%; padding: 20px 32px; }
+      @page { margin: 0; size: A4; }
+    }
+
+    /* ── SCREEN HELPER ── */
+    .print-tip {
+      text-align: center;
+      padding: 10px;
+      background: #eff6ff;
+      font-size: 8.5pt;
+      color: var(--blue);
+      border-bottom: 1px solid #bfdbfe;
+      font-weight: 500;
+    }
+    @media print { .print-tip { display: none; } }
+  </style>
+</head>
+<body>
+
+<div class="print-tip">To save as PDF: Press Cmd+P (Mac) / Ctrl+P (Windows) → Change destination to "Save as PDF" → Save</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="name">Shraddha <span>Singh</span></div>
+      <div class="title-line">Product Manager &nbsp;·&nbsp; Fintech &nbsp;·&nbsp; Insurtech &nbsp;·&nbsp; GenAI &nbsp;·&nbsp; B2B SaaS</div>
+    </div>
+    <div class="contact-block">
+      <div>Bengaluru, India</div>
+      <div><a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></div>
+      <div><a href="https://linkedin.com/in/shraddha-singh-9149a4172">linkedin.com/in/shraddha-singh-9149a4172</a></div>
+      <div><a href="https://medium.com/@shraddhasingh8968">medium.com/@shraddhasingh8968</a></div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-n">6<em>+</em></div><div class="stat-l">Years PM</div></div>
+    <div class="stat"><div class="stat-n"><em>$</em>10M<em>+</em></div><div class="stat-l">Program Led</div></div>
+    <div class="stat"><div class="stat-n">45<em>%</em></div><div class="stat-l">Revenue Growth</div></div>
+    <div class="stat"><div class="stat-n">60<em>%</em></div><div class="stat-l">Efficiency Gain</div></div>
+    <div class="stat"><div class="stat-n">500<em>K+</em></div><div class="stat-l">Customers Served</div></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="sec">
+    <div class="sec-title">Summary</div>
+    <p class="summary">
+      Product Manager with <strong>6+ years</strong> building regulated, high-stakes digital products across Fintech, Insurtech, and Enterprise SaaS.
+      Shipped <strong>AI-powered KYC for tier-1 Indian banks</strong> (Yes Bank, IndusInd), led a <strong>$10M GenAI transformation</strong> for Health Care Service Corporation at Deloitte,
+      and currently own roadmap strategy for an <strong>insurance platform serving 500K+ customers</strong> at Sapiens International.
+      Strong foundation in discovery, data-informed prioritization, RBI compliance, and cross-functional delivery — with an MBA from <strong>JBIMS Mumbai</strong> (Top-10 India).
+    </p>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="sec">
+    <div class="sec-title">Experience</div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-co">Sapiens International</div>
+        <div class="job-period">Oct 2024 – Present &nbsp;·&nbsp; Bengaluru</div>
+      </div>
+      <div class="job-role">Senior Product Owner — CoreSuite Insurance Platform</div>
+      <div class="job-pills">
+        <span class="pill">↓30% onboarding time</span>
+        <span class="pill">↓25% abandonment</span>
+        <span class="pill">↑15% platform adoption</span>
+        <span class="pill">95% pre-prod quality</span>
+      </div>
+      <ul class="bullets">
+        <li>Defined product strategy and roadmap for enterprise insurance platform serving <strong>500K+ customers</strong>, prioritizing 50+ features across 6 releases using a 4-factor framework (client breadth, strategic value, technical risk, revenue linkage)</li>
+        <li>Led cross-functional delivery with engineering, QA, architecture, and client success — achieving <strong>95% pre-production quality</strong> with zero P1 defects shipped to clients</li>
+        <li>Decreased transaction abandonment <strong>25%</strong> and increased platform adoption <strong>15%</strong> through data-informed feature optimization</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-co">Signzy Technologies</div>
+        <div class="job-period">Jan 2024 – Sep 2024 &nbsp;·&nbsp; Bengaluru</div>
+      </div>
+      <div class="job-role">Product Owner — Digital Onboarding Platform</div>
+      <div class="job-pills">
+        <span class="pill">↓40% acquisition time</span>
+        <span class="pill">↑35% KYC accuracy</span>
+        <span class="pill">↑25% revenue growth</span>
+        <span class="pill">3 contract renewals</span>
+      </div>
+      <ul class="bullets">
+        <li>Owned end-to-end product lifecycle for B2B digital banking platform serving <strong>Yes Bank and IndusInd Bank</strong> — reduced customer onboarding from 3 days to under 2 hours</li>
+        <li>Identified root failure (silent drop-offs at document upload) through 3 months of transaction log analysis; deployed guided capture UI before touching the AI model — improved KYC accuracy <strong>35%</strong></li>
+        <li>Launched AI-powered KYC workflows balancing RBI compliance with UX; analytics-led pivots increased client satisfaction <strong>20%</strong> and secured <strong>3 contract renewals</strong></li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-co">Deloitte Digital</div>
+        <div class="job-period">Nov 2021 – Jan 2024 &nbsp;·&nbsp; Mumbai</div>
+      </div>
+      <div class="job-role">Product Consultant — Enterprise Solutions &amp; Digital Transformation</div>
+      <div class="job-pills">
+        <span class="pill">60% efficiency gain</span>
+        <span class="pill">78% AI draft acceptance</span>
+        <span class="pill">$10M program</span>
+        <span class="pill">20% ahead of schedule</span>
+      </div>
+      <ul class="bullets">
+        <li>Led <strong>$10M GenAI digital transformation</strong> for Health Care Service Corporation — mapped 180+ agent tasks, sequenced 10+ AI features by risk and impact, delivered <strong>20% ahead of schedule</strong></li>
+        <li>Sequenced smart email drafting before real-time agent assist; 78% AI draft acceptance in sprint 4 became the ROI proof point for expanding the $10M program</li>
+        <li>Boosted user productivity <strong>60%</strong> on TruServe (Salesforce contact centre platform); defined requirements for Fortune 500 clients including <strong>Apple Inc.</strong> and HCSC</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div class="job-co">Iksula Services</div>
+        <div class="job-period">Jul 2019 – Oct 2021 &nbsp;·&nbsp; Mumbai</div>
+      </div>
+      <div class="job-role">Business Analyst → Product Manager — E-commerce</div>
+      <div class="job-pills">
+        <span class="pill">+16pp conversion</span>
+        <span class="pill">6 products shipped</span>
+        <span class="pill">95% client sat</span>
+        <span class="pill">Excellence Award</span>
+      </div>
+      <ul class="bullets">
+        <li>Shipped 6 e-commerce products end-to-end for <strong>ITC, Eureka Forbes, and ELC Toys</strong> — discovery, wireframes, A/B testing, and go-to-market</li>
+        <li>Drove <strong>+16pp conversion improvement</strong> by investing in personalization engine before checkout (discovery, not checkout, was the real problem); 22% abandoned cart recovery rate</li>
+        <li>Received <strong>Quarterly Excellence Award</strong> — first awarded for "product ownership mindset" in a BA role</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- SKILLS + EDUCATION/CERTS -->
+  <div class="two-col">
+
+    <!-- LEFT: SKILLS -->
+    <div class="sec" style="margin-bottom:0">
+      <div class="sec-title">Skills</div>
+      <div class="skill-group">
+        <div class="skill-cat">Core PM</div>
+        <div class="skill-list">Product Strategy · Roadmap Planning · Feature Prioritization · Go-to-Market · Agile/Scrum · Backlog Management · OKR Definition</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Discovery &amp; Research</div>
+        <div class="skill-list">Jobs-to-be-Done · Customer Interviews · Funnel Analysis · A/B Testing · Cohort Analysis · Competitive Analysis · Journey Mapping</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">AI &amp; Data</div>
+        <div class="skill-list">GenAI Use Case Design · Prompt Engineering · SQL · Mixpanel · Tableau · Google Analytics · Data-driven Prioritization</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Technical</div>
+        <div class="skill-list">API Design &amp; Documentation · Postman · Figma · AWS Fundamentals · OAuth / SSO / JWT · UAT</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Domain</div>
+        <div class="skill-list">Fintech / KYC · Digital Banking · Insurtech · Enterprise SaaS · RBI Compliance · E-commerce</div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-cat">Delivery &amp; Stakeholders</div>
+        <div class="skill-list">JIRA · Confluence · Sprint Planning · C-suite Communication · Cross-functional Leadership · Change Management</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: EDUCATION + CERTS -->
+    <div>
+      <div class="sec">
+        <div class="sec-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">Master of Management Studies (MBA)</div>
+          <div class="edu-school">Jamnalal Bajaj Institute of Management Studies — Mumbai &nbsp;<strong style="color:#f59e0b">★ Top-10 India</strong></div>
+          <div class="edu-detail">2023 – 2025 &nbsp;·&nbsp; Marketing &amp; Strategy &nbsp;·&nbsp; Capstone: JPMC Digital Banking ($1.5B roadmap)</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">B.E. — Information Technology</div>
+          <div class="edu-school">University of Mumbai</div>
+          <div class="edu-detail">2015 – 2019 &nbsp;·&nbsp; Software engineering, data structures, systems design</div>
+        </div>
+      </div>
+
+      <div class="sec" style="margin-bottom:0">
+        <div class="sec-title">Certifications</div>
+        <div class="cert-item">
+          <div>
+            <div class="cert-name">Professional Scrum Product Owner I (PSPO I)</div>
+            <div class="cert-issuer">Scrum.org</div>
+          </div>
+          <span class="cert-badge active">✓ Active</span>
+        </div>
+        <div class="cert-item">
+          <div>
+            <div class="cert-name">AWS Certified Cloud Practitioner</div>
+            <div class="cert-issuer">Amazon Web Services</div>
+          </div>
+          <span class="cert-badge active">✓ Active</span>
+        </div>
+        <div class="cert-item">
+          <div>
+            <div class="cert-name">McKinsey Forward Program</div>
+            <div class="cert-issuer">McKinsey &amp; Company</div>
+          </div>
+          <span class="cert-badge done">Completed</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
