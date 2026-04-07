@@ -343,7 +343,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#certifications">Certifications</a></li>
-      <li><a href="assets/Shraddha_Singh_Resume.pdf" download="Shraddha_Singh_Resume.pdf" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'nav'})">Resume ↓</a></li>
+      <li><a href="#" onclick="downloadResume('nav');return false;">Resume ↓</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
   </div>
@@ -359,7 +359,7 @@
       <p class="hero-bio">6+ years building products where <strong>regulatory complexity meets user trust</strong>. I've shipped AI-powered KYC for tier-1 Indian banks, led a $10M GenAI transformation for a US healthcare company, and currently own roadmap strategy for an insurance platform serving 500K+ customers.</p>
       <div class="hero-actions">
         <a href="#experience" class="btn btn-blue">View Experience ↓</a>
-        <a href="assets/Shraddha_Singh_Resume.pdf" download="Shraddha_Singh_Resume.pdf" class="btn btn-ghost" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'hero'})">↓ Download Resume</a>
+        <a href="#" class="btn btn-ghost" onclick="downloadResume('hero');return false;">↓ Download Resume</a>
         <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
         <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="btn btn-ghost">Medium ↗</a>
       </div>
@@ -975,7 +975,7 @@
     <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries.</p>
     <div class="contact-btns">
       <a href="mailto:shraddhasingh8968@gmail.com" class="cbtn cbtn-blue">✉️ shraddhasingh8968@gmail.com</a>
-      <a href="assets/Shraddha_Singh_Resume.pdf" download="Shraddha_Singh_Resume.pdf" class="cbtn cbtn-ghost" onclick="gtag('event','resume_download',{event_category:'engagement',event_label:'contact'})">↓ Download Resume</a>
+      <a href="#" class="cbtn cbtn-ghost" onclick="downloadResume('contact');return false;">↓ Download Resume</a>
       <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="cbtn cbtn-ghost">LinkedIn ↗</a>
       <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="cbtn cbtn-ghost">Medium ↗</a>
     </div>
@@ -984,5 +984,19 @@
 
 <footer>Shraddha Singh · Product Manager · Bengaluru, India · shraddhasingh8968@gmail.com</footer>
 
+<script>
+  function downloadResume(label) {
+    if (typeof gtag !== 'undefined') gtag('event', 'resume_download', {event_category: 'engagement', event_label: label});
+    fetch('assets/Shraddha_Singh_Resume.pdf')
+      .then(r => r.blob())
+      .then(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Shraddha_Singh_Resume.pdf';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+  }
+</script>
 </body>
 </html>
