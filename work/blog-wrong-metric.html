@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Wrong Metric Cost Us 6 Months · Shraddha Singh</title>
+  <meta name="description" content="How measuring 'time to approve' instead of 'first-attempt success rate' sent our KYC product team in the wrong direction — and what switching metrics changed about the roadmap."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff;
+      --green:#10b981; --amber:#f59e0b;
+      --bg:#fafaf8; --white:#fff; --text:#1a1916; --muted:#6b6460; --border:#e5e2dc;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:#fff;border-bottom:1px solid var(--border);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:var(--muted);font-size:.85rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:.35rem;}
+    .nav-back:hover{color:var(--text);}
+    .nav-tag{font-size:.72rem;font-weight:700;color:var(--muted);background:#f4f1eb;padding:.22rem .65rem;border-radius:100px;}
+
+    /* ARTICLE HEADER */
+    .article-header{max-width:680px;margin:0 auto;padding:3.5rem 2rem 2rem;}
+    .ah-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;}
+    .ah-cat{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);}
+    .ah-dot{width:3px;height:3px;border-radius:50%;background:var(--border);}
+    .ah-date{font-size:.78rem;color:var(--muted);}
+    .ah-read{font-size:.78rem;color:var(--muted);}
+
+    h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(1.75rem,4vw,2.4rem);font-weight:400;color:var(--text);line-height:1.2;letter-spacing:-.3px;margin-bottom:1rem;}
+    .article-sub{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:1.75rem;max-width:580px;}
+
+    /* ARTICLE BODY */
+    .article-body{max-width:680px;margin:0 auto;padding:0 2rem 5rem;}
+
+    /* PROSE */
+    .body-text{font-size:.95rem;color:#2c2926;line-height:1.85;margin-bottom:1.25rem;}
+    .body-text strong{color:var(--text);font-weight:700;}
+
+    /* SECTION HEADER */
+    h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;font-weight:400;color:var(--text);margin:2.25rem 0 .85rem;line-height:1.25;}
+
+    /* CALLOUT */
+    .callout{background:var(--blue-lt);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.5rem 0;}
+    .callout p{font-size:.9rem;color:#1e40af;line-height:1.75;margin:0;}
+    .callout p strong{color:#1e3a8a;}
+
+    /* INSIGHT BOX */
+    .insight-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+    .ib-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem;}
+    .ib-content{font-size:.9rem;color:var(--text);line-height:1.75;font-weight:600;}
+
+    /* DATA VISUAL */
+    .data-block{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.75rem 0;}
+    .db-header{background:#f8fafc;padding:.85rem 1.25rem;border-bottom:1px solid var(--border);}
+    .db-header p{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:0;}
+    .db-body{padding:1.25rem;}
+    .db-row{display:flex;align-items:center;gap:1rem;padding:.5rem 0;border-bottom:1px solid #f1f5f9;}
+    .db-row:last-child{border-bottom:none;}
+    .db-label{font-size:.82rem;color:var(--muted);width:160px;flex-shrink:0;}
+    .db-bar-wrap{flex:1;background:#f1f5f9;border-radius:5px;height:8px;overflow:hidden;}
+    .db-bar{height:8px;border-radius:5px;background:var(--blue);}
+    .db-bar.red{background:#f87171;}
+    .db-bar.green{background:var(--green);}
+    .db-num{font-size:.82rem;font-weight:700;color:var(--text);width:40px;text-align:right;flex-shrink:0;}
+
+    /* COMPARISON */
+    .comparison{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+    .comp-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;}
+    .comp-card.wrong{border-top:3px solid #f87171;}
+    .comp-card.right{border-top:3px solid var(--green);}
+    .comp-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.5rem;}
+    .comp-card.wrong .comp-label{color:#991b1b;}
+    .comp-card.right .comp-label{color:#166534;}
+    .comp-card h4{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:.4rem;}
+    .comp-card p{font-size:.8rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    /* TAKEAWAYS */
+    .takeaways{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin:2rem 0;}
+    .tk-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .tk-list{display:flex;flex-direction:column;gap:.85rem;}
+    .tk-item{display:flex;gap:.85rem;align-items:flex-start;}
+    .tk-num{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;}
+    .tk-item p{font-size:.87rem;color:var(--text);line-height:1.7;margin:0;}
+    .tk-item p strong{color:var(--navy);}
+
+    /* AUTHOR */
+    .author-block{border-top:1px solid var(--border);padding-top:2rem;margin-top:2.5rem;display:flex;align-items:flex-start;gap:1.25rem;}
+    .author-info h4{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.2rem;}
+    .author-info p{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem;}
+    .author-links{display:flex;gap:.75rem;}
+    .author-link{font-size:.78rem;font-weight:600;color:var(--blue);text-decoration:none;}
+    .author-link:hover{text-decoration:underline;}
+
+    /* RELATED */
+    .related{max-width:680px;margin:0 auto;padding:0 2rem 4rem;}
+    .related-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;}
+    .related-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;text-decoration:none;transition:border-color .15s;}
+    .related-card:hover{border-color:#cbd5e1;}
+    .rc-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.35rem;}
+    .rc-title{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.4;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:600px){
+      .comparison{grid-template-columns:1fr;}
+      .related-grid{grid-template-columns:1fr;}
+      .article-header,.article-body,.related{padding-left:1.25rem;padding-right:1.25rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-tag">PM Writing</span>
+</nav>
+
+<div class="article-header">
+  <div class="ah-meta">
+    <span class="ah-cat">Product Thinking</span>
+    <span class="ah-dot"></span>
+    <span class="ah-date">May 2026</span>
+    <span class="ah-dot"></span>
+    <span class="ah-read">7 min read</span>
+  </div>
+  <h1>The Wrong Metric Cost Us 6 Months</h1>
+  <p class="article-sub">We were measuring how long KYC took to approve. That was the wrong number. Here's what we were actually measuring — and what switching metrics changed about the entire product roadmap.</p>
+</div>
+
+<div class="article-body">
+
+  <p class="body-text">When I joined Signzy as Product Owner in January 2024, the brief was clear: the KYC onboarding process was too slow. Banks were losing customers at the identity verification step. The fix, presumably, was to speed up processing.</p>
+
+  <p class="body-text">So that's what I started trying to do. I looked at our backend infrastructure. I looked at how long document processing took. I talked to the engineering team about queue times. I was solving the wrong problem — and I didn't know it yet.</p>
+
+  <p class="body-text">The thing that changed everything was a metric. Specifically, switching from one metric to a different metric. That's it. The same team, the same product, the same infrastructure — but a different number to optimize. And the roadmap looked completely different as a result.</p>
+
+  <h2>What We Were Measuring</h2>
+
+  <p class="body-text">Our north star metric was <strong>average KYC processing time</strong>: how long, on average, from when a customer submitted documents to when we returned an approval or rejection decision.</p>
+
+  <p class="body-text">This seemed reasonable. The complaint was that KYC was slow. Measuring "time to process" felt like measuring the complaint directly.</p>
+
+  <p class="body-text">But average processing time has a hidden problem: it's a mean. And when you have a bimodal distribution — which we did — a mean lies to you.</p>
+
+  <div class="data-block">
+    <div class="db-header"><p>KYC Processing Time Distribution (before — illustrative)</p></div>
+    <div class="db-body">
+      <div class="db-row">
+        <div class="db-label">Passed first try</div>
+        <div class="db-bar-wrap"><div class="db-bar green" style="width:85%;"></div></div>
+        <div class="db-num">~2 hrs</div>
+      </div>
+      <div class="db-row">
+        <div class="db-label">Failed, resubmitted</div>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:60%;"></div></div>
+        <div class="db-num">~36 hrs</div>
+      </div>
+      <div class="db-row">
+        <div class="db-label">Failed, abandoned</div>
+        <div class="db-bar-wrap"><div class="db-bar red" style="width:100%;"></div></div>
+        <div class="db-num">∞</div>
+      </div>
+      <div class="db-row" style="background:#f8fafc;margin:0 -.1rem;padding:.5rem .1rem;">
+        <div class="db-label" style="font-weight:700;color:var(--text);">Average (reported)</div>
+        <div class="db-bar-wrap"><div class="db-bar" style="width:55%;background:#94a3b8;"></div></div>
+        <div class="db-num" style="color:var(--text);font-weight:700;">~3 days</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="body-text">The "3 days average" was technically accurate. But it was averaging three very different populations. Users who passed on the first try were through in under 2 hours. Users who failed and tried again were stuck for 36+ hours waiting for a second review. And users who failed and abandoned — who never showed up in our "average processing time" at all, because they never got a result — dragged down our conversion without appearing in our primary metric.</p>
+
+  <div class="callout">
+    <p><strong>The metric was excluding the worst outcome from the calculation.</strong> Abandoned users didn't generate a "processing time" because they never got a decision. We were measuring the patients who recovered, not counting the ones who walked out.</p>
+  </div>
+
+  <h2>What the Data Actually Said</h2>
+
+  <p class="body-text">Three months into the role, I pulled the full transaction logs and mapped the funnel stage by stage. Not "where does the average user end up" — but "where specifically are users dropping off, and at what rate, and at what time in the session?"</p>
+
+  <p class="body-text">The finding stopped me cold.</p>
+
+  <p class="body-text"><strong>60%+ of KYC failures happened in the first 10 minutes of the session.</strong> Not after backend processing. Not during the review queue. In the first ten minutes — during the document upload phase, before anything reached our backend at all.</p>
+
+  <p class="body-text">These users were uploading low-quality images — wrong lighting, cropped edges, blur — and getting a generic "document submission rejected" email hours later. By the time that email arrived, they were gone. And they never counted in our processing time metric because they never received a decision.</p>
+
+  <div class="insight-box">
+    <div class="ib-label">The Real Problem</div>
+    <div class="ib-content">KYC wasn't slow. Users were failing silently — and we had no mechanism to help them recover.</div>
+  </div>
+
+  <p class="body-text">The backend processing was actually fine. The "3 days" average was masking two hours of actual processing time, blended with days of wait time from users trying to figure out why they'd been rejected and what to fix.</p>
+
+  <h2>The Metric Switch</h2>
+
+  <p class="body-text">I changed our north star metric from <strong>"average KYC processing time"</strong> to <strong>"first-attempt success rate"</strong>: the percentage of users who pass KYC verification on their first submission, without needing to resubmit.</p>
+
+  <div class="comparison">
+    <div class="comp-card wrong">
+      <div class="comp-label">Old Metric — Wrong</div>
+      <h4>Average KYC Processing Time</h4>
+      <p>Excludes abandoned users. Optimizes the backend. Hides the real failure mode (document upload UX). Leads the roadmap toward infrastructure investment.</p>
+    </div>
+    <div class="comp-card right">
+      <div class="comp-label">New Metric — Right</div>
+      <h4>First-Attempt Success Rate</h4>
+      <p>Captures all users including abandons (as failures). Optimizes the full experience. Exposes the real failure mode. Leads the roadmap toward UX investment at the point of failure.</p>
+    </div>
+  </div>
+
+  <p class="body-text">This one change — one sentence in a Confluence doc — changed the entire roadmap. When your north star is "average processing time," you build faster backend infrastructure. When your north star is "first-attempt success rate," you build guided capture UI, real-time quality feedback, and specific rejection error messages.</p>
+
+  <p class="body-text">Those are completely different products. We had been building toward the wrong one for months.</p>
+
+  <h2>What Happened Next</h2>
+
+  <p class="body-text">With the new metric, the prioritization matrix looked completely different. The data science team wanted to retrain the liveness detection model — it was technically compelling and would improve accuracy. But our analysis showed 60% of failures were at document upload (a UX problem), not liveness (a model problem). We would spend 8 weeks fixing 40% of the issue.</p>
+
+  <p class="body-text">Instead, we shipped guided capture UI in 3 weeks: a mobile-first experience with a frame overlay, real-time lighting indicator, and auto-capture when quality threshold was met. Users no longer guessed whether their photo was good — the UI told them before they submitted.</p>
+
+  <p class="body-text">First-attempt success rate improved 28% in the first month. Without touching the model.</p>
+
+  <p class="body-text">The model retrain followed in Phase 2 and delivered the remaining accuracy improvements. But the sequencing was right — we fixed the bigger problem first, with less risk and faster delivery.</p>
+
+  <h2>Why This Happens</h2>
+
+  <p class="body-text">Bad north star metrics are not usually careless choices. They're often the most intuitive choice — they measure something real, they're easy to explain, and they feel connected to the complaint. "KYC is slow" → "measure how long KYC takes." The logic is airtight.</p>
+
+  <p class="body-text">The problem is that the most intuitive metric often measures a <em>symptom</em> rather than the <em>mechanism</em>. "Time to approve" measures the downstream consequence of the failure. "First-attempt success rate" measures the failure itself.</p>
+
+  <p class="body-text">There's also a structural bias: metrics tend to reflect what's easy to instrument. Backend processing time is logged automatically. Document upload failure rates require building specific analytics. The metric you have tends to become the metric you optimize — even when it's not the right one.</p>
+
+  <div class="callout">
+    <p>Before you commit to a north star metric, ask: <strong>does this metric expose the failure mode, or does it only measure the downstream consequence of the failure?</strong> If it's downstream, dig one level higher.</p>
+  </div>
+
+  <h2>A Heuristic I've Kept Since</h2>
+
+  <p class="body-text">When a client or stakeholder gives me a metric to optimize, I now ask one question before I start: <strong>"What would need to be true for this metric to look good while the underlying product is still broken?"</strong></p>
+
+  <p class="body-text">For "average processing time," the answer was: the metric looks good if you exclude users who abandon. The metric was optimizable without fixing the actual problem. That's a bad metric.</p>
+
+  <p class="body-text">For "first-attempt success rate," the answer is: this metric only looks good if users succeed on their first try. That's the actual goal. That's a good metric.</p>
+
+  <p class="body-text">You can apply this test to almost any metric. Revenue looks good while customer satisfaction falls. DAU looks good while engagement per session collapses. Time-in-app looks good while users are confused and can't find what they need. The test forces you to ask what the metric is hiding.</p>
+
+  <!-- PM TAKEAWAYS -->
+  <div class="takeaways">
+    <div class="tk-label">PM Takeaways</div>
+    <div class="tk-list">
+      <div class="tk-item">
+        <div class="tk-num">1</div>
+        <p><strong>Before adopting a metric, ask what it excludes.</strong> Average processing time excluded abandoned users — the worst outcome — from the calculation. A metric that excludes failure is not measuring success.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">2</div>
+        <p><strong>The right metric measures the mechanism, not the downstream consequence.</strong> "Time to approve" is a consequence. "First-attempt success rate" is the mechanism. Optimizing consequences is slower and less efficient than fixing the mechanism.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">3</div>
+        <p><strong>Switching the north star metric changes the roadmap.</strong> Not incrementally — entirely. Different metric, different prioritization, different product. If your north star hasn't been stress-tested, stress-test it before sprint 1.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">4</div>
+        <p><strong>A metric you can optimize without fixing the problem is the wrong metric.</strong> Use this as a forcing function before any north star gets committed to a roadmap.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="author-block">
+    <div class="author-info">
+      <h4>Shraddha Singh</h4>
+      <p>Senior Product Owner at Sapiens International. 6 years in Fintech, Insurtech, and Enterprise AI. I write about product management, AI product decisions, and the craft of building in regulated industries.</p>
+      <div class="author-links">
+        <a href="https://linkedin.com/in/shraddha-singh-9149a4172" class="author-link" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://medium.com/@shraddhasingh8968" class="author-link" target="_blank" rel="noopener">More writing on Medium</a>
+        <a href="../index.html" class="author-link">Portfolio</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="related">
+  <div class="related-label">More From This Portfolio</div>
+  <div class="related-grid">
+    <a href="signzy-kyc.html" class="related-card">
+      <div class="rc-type">Case Study</div>
+      <div class="rc-title">Full story: how switching this metric changed the entire Signzy KYC roadmap</div>
+    </a>
+    <a href="deloitte-genai.html" class="related-card">
+      <div class="rc-type">Case Study</div>
+      <div class="rc-title">Which GenAI feature do you build first? The risk-adjusted framework</div>
+    </a>
+    <a href="product-strategy.html" class="related-card">
+      <div class="rc-type">Strategy</div>
+      <div class="rc-title">AI Feature Risk Prioritization Framework — the full method</div>
+    </a>
+    <a href="../index.html#writing" class="related-card">
+      <div class="rc-type">Writing</div>
+      <div class="rc-title">More PM writing — Medium and portfolio articles</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

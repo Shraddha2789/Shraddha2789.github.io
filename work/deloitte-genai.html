@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deloitte GenAI — Case Study · Shraddha Singh</title>
+  <meta name="description" content="How I built a risk-adjusted prioritization framework to sequence 10+ GenAI features for a $10M enterprise contact center transformation at HCSC."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --amber:#f59e0b; --amber-lt:#fffbeb; --amber-mid:#d97706;
+      --green:#10b981; --purple:#8b5cf6; --bg:#f8fafc; --white:#fff;
+      --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    .hero{background:linear-gradient(135deg,#0d1b35 0%,#1c2e58 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 75% 50%,rgba(245,158,11,.12),transparent);pointer-events:none;}
+    .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.35);color:#fcd34d;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;max-width:720px;}
+    .hero-sub{font-size:.95rem;color:#94a3b8;max-width:620px;line-height:1.75;margin-bottom:1.75rem;}
+    .meta-pills{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .meta-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#94a3b8;font-size:.75rem;font-weight:600;padding:.28rem .75rem;border-radius:100px;}
+    .meta-pill.accent{background:rgba(245,158,11,.18);border-color:rgba(245,158,11,.35);color:#fcd34d;}
+
+    .stats{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .s-num em{color:#fcd34d;font-style:normal;}
+    .s-lbl{font-size:.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;line-height:1.4;}
+
+    .journey{background:var(--white);border-bottom:1px solid var(--border);}
+    .journey-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+    .j-step{padding:1.25rem 1.5rem;position:relative;border-right:1px solid var(--border);}
+    .j-step:last-child{border-right:none;}
+    .j-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.4rem;}
+    .j-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3;}
+    .j-text{font-size:.76rem;color:var(--muted);line-height:1.6;}
+
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+    .sec{margin-bottom:2.75rem;}
+    .sec-label{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--amber-mid);margin-bottom:.5rem;}
+    .sec-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin-bottom:1rem;}
+    .prose{font-size:.9rem;color:var(--muted);line-height:1.8;}
+    .prose+.prose{margin-top:.75rem;}
+    .prose strong{color:var(--text);}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.4rem;}
+    .card h4{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .card p{font-size:.875rem;color:var(--text);line-height:1.65;margin:0;}
+    .card ul{margin:.3rem 0 0 1rem;}
+    .card li{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:.25rem;}
+
+    .users-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .user-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;border-top:3px solid var(--amber);}
+    .user-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--amber-mid);margin-bottom:.4rem;}
+    .user-name{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;}
+    .user-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+    .discovery-steps{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .d-step{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;display:flex;gap:1rem;align-items:flex-start;}
+    .d-num{width:32px;height:32px;border-radius:50%;background:var(--amber);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .d-body h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+    .d-body p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+    .d-body .insight{display:inline-block;background:var(--amber-lt);color:#92400e;font-size:.74rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;margin-top:.5rem;}
+
+    /* RISK MATRIX — the signature element of this case study */
+    .risk-matrix{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:1.25rem 0;}
+    .rm-header{background:#f8fafc;padding:1rem 1.5rem;border-bottom:1px solid var(--border);}
+    .rm-header h4{font-size:.88rem;font-weight:800;color:var(--navy);}
+    .rm-header p{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
+    .rm-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+    .rm-table thead{background:#f8fafc;}
+    .rm-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .rm-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--muted);line-height:1.5;vertical-align:top;}
+    .rm-table tr:last-child td{border-bottom:none;}
+    .rm-table td strong{color:var(--text);}
+    .risk-low{background:#f0fdf4;color:#166534;font-size:.7rem;font-weight:800;padding:.2rem .6rem;border-radius:5px;}
+    .risk-med{background:#fffbeb;color:#92400e;font-size:.7rem;font-weight:800;padding:.2rem .6rem;border-radius:5px;}
+    .risk-high{background:#fef2f2;color:#991b1b;font-size:.7rem;font-weight:800;padding:.2rem .6rem;border-radius:5px;}
+    .p0{background:#eff6ff;color:#1d4ed8;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .p1{background:#f0fdf4;color:#15803d;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .p2{background:#f8fafc;color:#64748b;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+
+    .bet-box{background:var(--amber-lt);border:1px solid #fde68a;border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.25rem 0;}
+    .bet-label{font-size:.65rem;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.65rem;}
+    .bet-box h3{font-size:1rem;font-weight:800;color:#78350f;margin-bottom:.65rem;line-height:1.35;}
+    .bet-box p{font-size:.88rem;color:#92400e;line-height:1.75;margin-bottom:.65rem;}
+    .bet-box p:last-child{margin-bottom:0;}
+    .bet-result{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:.85rem 1.1rem;margin-top:.85rem;}
+    .bet-result strong{display:block;font-size:.78rem;font-weight:700;color:#78350f;margin-bottom:.3rem;}
+    .bet-result p{font-size:.84rem;color:#92400e;margin:0;line-height:1.6;}
+
+    /* CHALLENGE CARDS */
+    .challenges{display:flex;flex-direction:column;gap:.85rem;margin:1rem 0;}
+    .challenge{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+    .ch-header{background:#f8fafc;padding:.85rem 1.35rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;}
+    .ch-num{width:26px;height:26px;border-radius:50%;background:var(--amber);color:#fff;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .ch-title{font-size:.88rem;font-weight:800;color:var(--navy);}
+    .ch-body{padding:1rem 1.35rem;}
+    .ch-body p{font-size:.84rem;color:var(--muted);line-height:1.7;margin:0;}
+    .ch-solution{font-size:.82rem;color:#15803d;font-weight:600;margin-top:.6rem;padding:.5rem .75rem;background:#f0fdf4;border-radius:7px;}
+
+    .decision-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;}
+    .decision-table thead{background:#f8fafc;}
+    .decision-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .decision-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;font-size:.82rem;color:var(--muted);line-height:1.55;vertical-align:top;}
+    .decision-table tr:last-child td{border-bottom:none;}
+    .decision-table td:first-child{font-weight:700;color:var(--navy);}
+
+    .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .metric{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.35rem;text-align:center;border-top:3px solid var(--amber);}
+    .metric-num{font-size:1.8rem;font-weight:900;color:var(--navy);letter-spacing:-1.5px;line-height:1;}
+    .metric-change{font-size:.72rem;font-weight:700;color:var(--green);margin:.25rem 0;}
+    .metric-lbl{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;line-height:1.4;}
+
+    .lessons-list{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .lesson{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;border-left:3px solid var(--amber);}
+    .lesson-num{font-size:.65rem;font-weight:800;color:var(--amber-mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .lesson h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;}
+    .lesson p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .journey-inner{grid-template-columns:1fr 1fr;}
+      .j-step:nth-child(2){border-right:none;}
+      .two-col{grid-template-columns:1fr;}
+      .users-grid{grid-template-columns:1fr;}
+      .metrics-grid{grid-template-columns:1fr 1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">Case Study · Deloitte GenAI</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Case Study · GenAI Product Management · Enterprise Delivery</div>
+    <h1>Which GenAI feature do you<br>build first? I had a framework.</h1>
+    <p class="hero-sub">$10M program. 2,000+ agents. A client who wanted "AI in the contact center" but couldn't define what that meant. I built a risk-adjusted prioritization framework — and argued against shipping the feature everyone wanted in order to ship the one that would prove we could be trusted.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">Deloitte Digital</span>
+      <span class="meta-pill">Product Consultant</span>
+      <span class="meta-pill">Nov 2021 – Jan 2024</span>
+      <span class="meta-pill accent">GenAI · Healthcare · Fortune 500 · $10M Program</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num"><em>60%</em></div><div class="s-lbl">Operational Efficiency<br>Gain (HCSC)</div></div>
+      <div><div class="s-num"><em>35%</em></div><div class="s-lbl">Agent Handle Time<br>Reduction</div></div>
+      <div><div class="s-num"><em>78%</em></div><div class="s-lbl">AI Draft Acceptance<br>Rate (Sprint 4)</div></div>
+      <div><div class="s-num"><em>20%</em></div><div class="s-lbl">Ahead of Schedule<br>on $10M Program</div></div>
+      <div><div class="s-num"><em>10+</em></div><div class="s-lbl">GenAI Features<br>Shipped</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY BAR -->
+<div class="journey">
+  <div class="journey-inner">
+    <div class="j-step">
+      <div class="j-num">01 Discovery</div>
+      <div class="j-label">Mapped 180+ agent tasks</div>
+      <div class="j-text">Scored each task on automation potential × business impact × downside risk of wrong AI output</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">02 Framework</div>
+      <div class="j-label">Risk-adjusted prioritization</div>
+      <div class="j-text">Explicit downside risk weighting — the most-wanted feature had the highest failure cost</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">03 The Bet</div>
+      <div class="j-label">Email drafting before real-time assist</div>
+      <div class="j-text">Argued against the headline feature. 78% acceptance rate in Sprint 4 became proof of concept</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">04 Scale</div>
+      <div class="j-label">Phase 1 earned Phase 2</div>
+      <div class="j-text">Delivery credibility unlocked the high-risk, high-value features everyone wanted from the start</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CONTEXT -->
+  <div class="sec">
+    <div class="sec-label">Context</div>
+    <div class="sec-title">The Platform, The Client, The Problem</div>
+    <div class="two-col">
+      <div class="card">
+        <h4>TruServe — The Product</h4>
+        <p>Deloitte's Salesforce-based platform for enterprise contact center management. Handles ticket routing, agent workflows, post-call documentation, and CRM integration. Used by Fortune 500 clients including Apple Inc. and HCSC across multiple verticals.</p>
+      </div>
+      <div class="card">
+        <h4>HCSC — The Client</h4>
+        <p>Health Care Service Corporation — one of the largest US health insurers. <strong>~1 million customer interactions per year</strong> across 2,000+ agents in three business units: individual plans, employer benefits, and provider relations. The program goal: "use AI to improve agent efficiency."</p>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:.75rem;">That's not a product brief. That's a category. My first job was to turn "improve agent efficiency with AI" into specific, measurable, shippable features — in the right order. That required understanding the problem before touching a feature list.</p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="sec">
+    <div class="sec-label">The Problem</div>
+    <div class="sec-title">Everyone Wanted AI. Nobody Could Define It.</div>
+    <p class="prose">HCSC leadership had been briefed on GenAI capabilities and arrived with a vision: an AI assistant that could guide agents in real time during customer calls. It was compelling, impressive, and — by my analysis — the wrong place to start.</p>
+    <p class="prose">The category excitement around GenAI created a specific PM challenge: the most visually impressive features were also the highest risk. Shipping the flashy feature first, before establishing delivery credibility, would have exposed the program to catastrophic failure in a regulated healthcare environment.</p>
+    <div class="two-col" style="margin-top:1.25rem;">
+      <div class="card">
+        <h4>The Stated Goal</h4>
+        <p>"Use AI to improve agent efficiency across 2,000+ agents handling 1M+ customer interactions per year."</p>
+      </div>
+      <div class="card">
+        <h4>The Real Challenge</h4>
+        <p>In healthcare, wrong AI output during a live call = compliance liability + patient safety risk. The cost of being wrong is asymmetric. A system that's right 90% of the time but wrong 10% in dangerous ways is worse than no AI.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- USERS -->
+  <div class="sec">
+    <div class="sec-label">Users</div>
+    <div class="sec-title">Who the AI Actually Had to Work For</div>
+    <div class="users-grid">
+      <div class="user-card">
+        <div class="user-type">Primary User</div>
+        <div class="user-name">Contact Center Agent</div>
+        <div class="user-desc">Handling healthcare queries: plan details, benefits, billing. Under time pressure. Has seen automation promises fail before. <strong>Skeptical by default.</strong> Will not adopt AI features that make them feel replaceable or expose them to compliance liability.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Secondary User</div>
+        <div class="user-name">Operations Supervisor</div>
+        <div class="user-desc">Responsible for agent performance, compliance adherence, and QA. Currently reviews &lt;10% of calls manually. Wants AI-powered QA coverage — but needs it to be accurate enough to trust in compliance reporting.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Stakeholder</div>
+        <div class="user-name">HCSC C-Suite (IT, Legal, Ops, Business)</div>
+        <div class="user-desc">Four different organizational functions with four different definitions of "done." Getting all four to alignment was as much of a product problem as any feature spec. Monthly joint reviews were not slow — they were the only way to prevent a compliance-related launch delay.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem;border-left:3px solid var(--amber);">
+      <h4>The Key Insight About Users</h4>
+      <p>Agents were skeptical — they'd seen automation promises fail before. They'd experienced suggestions that were wrong or tone-deaf. Designing AI features for the <strong>enthusiast</strong> (who trusts AI by default) produces different products than designing for the <strong>skeptic</strong> (who needs to feel in control). We designed for the skeptic. That's why adoption worked.</p>
+    </div>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="sec">
+    <div class="sec-label">Discovery</div>
+    <div class="sec-title">Mapping 180+ Tasks to Find the Real Opportunity</div>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>Agent task mapping workshops with HCSC ops leads</h4>
+          <p>Ran structured discovery sessions across all three business units. Mapped 180+ distinct agent tasks. For each task, scored: automation potential (can AI reliably do this?), business impact (what's the cost if this task is slow or wrong?), and data readiness (how much labeled data exists?).</p>
+          <span class="insight">Duration: 3 weeks · Method: Structured workshops, task taxonomy mapping</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>The contrarian finding</h4>
+          <p>The most-requested feature (real-time agent guidance during live calls) scored highest on business impact — but also highest on downside risk. The least-requested features (post-call documentation, email drafting) scored highest on ROI per unit of effort because their failure mode was benign: agent reviews before anything goes out.</p>
+          <span class="insight">Finding: High excitement ≠ high priority when failure cost is asymmetric</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE FRAMEWORK -->
+  <div class="sec">
+    <div class="sec-label">Prioritization</div>
+    <div class="sec-title">The Risk-Adjusted Value Framework</div>
+    <p class="prose">Standard GenAI prioritization frameworks optimize for impact and effort. They miss the critical third dimension for regulated environments: <strong>the asymmetric cost of being wrong.</strong></p>
+    <p class="prose">For each proposed AI feature, I added four explicit questions before scoring:</p>
+    <div class="risk-matrix">
+      <div class="rm-header">
+        <h4>Risk-Adjusted Value Framework — Applied to HCSC Features</h4>
+        <p>Each feature scored on: (1) Upside if right, (2) Downside if wrong, (3) Data readiness, (4) Measurability</p>
+      </div>
+      <table class="rm-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Upside if Right</th>
+            <th>Downside if Wrong</th>
+            <th>Data Ready?</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Smart email drafting</strong></td>
+            <td>Saves 8–12 min/email, high volume</td>
+            <td><span class="risk-low">Low</span> — agent reviews before send</td>
+            <td>Yes — email corpus available</td>
+            <td><span class="p0">P0</span></td>
+          </tr>
+          <tr>
+            <td><strong>Post-call documentation</strong></td>
+            <td>12–18 min saved per call, QA coverage</td>
+            <td><span class="risk-low">Low</span> — agent confirms before submitting</td>
+            <td>Yes — call transcripts available</td>
+            <td><span class="p0">P0</span></td>
+          </tr>
+          <tr>
+            <td><strong>QA sentiment flagging</strong></td>
+            <td>QA coverage from &lt;10% to 80%+</td>
+            <td><span class="risk-med">Medium</span> — false positives waste supervisor time</td>
+            <td>Partial — needs calibration</td>
+            <td><span class="p1">P1</span></td>
+          </tr>
+          <tr>
+            <td><strong>Escalation routing</strong></td>
+            <td>Faster resolution, right agent every time</td>
+            <td><span class="risk-med">Medium</span> — wrong routing = customer frustration</td>
+            <td>Partial — historical routing data</td>
+            <td><span class="p1">P1</span></td>
+          </tr>
+          <tr>
+            <td><strong>Real-time agent guidance</strong></td>
+            <td>Very high — correct answers during live call</td>
+            <td><span class="risk-high">High</span> — wrong guidance during live call = compliance liability, patient harm</td>
+            <td>No — needs extensive HCSC-specific training</td>
+            <td><span class="p2">P2 → Phase 2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose">The framework reveals the counterintuitive truth: <strong>the feature with the highest upside has the highest downside and the lowest data readiness.</strong> Shipping it first maximizes the chance of failure in a healthcare environment where wrong = compliance incident.</p>
+  </div>
+
+  <!-- THE BET -->
+  <div class="sec">
+    <div class="sec-label">The Bet</div>
+    <div class="sec-title">Arguing Against the Feature Everyone Wanted</div>
+    <div class="bet-box">
+      <div class="bet-label">The Non-Obvious Call</div>
+      <h3>Defer real-time agent guidance to Phase 2. Ship email drafting first.</h3>
+      <p>HCSC leadership had been sold on the real-time agent assistant vision. It was the demo they'd seen, the vision they'd bought into, and the feature they expected in Sprint 1. My recommendation was to defer it to Phase 2.</p>
+      <p><strong>My argument:</strong> "Let's earn the right to do the high-risk feature by proving we can nail the low-risk ones first. Phase 1 is about building delivery credibility. If we ship smart email drafting on time and it performs, you'll trust us with the feature that matters most. If we rush real-time guidance and it fails, the entire program's credibility is at risk in a regulated environment."</p>
+      <p><strong>What I risked:</strong> Stakeholder frustration in the short term. If Phase 1 underdelivered, deferring the headline feature would look like the wrong call in retrospect.</p>
+      <div class="bet-result">
+        <strong>Sprint 4 result: 78% AI email draft acceptance rate.</strong>
+        <p>Agents accepted the AI-generated draft without significant edits 78% of the time. That number became the proof point for expanding the program — and gave us the credibility to deploy real-time guidance in Phase 2 with stakeholder trust already established.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERY CHALLENGES -->
+  <div class="sec">
+    <div class="sec-label">Execution</div>
+    <div class="sec-title">The Hardest Problems Weren't Technical</div>
+    <div class="challenges">
+      <div class="challenge">
+        <div class="ch-header">
+          <div class="ch-num">1</div>
+          <div class="ch-title">Scope creep from AI excitement</div>
+        </div>
+        <div class="ch-body">
+          <p>Every month, new GPT capabilities were announced. HCSC stakeholders kept adding "can we also do X?" to the backlog. Without discipline, this would have killed the delivery timeline.</p>
+          <div class="ch-solution">Solution: Formal change control process — any scope addition required 3-step evaluation (timeline impact, budget impact, integration complexity) before consideration. Prevented 3 significant scope expansions that would have delayed delivery by 6–10 weeks.</div>
+        </div>
+      </div>
+      <div class="challenge">
+        <div class="ch-header">
+          <div class="ch-num">2</div>
+          <div class="ch-title">Adoption was a product problem, not a training problem</div>
+        </div>
+        <div class="ch-body">
+          <p>The most technically capable feature we shipped had the lowest initial adoption. Agents were skeptical. They'd experienced automation that got it wrong and felt embarrassed in front of customers.</p>
+          <div class="ch-solution">Solution: Added an "AI confidence score" to the UI — agents could see how confident the model was in a given suggestion. Built an easy one-click override. Increased adoption ~30% vs. baseline assumption. Designing for the skeptic, not the enthusiast.</div>
+        </div>
+      </div>
+      <div class="challenge">
+        <div class="ch-header">
+          <div class="ch-num">3</div>
+          <div class="ch-title">Four org functions, four definitions of "done"</div>
+        </div>
+        <div class="ch-body">
+          <p>HCSC's IT, Legal, Operations, and Business teams all had different success criteria. IT cared about integration stability. Legal cared about data handling. Operations cared about efficiency metrics. Business cared about cost reduction.</p>
+          <div class="ch-solution">Solution: Monthly joint reviews with all four functions. Slow? Yes. Did it prevent a compliance-related launch delay that would have cost 6 weeks? Also yes. Cross-functional alignment is product work, not admin overhead.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <div class="sec">
+    <div class="sec-label">Key Decisions</div>
+    <div class="sec-title">The Tradeoffs, Made Explicit</div>
+    <table class="decision-table">
+      <thead>
+        <tr><th>Decision</th><th>What I Chose</th><th>Why</th><th>Alternative Rejected</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Feature sequencing</td>
+          <td>Low-risk, high-visibility features first</td>
+          <td>Build trust before deploying high-stakes AI; earn the right to Phase 2</td>
+          <td>Flagship feature first — stakeholders wanted it, but failure risk was too high</td>
+        </tr>
+        <tr>
+          <td>Real-time guidance timing</td>
+          <td>Deferred to Phase 2</td>
+          <td>Insufficient training data; downside risk in healthcare context too high; needed Phase 1 to establish credibility</td>
+          <td>Ship in Phase 1 — would have exposed program to compliance incident before trust was established</td>
+        </tr>
+        <tr>
+          <td>AI UX design</td>
+          <td>Confidence scores + easy override</td>
+          <td>Skeptical agents adopt when they feel in control, not replaced; override data also improves the model</td>
+          <td>Clean AI output, no override — faster to build, significantly worse adoption</td>
+        </tr>
+        <tr>
+          <td>Scope control</td>
+          <td>Formal 3-step change control</td>
+          <td>Prevents timeline slippage, protects delivery credibility, keeps trust with HCSC leadership</td>
+          <td>Accommodate all requests — satisfies short-term stakeholder desire, catastrophic for long-term delivery</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="sec">
+    <div class="sec-label">Results</div>
+    <div class="sec-title">What the Program Delivered</div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-num">60%</div>
+        <div class="metric-change">↑ Improvement</div>
+        <div class="metric-lbl">Operational Efficiency<br>Gain (HCSC)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">35%</div>
+        <div class="metric-change">↓ Reduction</div>
+        <div class="metric-lbl">Average Agent<br>Handle Time</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">78%</div>
+        <div class="metric-change">Acceptance Rate</div>
+        <div class="metric-lbl">AI Email Draft<br>Accepted by Agents</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">20%</div>
+        <div class="metric-change">Ahead of Schedule</div>
+        <div class="metric-lbl">$10M Program<br>Delivery</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">10+</div>
+        <div class="metric-change">Shipped</div>
+        <div class="metric-lbl">GenAI Features<br>in Production</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">0</div>
+        <div class="metric-change">Clean</div>
+        <div class="metric-lbl">Compliance Incidents<br>During Deployment</div>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:1.25rem;">The program became an internal Deloitte case study for GenAI transformation methodology. The TruServe product roadmap work was used in pitches to Fortune 500 clients including Apple Inc.</p>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="sec">
+    <div class="sec-label">Lessons Learned</div>
+    <div class="sec-title">What I Carry Forward</div>
+    <div class="lessons-list">
+      <div class="lesson">
+        <div class="lesson-num">Lesson 01</div>
+        <h4>"AI" is not a product requirement. A job-to-be-done is.</h4>
+        <p>Every stakeholder wanted AI. Nobody could tell me what problem they wanted it to solve. My job was to translate category excitement into specific, measurable tasks that AI could actually do reliably — and sequence them by the asymmetry of their failure mode.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 02</div>
+        <h4>In regulated industries, the cost of being wrong is asymmetric.</h4>
+        <p>An AI system that's right 90% of the time but wrong 10% in dangerous ways is worse than a system that does nothing. This shaped every feature prioritization decision. Standard value/effort matrices don't capture this — you need an explicit downside risk column.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 03</div>
+        <h4>Adoption is a product problem, not a training problem.</h4>
+        <p>The most technically impressive feature had the lowest adoption until we redesigned the UX to make agents feel in control. Feature quality ≠ adoption. You have to design for the skeptic: give them an easy override, show them the model's confidence, let them feel like the AI is assisting them rather than replacing them.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 04</div>
+        <h4>Delivery credibility is currency. Spend it carefully.</h4>
+        <p>The reason we could expand into higher-risk, higher-value features in Phase 2 is because Phase 1 shipped on time and on budget. The stakeholders who initially wanted real-time guidance in Phase 1 became the biggest advocates for Phase 2 expansion after Phase 1 delivered. Trust is earned before it's spent.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Strategy Work · Shraddha Singh</title>
+  <meta name="description" content="Strategic PM thinking above the roadmap — AI risk prioritization framework, India fintech product strategy, and enterprise insurance platform strategy."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff; --blue-mid:#1d4ed8;
+      --green:#10b981; --amber:#f59e0b; --purple:#8b5cf6; --rose:#f43f5e;
+      --bg:#f8fafc; --white:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,#0d1b35,#1a1035);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 85% 50%,rgba(139,92,246,.1),transparent);pointer-events:none;}
+    .hero-inner{max-width:960px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(139,92,246,.18);border:1px solid rgba(139,92,246,.35);color:#c4b5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;max-width:680px;}
+    .hero-sub{font-size:.95rem;color:#94a3b8;max-width:580px;line-height:1.8;margin-bottom:1.75rem;}
+    .hero-quote{border-left:2px solid rgba(139,92,246,.5);padding:.75rem 1.25rem;margin-top:1.5rem;max-width:520px;}
+    .hero-quote p{font-size:.88rem;color:#94a3b8;line-height:1.7;font-style:italic;margin:0;}
+
+    /* ARTIFACT INDEX */
+    .artifact-index{background:var(--white);border-bottom:1px solid var(--border);}
+    .ai-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);}
+    .ai-item{padding:1.5rem;border-right:1px solid var(--border);cursor:pointer;transition:background .15s;}
+    .ai-item:last-child{border-right:none;}
+    .ai-item:hover{background:#fafaf8;}
+    .ai-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.4rem;}
+    .ai-title{font-size:.92rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3;}
+    .ai-sub{font-size:.75rem;color:var(--muted);line-height:1.55;}
+    .ai-badge{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.18rem .55rem;border-radius:5px;margin-top:.5rem;}
+    .badge-framework{background:#f5f3ff;color:#5b21b6;}
+    .badge-brief{background:#eff6ff;color:#1d4ed8;}
+    .badge-roadmap{background:#f0fdf4;color:#166534;}
+
+    /* PAGE */
+    .page{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+    /* ARTIFACT CARD */
+    .artifact{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:3rem;}
+    .art-header{padding:2rem 2.25rem 1.5rem;border-bottom:1px solid var(--border);}
+    .art-eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:.85rem;}
+    .art-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+    .art-type-badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .6rem;border-radius:5px;}
+    .art-h{font-size:1.3rem;font-weight:900;color:var(--navy);letter-spacing:-.3px;margin-bottom:.5rem;line-height:1.2;}
+    .art-sub{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:640px;}
+    .art-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
+    .art-meta span{font-size:.75rem;font-weight:600;color:var(--muted);background:#f8fafc;border:1px solid var(--border);padding:.22rem .65rem;border-radius:100px;}
+    .art-body{padding:2rem 2.25rem;}
+
+    /* PROSE */
+    .prose{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;}
+    .prose strong{color:var(--text);}
+    .prose:last-child{margin-bottom:0;}
+
+    /* ── FRAMEWORK 1: AI RISK MATRIX ── */
+    .matrix-intro{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+
+    /* The 4 questions */
+    .questions{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;margin:1.25rem 0 1.75rem;}
+    .q-card{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;}
+    .q-num{font-size:.62rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .q-card h4{font-size:.88rem;font-weight:800;color:var(--navy);margin-bottom:.25rem;}
+    .q-card p{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0;}
+
+    /* The 2×2 grid */
+    .risk-matrix-2x2{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin:1.5rem 0;position:relative;}
+    .rm-axis-x{text-align:center;font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+    .rm-axis-y{position:absolute;left:-2.5rem;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+    .rm-cell{padding:1.35rem 1.5rem;position:relative;}
+    .rm-cell:nth-child(1){background:#fef2f2;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .rm-cell:nth-child(2){background:#fffbeb;border-bottom:1px solid var(--border);}
+    .rm-cell:nth-child(3){background:#f0fdf4;border-right:1px solid var(--border);}
+    .rm-cell:nth-child(4){background:#eff6ff;}
+    .rm-cell-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.4rem;}
+    .rm-cell h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;}
+    .rm-cell p{font-size:.78rem;color:var(--muted);line-height:1.6;margin:0;}
+    .rm-examples{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.65rem;}
+    .rm-ex{font-size:.68rem;font-weight:700;padding:.2rem .55rem;border-radius:5px;}
+    .ex-red{background:#fee2e2;color:#991b1b;}
+    .ex-amber{background:#fde68a;color:#78350f;}
+    .ex-green{background:#bbf7d0;color:#14532d;}
+    .ex-blue{background:#bfdbfe;color:#1e40af;}
+    .rm-cell-1 .rm-cell-label{color:#991b1b;}
+    .rm-cell-2 .rm-cell-label{color:#92400e;}
+    .rm-cell-3 .rm-cell-label{color:#166534;}
+    .rm-cell-4 .rm-cell-label{color:#1d4ed8;}
+
+    /* Sequencing rule */
+    .rule-box{background:linear-gradient(135deg,#0d1b35,#1a1035);border-radius:12px;padding:1.5rem 1.75rem;margin:1.5rem 0;}
+    .rule-eyebrow{font-size:.62rem;font-weight:800;color:#c4b5fd;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
+    .rule-box h3{font-size:1rem;font-weight:800;color:#fff;margin-bottom:.6rem;line-height:1.3;}
+    .rule-steps{display:flex;flex-direction:column;gap:.5rem;}
+    .rule-step{display:flex;align-items:flex-start;gap:.85rem;}
+    .rs-num{width:22px;height:22px;border-radius:50%;background:rgba(139,92,246,.3);border:1px solid rgba(139,92,246,.5);color:#c4b5fd;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .rule-step p{font-size:.84rem;color:#94a3b8;line-height:1.65;margin:0;}
+    .rule-step p strong{color:#e2e8f0;}
+
+    /* Applied example table */
+    .applied-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.5rem 0;font-size:.82rem;}
+    .applied-table thead{background:#f8fafc;}
+    .applied-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .applied-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--muted);line-height:1.5;vertical-align:top;}
+    .applied-table tr:last-child td{border-bottom:none;}
+    .applied-table td:first-child{font-weight:700;color:var(--navy);}
+    .quad{font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .q-a{background:#fee2e2;color:#991b1b;}
+    .q-b{background:#fde68a;color:#78350f;}
+    .q-c{background:#bbf7d0;color:#14532d;}
+    .q-d{background:#bfdbfe;color:#1e40af;}
+
+    /* ── FRAMEWORK 2: FINTECH STRATEGY ── */
+    .bet-cards{display:flex;flex-direction:column;gap:1rem;margin:1.25rem 0;}
+    .bet-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+    .bc-header{padding:1rem 1.35rem;display:flex;align-items:flex-start;gap:1rem;border-bottom:1px solid var(--border);background:#f8fafc;}
+    .bc-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;flex-shrink:0;color:#fff;}
+    .bc-meta{flex:1;}
+    .bc-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.2rem;}
+    .bc-title{font-size:.95rem;font-weight:800;color:var(--navy);line-height:1.3;}
+    .bc-body{padding:1.1rem 1.35rem;}
+    .bc-body p{font-size:.84rem;color:var(--muted);line-height:1.72;margin-bottom:.65rem;}
+    .bc-body p:last-child{margin-bottom:0;}
+    .bc-body strong{color:var(--text);}
+    .signal-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.75rem;}
+    .signal{font-size:.72rem;font-weight:600;padding:.22rem .6rem;border-radius:5px;background:#f8fafc;border:1px solid var(--border);color:var(--muted);}
+
+    /* Market signals bar */
+    .signals-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.25rem 0;}
+    .signal-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem 1.15rem;}
+    .sc-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:.4rem;}
+    .sc-num{font-size:1.4rem;font-weight:900;color:var(--navy);letter-spacing:-1px;line-height:1;margin-bottom:.2rem;}
+    .sc-desc{font-size:.75rem;color:var(--muted);line-height:1.5;}
+
+    /* ── FRAMEWORK 3: INSURANCE STRATEGY ── */
+    .strategy-phases{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:1.25rem 0;}
+    .phase{padding:1.35rem 1.5rem;border-bottom:1px solid var(--border);}
+    .phase:last-child{border-bottom:none;}
+    .phase-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.85rem;}
+    .phase-num{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;color:#fff;}
+    .phase-meta{flex:1;}
+    .phase-period{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.25rem;}
+    .phase-title{font-size:.95rem;font-weight:800;color:var(--navy);line-height:1.3;}
+    .phase-bets{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;}
+    .phase-bet{background:#f8fafc;border:1px solid var(--border);border-radius:9px;padding:.9rem 1rem;}
+    .pb-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;}
+    .pb-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+    .pb-desc{font-size:.75rem;color:var(--muted);line-height:1.55;margin:0;}
+
+    /* Success metrics row */
+    .metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.5rem 0;}
+    .met{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;}
+    .met-phase{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;}
+    .met-kpi{font-size:.82rem;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:.2rem;}
+    .met-target{font-size:.72rem;font-weight:700;color:var(--green);}
+
+    /* DIVIDER */
+    .section-divider{height:1px;background:var(--border);margin:2.5rem 0;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .ai-inner{grid-template-columns:1fr;}
+      .ai-item{border-right:none;border-bottom:1px solid var(--border);}
+      .questions{grid-template-columns:1fr;}
+      .risk-matrix-2x2{grid-template-columns:1fr;}
+      .rm-cell:nth-child(1){border-right:none;}
+      .rm-cell:nth-child(3){border-right:none;}
+      .phase-bets{grid-template-columns:1fr;}
+      .metrics-row{grid-template-columns:repeat(2,1fr);}
+      .signals-bar{grid-template-columns:1fr;}
+      .art-body{padding:1.25rem 1.35rem;}
+      .art-header{padding:1.25rem 1.35rem 1rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">Product Strategy Work</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Strategic PM Thinking</div>
+    <h1>How I think above the roadmap.</h1>
+    <p class="hero-sub">Three strategic documents — a framework built from real work, a market brief, and a platform strategy. These are the artifacts that live above the sprint and above the backlog.</p>
+    <div class="hero-quote">
+      <p>"Strategy is deciding what you will <em>not</em> do. Anyone can build a list of features. The hard work is building the case for what doesn't go on the list — and defending it when stakeholders push back."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ARTIFACT INDEX -->
+<div class="artifact-index">
+  <div class="ai-inner">
+    <div class="ai-item">
+      <div class="ai-num">Artifact 01</div>
+      <div class="ai-title">AI Feature Risk Prioritization Framework</div>
+      <div class="ai-sub">How I decide which AI feature to build first when the cost of being wrong is asymmetric</div>
+      <span class="ai-badge badge-framework">Framework</span>
+    </div>
+    <div class="ai-item">
+      <div class="ai-num">Artifact 02</div>
+      <div class="ai-title">India Fintech — A PM's Product Strategy Brief</div>
+      <div class="ai-sub">Three strategic bets for building in India's credit and payments landscape, 2025–2027</div>
+      <span class="ai-badge badge-brief">Strategy Brief</span>
+    </div>
+    <div class="ai-item">
+      <div class="ai-num">Artifact 03</div>
+      <div class="ai-title">Insurance Platform 18-Month Product Strategy</div>
+      <div class="ai-sub">What a phased platform strategy looks like for an enterprise insurance SaaS in 2025 (sanitized)</div>
+      <span class="ai-badge badge-roadmap">Product Roadmap</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ════════════════════════════════════
+       ARTIFACT 01 — AI RISK FRAMEWORK
+       ════════════════════════════════════ -->
+  <div class="artifact">
+    <div class="art-header">
+      <div class="art-eyebrow">
+        <span class="art-num">Artifact 01</span>
+        <span class="art-type-badge" style="background:#f5f3ff;color:#5b21b6;">Framework</span>
+      </div>
+      <h2 class="art-h">AI Feature Risk Prioritization Framework</h2>
+      <p class="art-sub">Standard prioritization frameworks optimize for impact and effort. They miss a critical third dimension for AI products: the asymmetric cost of being wrong. This framework adds it — and changes what P0 looks like.</p>
+      <div class="art-meta">
+        <span>Built from: Deloitte HCSC $10M GenAI program</span>
+        <span>Validated at: Signzy AI-powered KYC</span>
+        <span>Format: 4-question framework + 2×2 sequencing matrix</span>
+      </div>
+    </div>
+    <div class="art-body">
+
+      <p class="prose">In non-AI product development, a feature that's "good enough" is usually fine. In AI product development, a feature that's right 90% of the time and catastrophically wrong 10% of the time can be worse than no feature at all — especially in regulated industries like healthcare and fintech.</p>
+      <p class="prose">This framework was developed during a $10M GenAI transformation at HCSC (Health Care Service Corporation) and refined during KYC product work at Signzy. It adds one question that standard value/effort matrices miss: <strong>what is the downside if the AI gets it wrong?</strong></p>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.5rem 0 .75rem;">The Four Questions</h3>
+      <p class="prose">Before scoring any AI feature, answer these four questions explicitly — not as a filter, but as weighted inputs to the prioritization score:</p>
+
+      <div class="questions">
+        <div class="q-card">
+          <div class="q-num">Question 01</div>
+          <h4>Upside if right</h4>
+          <p>What is the measurable business value if the AI output is consistently good? Be specific: time saved per interaction, cost reduced per unit, conversion rate improvement. Vague upside is not upside.</p>
+        </div>
+        <div class="q-card">
+          <div class="q-num">Question 02 — The Differentiator</div>
+          <h4>Downside if wrong</h4>
+          <p>What happens when the AI gets it wrong — and it will? Is the failure reversible (agent catches it before it reaches the customer)? Or irreversible (patient acts on bad medical guidance in real time)? The asymmetry matters more than the probability.</p>
+        </div>
+        <div class="q-card">
+          <div class="q-num">Question 03</div>
+          <h4>Data readiness</h4>
+          <p>Does sufficient labeled training data exist to make this AI feature reliable at the accuracy threshold required? "We can get it" is not "it exists." Features with data gaps move to later phases regardless of upside.</p>
+        </div>
+        <div class="q-card">
+          <div class="q-num">Question 04</div>
+          <h4>Measurability</h4>
+          <p>Can you measure whether this AI feature is actually working once deployed? If you can't instrument success, you can't iterate. Unmeasurable AI features are not product features — they're experiments with no feedback loop.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.5rem 0 .75rem;">The 2×2 Sequencing Matrix</h3>
+      <p class="prose">Map each proposed AI feature against two axes: <strong>Upside if right</strong> (business value when AI performs well) and <strong>Downside if wrong</strong> (consequence severity when AI fails). This produces four quadrants with distinct sequencing rules:</p>
+      <div style="position:relative;padding-left:2.5rem;">
+        <div class="rm-axis-y">← Downside if Wrong (Low to High)</div>
+        <div class="rm-axis-x" style="margin-bottom:.5rem;padding-left:2rem;">Upside if Right →</div>
+        <div class="risk-matrix-2x2">
+          <div class="rm-cell rm-cell-1">
+            <div class="rm-cell-label" style="color:#991b1b;">Quadrant A — Avoid Early</div>
+            <h4 style="color:#991b1b;">High Downside · Low Upside</h4>
+            <p>Worst quadrant. High risk of harm with limited benefit. These features need either a containment design (human-in-the-loop, easy override) or should not be built until the upside case is clearer.</p>
+            <div class="rm-examples">
+              <span class="rm-ex ex-red">Autonomous medical advice</span>
+              <span class="rm-ex ex-red">Real-time compliance decisions</span>
+            </div>
+          </div>
+          <div class="rm-cell rm-cell-2">
+            <div class="rm-cell-label" style="color:#92400e;">Quadrant B — Phase 2+</div>
+            <h4 style="color:#92400e;">High Downside · High Upside</h4>
+            <p>Flagship features. Maximum value but maximum risk. Build these <em>after</em> you have delivery credibility from Phase 1. Use Phase 1 success to earn the right to deploy these with stakeholder trust.</p>
+            <div class="rm-examples">
+              <span class="rm-ex ex-amber">Real-time agent guidance</span>
+              <span class="rm-ex ex-amber">Autonomous loan decisions</span>
+            </div>
+          </div>
+          <div class="rm-cell rm-cell-3">
+            <div class="rm-cell-label" style="color:#166534;">Quadrant C — Phase 1 Priority</div>
+            <h4 style="color:#166534;">Low Downside · Low Upside</h4>
+            <p>Easy wins that build AI product literacy in the organization and prove the team can ship AI reliably. Don't underestimate these — they create the culture of AI adoption before the stakes are high.</p>
+            <div class="rm-examples">
+              <span class="rm-ex ex-green">Meeting summary generation</span>
+              <span class="rm-ex ex-green">First-draft release notes</span>
+            </div>
+          </div>
+          <div class="rm-cell rm-cell-4">
+            <div class="rm-cell-label" style="color:#1d4ed8;">Quadrant D — P0 Targets</div>
+            <h4 style="color:#1d4ed8;">Low Downside · High Upside</h4>
+            <p>The sweet spot. High business value, low failure risk because a human reviews the output before it reaches the customer or system. Ship these first. Use them to build delivery credibility for Quadrant B.</p>
+            <div class="rm-examples">
+              <span class="rm-ex ex-blue">Smart email drafting</span>
+              <span class="rm-ex ex-blue">Post-call documentation</span>
+              <span class="rm-ex ex-blue">KYC document quality feedback</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rule-box" style="margin-top:1.5rem;">
+        <div class="rule-eyebrow">The Sequencing Rule</div>
+        <h3>Ship Quadrant D first. Use it to earn Quadrant B.</h3>
+        <div class="rule-steps">
+          <div class="rule-step"><div class="rs-num">1</div><p><strong>Phase 1:</strong> Identify all Quadrant D features (High Upside, Low Downside). These are your proof-of-concept candidates. Ship them reliably.</p></div>
+          <div class="rule-step"><div class="rs-num">2</div><p><strong>Phase 1 → 2 Gate:</strong> Measure adoption and performance from Phase 1. A 70%+ adoption rate or clear business impact metric is your proof point for Phase 2 expansion.</p></div>
+          <div class="rule-step"><div class="rs-num">3</div><p><strong>Phase 2:</strong> Now deploy Quadrant B features — with stakeholder trust established, containment design proven, and data readiness validated by Phase 1 usage.</p></div>
+          <div class="rule-step"><div class="rs-num">4</div><p><strong>Ongoing:</strong> Quadrant A features require explicit <strong>containment design</strong> — human-in-the-loop review, easy override, confidence scores — before they leave Phase 2.</p></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.5rem 0 .75rem;">Applied: HCSC GenAI Contact Center Program</h3>
+      <table class="applied-table">
+        <thead>
+          <tr><th>Feature</th><th>Upside</th><th>Downside Risk</th><th>Quadrant</th><th>Phase</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Smart email drafting</td>
+            <td>8–12 min saved per email; agent reviews before send</td>
+            <td>Low — reversible before it reaches customer</td>
+            <td><span class="quad q-d">D</span></td>
+            <td>Phase 1 · P0</td>
+          </tr>
+          <tr>
+            <td>Post-call documentation</td>
+            <td>12–18 min saved per call; 100% QA coverage</td>
+            <td>Low — agent confirms before submission</td>
+            <td><span class="quad q-d">D</span></td>
+            <td>Phase 1 · P0</td>
+          </tr>
+          <tr>
+            <td>QA sentiment flagging</td>
+            <td>Coverage from &lt;10% to 80%+</td>
+            <td>Medium — false positives waste supervisor time</td>
+            <td><span class="quad q-b">B</span></td>
+            <td>Phase 1 · P1</td>
+          </tr>
+          <tr>
+            <td>Real-time agent guidance</td>
+            <td>Very high — correct answers during live calls</td>
+            <td>High — wrong guidance = compliance liability, patient harm</td>
+            <td><span class="quad q-b">B</span></td>
+            <td>Phase 2 (after credibility established)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="prose" style="margin-top:.5rem;">Result: Smart email drafting shipped in Sprint 4 with a 78% acceptance rate. That number became the proof point that unlocked Phase 2 — including real-time guidance, which was the feature everyone wanted from day one.</p>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       ARTIFACT 02 — INDIA FINTECH BRIEF
+       ════════════════════════════════════ -->
+  <div class="artifact">
+    <div class="art-header">
+      <div class="art-eyebrow">
+        <span class="art-num">Artifact 02</span>
+        <span class="art-type-badge" style="background:#eff6ff;color:#1d4ed8;">Strategy Brief</span>
+      </div>
+      <h2 class="art-h">India Fintech — A PM's Product Strategy Brief</h2>
+      <p class="art-sub">Three strategic bets for building in India's credit, payments, and financial infrastructure landscape. Written from the perspective of a PM who has shipped in Indian fintech and watched the market evolve in real time.</p>
+      <div class="art-meta">
+        <span>Context: India · 2025–2027</span>
+        <span>Informed by: Signzy, JPMC strategic analysis, RBI regulatory tracking</span>
+        <span>Format: Market signals + 3 strategic bets + PM implications</span>
+      </div>
+    </div>
+    <div class="art-body">
+
+      <p class="prose">India's fintech market is at an inflection point. UPI has democratized payments. Digital lending has scaled. But three structural gaps remain — and they represent the most interesting product opportunities for PMs building in this space over the next 2–3 years.</p>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.25rem 0 .85rem;">The Market Signals Worth Tracking</h3>
+      <div class="signals-bar">
+        <div class="signal-card">
+          <div class="sc-label">Credit Gap</div>
+          <div class="sc-num">₹22T</div>
+          <div class="sc-desc">Estimated MSME credit gap in India. Most small businesses cannot access formal credit despite having transaction history. The problem is underwriting, not product.</div>
+        </div>
+        <div class="signal-card">
+          <div class="sc-label">AA Adoption</div>
+          <div class="sc-num">5M+</div>
+          <div class="sc-desc">Account Aggregator users linked as of 2025. India's AA framework is a legitimate data infrastructure breakthrough — most PMs haven't built products on top of it yet.</div>
+        </div>
+        <div class="signal-card">
+          <div class="sc-label">UPI Merchant Gap</div>
+          <div class="sc-num">~80M</div>
+          <div class="sc-desc">Small merchants accepting UPI payments. Almost none have a working capital product tied to their UPI transaction data. The rails exist. The product doesn't.</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.5rem 0 .85rem;">Three Strategic Bets</h3>
+      <div class="bet-cards">
+
+        <div class="bet-card">
+          <div class="bc-header">
+            <div class="bc-num" style="background:#2563eb;">1</div>
+            <div class="bc-meta">
+              <div class="bc-label" style="color:#1d4ed8;">Bet 01 · Credit Infrastructure</div>
+              <div class="bc-title">Build the underwriting layer, not the lending product.</div>
+            </div>
+          </div>
+          <div class="bc-body">
+            <p>The India credit gap isn't a capital problem — banks have capital. It's an underwriting problem. Lenders don't have reliable cash flow data for MSMEs who live outside the formal banking system but inside the UPI ecosystem.</p>
+            <p>The strategic bet: build a <strong>cash-flow-based credit underwriting API</strong> that consumes UPI transaction data (via Account Aggregator) and produces a risk score that lenders can trust. This is infrastructure, not a consumer product — and infrastructure compounds. Once a lender integrates your underwriting API, switching cost is high and coverage expands with every new data partner.</p>
+            <p><strong>Why this is the right bet:</strong> RBI's Account Aggregator framework created a legal structure for data sharing that didn't exist before. The PM who understands AA consent flows and can translate them into credit risk models is rare — and valuable.</p>
+            <div class="signal-row">
+              <span class="signal">Account Aggregator</span><span class="signal">B2B API</span><span class="signal">MSME credit</span><span class="signal">RBI-compliant</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bet-card">
+          <div class="bc-header">
+            <div class="bc-num" style="background:#10b981;">2</div>
+            <div class="bc-meta">
+              <div class="bc-label" style="color:#059669;">Bet 02 · Working Capital at the Point of Sale</div>
+              <div class="bc-title">The small merchant with UPI rails already has the data for a working capital product. Nobody's built it yet.</div>
+            </div>
+          </div>
+          <div class="bc-body">
+            <p>80M+ small merchants in India accept UPI payments. Every transaction is a data point: daily revenue, seasonality, customer retention, growth trajectory. This is the cleanest cash flow signal in the market — and it's sitting in Razorpay, PhonePe, and Paytm's databases being used only for payment analytics.</p>
+            <p>The strategic bet: offer working capital (₹1L–₹10L) to merchants with 6+ months of UPI transaction history, underwritten entirely on transaction data, with repayment automatically deducted from incoming UPI payments. No collateral, no financial statements, no branch visit.</p>
+            <p><strong>Why this works as a product:</strong> The merchant's transaction data is both the underwriting input and the repayment mechanism. The product is self-collateralizing by design. CAC is near-zero if you're already the payment provider. This is the same playbook as Shopify Capital — applied to UPI infrastructure.</p>
+            <div class="signal-row">
+              <span class="signal">Embedded finance</span><span class="signal">UPI data</span><span class="signal">MSME lending</span><span class="signal">Revenue-based repayment</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bet-card">
+          <div class="bc-header">
+            <div class="bc-num" style="background:#8b5cf6;">3</div>
+            <div class="bc-meta">
+              <div class="bc-label" style="color:#6d28d9;">Bet 03 · AI-Native KYC for the Next 300M</div>
+              <div class="bc-title">The next wave of Indian bank customers don't have documents that match current KYC systems. The product needs to meet them where they are.</div>
+            </div>
+          </div>
+          <div class="bc-body">
+            <p>India's existing KYC infrastructure was designed for urban professionals with Aadhaar, PAN, and a stable address. The next 300M financial inclusion targets are semi-urban and rural users with inconsistent documentation, shared addresses, and intermittent connectivity.</p>
+            <p>The strategic bet: an <strong>AI-native KYC stack</strong> that treats documentation as a probabilistic signal, not a binary gate. Face-match with liveness as the primary identifier. AA-linked financial history as a supplementary signal. Alternative address verification through telecom data and utility payments.</p>
+            <p><strong>The PM insight from Signzy:</strong> The hardest part of this problem is not the AI model — it's designing the failure experience for users who fail the first time. First-attempt success rate is the north star. Guided capture and real-time feedback (not post-hoc rejection) moves that number more than any model improvement.</p>
+            <div class="signal-row">
+              <span class="signal">Financial inclusion</span><span class="signal">Liveness detection</span><span class="signal">RBI compliance</span><span class="signal">Tier-2/3 India</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-top:1.5rem;">
+        <p style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;">PM Implication Across All Three Bets</p>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.7;margin:0;">Each of these bets has RBI compliance as a first-class design constraint, not a post-launch checkbox. The PMs who win in Indian fintech are the ones who treat regulatory knowledge as a product skill — because it determines what you can build, how fast, and for whom.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       ARTIFACT 03 — INSURANCE STRATEGY
+       ════════════════════════════════════ -->
+  <div class="artifact">
+    <div class="art-header">
+      <div class="art-eyebrow">
+        <span class="art-num">Artifact 03</span>
+        <span class="art-type-badge" style="background:#f0fdf4;color:#166534;">Product Roadmap</span>
+      </div>
+      <h2 class="art-h">Enterprise Insurance Platform — 18-Month Product Strategy</h2>
+      <p class="art-sub">What a phased product strategy looks like for an enterprise insurance SaaS serving tier-1 carriers. Informed by current work at Sapiens, sanitized and generalized for portfolio use.</p>
+      <div class="art-meta">
+        <span>Context: Enterprise Insurtech · B2B SaaS</span>
+        <span>Informed by: Sapiens CoreSuite (sanitized)</span>
+        <span>Format: 3-phase strategy + success metrics + phase-gate criteria</span>
+      </div>
+    </div>
+    <div class="art-body">
+
+      <p class="prose">Enterprise insurance platforms face a distinctive strategic challenge: the platform serves multiple carrier clients simultaneously, each with different digital maturity levels, different integration architectures, and different competitive pressures. A single roadmap must advance platform differentiation while serving the renewal and expansion needs of clients at different stages.</p>
+      <p class="prose">This strategy organizes the 18-month investment into three phases, each with a different strategic priority and a clear phase-gate criterion before moving to the next.</p>
+
+      <div class="strategy-phases">
+        <div class="phase">
+          <div class="phase-header">
+            <div class="phase-num" style="background:#ea580c;">1</div>
+            <div class="phase-meta">
+              <div class="phase-period">Months 1–6 · Foundation</div>
+              <div class="phase-title">Reliability as a Product — Earn the Trust That Unlocks Expansion</div>
+            </div>
+          </div>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Before any growth feature, clients need to trust the platform will do what it says it will. The first phase focuses on reliability, integration stability, and the communication cadence that makes carriers comfortable expanding their usage.</p>
+          <div class="phase-bets">
+            <div class="phase-bet">
+              <div class="pb-label">Bet 1A</div>
+              <div class="pb-title">API contract stability</div>
+              <div class="pb-desc">Zero breaking changes to existing integrations. Version all APIs. Carriers plan around our releases — make that planning trustworthy.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 1B</div>
+              <div class="pb-title">Pre-production quality gate</div>
+              <div class="pb-desc">95% quality standard before UAT opens. Insurance carriers cannot absorb production defects. Reliability is the foundation everything else builds on.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 1C</div>
+              <div class="pb-title">Release predictability</div>
+              <div class="pb-desc">Consistent, template-based release communication. Carriers need to plan their own digital roadmaps around ours. Predictability is a feature.</div>
+            </div>
+          </div>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:.85rem;padding:.6rem .85rem;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa;"><strong style="color:#7c2d12;">Phase Gate:</strong> Zero P1 defects shipped in Phase 1. Client satisfaction score stable or improving. At least 2 carriers expand their integration scope after Phase 1 closes.</p>
+        </div>
+
+        <div class="phase">
+          <div class="phase-header">
+            <div class="phase-num" style="background:#2563eb;">2</div>
+            <div class="phase-meta">
+              <div class="phase-period">Months 7–12 · Self-Service</div>
+              <div class="phase-title">Digital Self-Service — Reduce Carrier Ops Burden and Increase Policyholder Engagement</div>
+            </div>
+          </div>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">With trust established, the second phase builds the customer-facing capabilities that reduce carrier operational cost and create visible product improvement for policyholders. This is where platform differentiation becomes visible.</p>
+          <div class="phase-bets">
+            <div class="phase-bet">
+              <div class="pb-label">Bet 2A</div>
+              <div class="pb-title">Policyholder digital portal</div>
+              <div class="pb-desc">Self-service policy management, fund selection, and digital claims initiation. Target: 30% reduction in inbound carrier support calls from policyholders.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 2B</div>
+              <div class="pb-title">Fund management UX</div>
+              <div class="pb-desc">Simplified digital disclosure and interactive fund selection for complex insurance investment products. Reduce transaction abandonment during fund switching workflows.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 2C</div>
+              <div class="pb-title">Analytics dashboard for carriers</div>
+              <div class="pb-desc">Real-time policyholder funnel visibility for carrier ops teams. Same insight we provided to Signzy's bank clients — carriers should see their own data.</div>
+            </div>
+          </div>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:.85rem;padding:.6rem .85rem;background:#eff6ff;border-radius:8px;border:1px solid #bfdbfe;"><strong style="color:#1e40af;">Phase Gate:</strong> Digital portal live for at least 2 carrier clients. Measurable reduction in support ticket volume. Net Promoter Score for carrier IT teams stable or improving.</p>
+        </div>
+
+        <div class="phase">
+          <div class="phase-header">
+            <div class="phase-num" style="background:#8b5cf6;">3</div>
+            <div class="phase-meta">
+              <div class="phase-period">Months 13–18 · Intelligence</div>
+              <div class="phase-title">AI-Assisted Platform — From Transaction Processing to Decision Support</div>
+            </div>
+          </div>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">With reliability proven and self-service live, the third phase introduces AI capabilities that transform the platform from a transaction processor into a decision-support system for both carriers and policyholders.</p>
+          <div class="phase-bets">
+            <div class="phase-bet">
+              <div class="pb-label">Bet 3A</div>
+              <div class="pb-title">AI-assisted claims triage</div>
+              <div class="pb-desc">Classify incoming claims by complexity and risk. Route complex claims to senior adjusters, simple claims to automated processing. Apply the AI Risk Framework — low downside first.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 3B</div>
+              <div class="pb-title">Proactive renewal intelligence</div>
+              <div class="pb-desc">ML model predicting policyholder churn risk 90 days before renewal. Surfaces high-risk accounts to carrier retention teams with recommended intervention actions.</div>
+            </div>
+            <div class="phase-bet">
+              <div class="pb-label">Bet 3C</div>
+              <div class="pb-title">Personalized policyholder nudges</div>
+              <div class="pb-desc">AI-generated, carrier-branded communications for fund rebalancing reminders, coverage gap alerts, and renewal prompts. Personalized by life stage and portfolio.</div>
+            </div>
+          </div>
+          <p style="font-size:.75rem;color:var(--muted);margin-top:.85rem;padding:.6rem .85rem;background:#f5f3ff;border-radius:8px;border:1px solid #ddd6fe;"><strong style="color:#5b21b6;">Phase Gate:</strong> AI triage model in production with measurable accuracy. Carrier retention teams actively using churn predictions. Platform positioned as "intelligent" in carrier renewal conversations.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:.95rem;font-weight:800;color:var(--navy);margin:1.75rem 0 .85rem;">Success Metrics Across Phases</h3>
+      <div class="metrics-row">
+        <div class="met">
+          <div class="met-phase">Phase 1</div>
+          <div class="met-kpi">P1 Defect Rate</div>
+          <div class="met-target">Target: 0</div>
+        </div>
+        <div class="met">
+          <div class="met-phase">Phase 1–2</div>
+          <div class="met-kpi">Carrier Integration Expansion</div>
+          <div class="met-target">Target: 2+ carriers expand</div>
+        </div>
+        <div class="met">
+          <div class="met-phase">Phase 2</div>
+          <div class="met-kpi">Support Ticket Reduction</div>
+          <div class="met-target">Target: ↓30%</div>
+        </div>
+        <div class="met">
+          <div class="met-phase">Phase 3</div>
+          <div class="met-kpi">AI Claims Triage Accuracy</div>
+          <div class="met-target">Target: 85%+ on routing</div>
+        </div>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-top:1rem;">
+        <p style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;">The Strategic Logic Across All Three Phases</p>
+        <p style="font-size:.83rem;color:var(--muted);line-height:1.7;margin:0;">Each phase earns the right to the next. Phase 1's reliability unlocks Phase 2's self-service expansion. Phase 2's data (policyholder behavior in the portal) becomes the training signal for Phase 3's AI features. The sequence is not arbitrary — it's the only order that manages risk while building platform value.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

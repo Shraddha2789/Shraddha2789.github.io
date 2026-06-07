@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iksula E-commerce — Case Study · Shraddha Singh</title>
+  <meta name="description" content="How diagnosing the wrong problem — checkout vs. discovery — and betting on personalization over convention drove a +16pp conversion improvement for three premium Indian brands."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --green:#10b981; --green-lt:#f0fdf4; --green-mid:#059669;
+      --blue:#2563eb; --amber:#f59e0b; --bg:#f8fafc; --white:#fff;
+      --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    .hero{background:linear-gradient(135deg,#0d1b35 0%,#064e3b 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 80% 50%,rgba(16,185,129,.12),transparent);pointer-events:none;}
+    .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;max-width:720px;}
+    .hero-sub{font-size:.95rem;color:#94a3b8;max-width:620px;line-height:1.75;margin-bottom:1.75rem;}
+    .meta-pills{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .meta-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#94a3b8;font-size:.75rem;font-weight:600;padding:.28rem .75rem;border-radius:100px;}
+    .meta-pill.accent{background:rgba(16,185,129,.18);border-color:rgba(16,185,129,.35);color:#6ee7b7;}
+
+    .stats{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .s-num em{color:#6ee7b7;font-style:normal;}
+    .s-lbl{font-size:.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;line-height:1.4;}
+
+    .journey{background:var(--white);border-bottom:1px solid var(--border);}
+    .journey-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+    .j-step{padding:1.25rem 1.5rem;position:relative;border-right:1px solid var(--border);}
+    .j-step:last-child{border-right:none;}
+    .j-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem;}
+    .j-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3;}
+    .j-text{font-size:.76rem;color:var(--muted);line-height:1.6;}
+
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+    .sec{margin-bottom:2.75rem;}
+    .sec-label{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--green-mid);margin-bottom:.5rem;}
+    .sec-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin-bottom:1rem;}
+    .prose{font-size:.9rem;color:var(--muted);line-height:1.8;}
+    .prose+.prose{margin-top:.75rem;}
+    .prose strong{color:var(--text);}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.4rem;}
+    .card h4{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .card p{font-size:.875rem;color:var(--text);line-height:1.65;margin:0;}
+    .card ul{margin:.3rem 0 0 1rem;}
+    .card li{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:.25rem;}
+
+    .users-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .user-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;border-top:3px solid var(--green);}
+    .user-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--green-mid);margin-bottom:.4rem;}
+    .user-name{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;}
+    .user-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+    .discovery-steps{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .d-step{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;display:flex;gap:1rem;align-items:flex-start;}
+    .d-num{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .d-body h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+    .d-body p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+    .d-body .insight{display:inline-block;background:var(--green-lt);color:#14532d;font-size:.74rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;margin-top:.5rem;}
+
+    .bet-box{background:var(--green-lt);border:1px solid #86efac;border-left:4px solid var(--green);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.25rem 0;}
+    .bet-label{font-size:.65rem;font-weight:800;color:#14532d;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.65rem;}
+    .bet-box h3{font-size:1rem;font-weight:800;color:#14532d;margin-bottom:.65rem;line-height:1.35;}
+    .bet-box p{font-size:.88rem;color:#166534;line-height:1.75;margin-bottom:.65rem;}
+    .bet-box p:last-child{margin-bottom:0;}
+    .bet-result{background:#fff;border:1px solid #86efac;border-radius:8px;padding:.85rem 1.1rem;margin-top:.85rem;}
+    .bet-result strong{display:block;font-size:.78rem;font-weight:700;color:#14532d;margin-bottom:.3rem;}
+    .bet-result p{font-size:.84rem;color:#166534;margin:0;line-height:1.6;}
+
+    /* A/B TEST TABLE */
+    .ab-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.25rem 0;font-size:.85rem;}
+    .ab-table thead{background:var(--green-lt);}
+    .ab-table th{padding:.75rem 1rem;text-align:left;font-size:.72rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #86efac;}
+    .ab-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--muted);line-height:1.5;vertical-align:top;}
+    .ab-table tr:last-child td{border-bottom:none;}
+    .ab-table td:first-child{font-weight:700;color:var(--navy);}
+    .ab-table td.result{color:#14532d;font-weight:700;}
+
+    .decision-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;}
+    .decision-table thead{background:#f8fafc;}
+    .decision-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .decision-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;font-size:.82rem;color:var(--muted);line-height:1.55;vertical-align:top;}
+    .decision-table tr:last-child td{border-bottom:none;}
+    .decision-table td:first-child{font-weight:700;color:var(--navy);}
+
+    .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .metric{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.35rem;text-align:center;border-top:3px solid var(--green);}
+    .metric-num{font-size:1.8rem;font-weight:900;color:var(--navy);letter-spacing:-1.5px;line-height:1;}
+    .metric-change{font-size:.72rem;font-weight:700;color:var(--green);margin:.25rem 0;}
+    .metric-lbl{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;line-height:1.4;}
+
+    .lessons-list{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .lesson{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;border-left:3px solid var(--green);}
+    .lesson-num{font-size:.65rem;font-weight:800;color:var(--green-mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .lesson h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;}
+    .lesson p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .journey-inner{grid-template-columns:1fr 1fr;}
+      .j-step:nth-child(2){border-right:none;}
+      .two-col,.three-col{grid-template-columns:1fr;}
+      .users-grid{grid-template-columns:1fr;}
+      .metrics-grid{grid-template-columns:1fr 1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">Case Study · Iksula E-commerce</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Case Study · E-commerce · Product Discovery · Growth</div>
+    <h1>The checkout wasn't broken.<br>The problem was earlier.</h1>
+    <p class="hero-sub">Every client said "fix our checkout." Checkout was fine. Users were leaving because they couldn't find what they wanted — not because paying was hard. The insight changed the entire product investment, from checkout optimization to a personalization engine. +16 percentage points of conversion followed.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">Iksula Services</span>
+      <span class="meta-pill">Business Analyst → Product Lead</span>
+      <span class="meta-pill">Jul 2019 – Oct 2021</span>
+      <span class="meta-pill accent">E-commerce · ITC · Eureka Forbes · ELC Toys</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num"><em>+16pp</em></div><div class="s-lbl">Conversion Rate<br>Improvement</div></div>
+      <div><div class="s-num"><em>6</em></div><div class="s-lbl">Products Shipped<br>End-to-End</div></div>
+      <div><div class="s-num"><em>95%</em></div><div class="s-lbl">Client Satisfaction<br>Score</div></div>
+      <div><div class="s-num"><em>22%</em></div><div class="s-lbl">Cart Abandonment<br>Recovery Rate</div></div>
+      <div><div class="s-num"><em>8w</em></div><div class="s-lbl">A/B Test Duration<br>to Significance</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-inner">
+    <div class="j-step">
+      <div class="j-num">01 Discovery</div>
+      <div class="j-label">Rejected the default diagnosis</div>
+      <div class="j-text">Session recordings and behavioral data revealed the drop-off was at product discovery, not payment</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">02 The Bet</div>
+      <div class="j-label">Personalization over checkout</div>
+      <div class="j-text">More expensive, harder to measure, invisible in a demo — but the right call based on data</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">03 Execution</div>
+      <div class="j-label">Built and shipped across 3 accounts</div>
+      <div class="j-text">Personalization engine, mobile PDP restructure, and abandoned cart flows — simultaneously</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">04 Measurement</div>
+      <div class="j-label">8 weeks, statistically significant</div>
+      <div class="j-text">+8pp homepage personalization, +6pp mobile PDP, 22% cart recovery — total +16pp</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CONTEXT -->
+  <div class="sec">
+    <div class="sec-label">Context</div>
+    <div class="sec-title">Where I Started My PM Journey</div>
+    <div class="two-col">
+      <div class="card">
+        <h4>Iksula — The Company</h4>
+        <p>Iksula helped premium Indian brands build their own e-commerce channels. In 2019–2021, brands like ITC, Eureka Forbes, and ELC Toys were watching Amazon dominate their categories and trying to compete on their own websites. Iksula built and operated those websites.</p>
+      </div>
+      <div class="card">
+        <h4>My Role</h4>
+        <p>Started as "Business Analyst" — in practice, the PM on three accounts simultaneously. No PM above me. Owned the product lifecycle from discovery to launch to performance optimization. I was 23. I was figuring this out as I went.</p>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:.75rem;">This is where I learned product management. Not from a methodology or a framework, but from being accountable for numbers I didn't fully control, for clients I'd have to face in review calls, with data I couldn't ignore. Every product belief I hold today, I can trace back to a specific moment at Iksula where I learned it the hard way.</p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="sec">
+    <div class="sec-label">The Problem</div>
+    <div class="sec-title">The Common Complaint That Was Wrong</div>
+    <p class="prose">Every client had the same complaint: <strong>"Our website traffic is fine. Our conversions are terrible. Fix the checkout."</strong></p>
+    <p class="prose">The industry default response was checkout optimization — fewer form fields, faster payment, reduced friction. We tried that first. The conversion needle barely moved.</p>
+    <p class="prose">When I mapped the full user journey using session recordings (Hotjar) and behavioral data (Google Analytics) across three client accounts for 4 weeks, a different picture emerged:</p>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>Users were abandoning at the product detail page, not payment</h4>
+          <p>On mobile, 60%+ of checkout abandonment happened before the payment step. Users were leaving from the product detail page. The checkout was fine. The product presentation wasn't.</p>
+          <span class="insight">Finding: Wrong stage of the funnel — payment wasn't the problem</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>Returning users saw the same homepage as new users</h4>
+          <p>A customer who'd bought baby toys last month was seeing ITC's cooking sauce promotions. A returning Eureka Forbes customer was shown a product category they'd never browsed. There was no personalization layer at all — every visit started from zero.</p>
+          <span class="insight">Finding: Discovery failure — the site didn't know its own customers</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">3</div>
+        <div class="d-body">
+          <h4>Category navigation was organized by internal logic, not customer mental models</h4>
+          <p>ITC had 15+ product lines. The navigation was organized by their internal business unit structure. Customers couldn't find what they were looking for because the categories reflected how ITC was organized internally, not how customers thought about what they needed.</p>
+          <span class="insight">Finding: IA problem — the product architecture served the company, not the customer</span>
+        </div>
+      </div>
+    </div>
+    <p class="prose"><strong>The insight:</strong> The problem wasn't checkout friction. It was discovery failure. Users were leaving because they couldn't find what they wanted — not because paying was hard. Fixing checkout would have optimized the 40% of the funnel that was working. We needed to fix the 60% that wasn't.</p>
+  </div>
+
+  <!-- USERS -->
+  <div class="sec">
+    <div class="sec-label">Users</div>
+    <div class="sec-title">Three Brands, One Common Problem</div>
+    <div class="users-grid">
+      <div class="user-card">
+        <div class="user-type">ITC / ELC Toys Shopper</div>
+        <div class="user-name">Returning Brand Customer</div>
+        <div class="user-desc">Comes back to buy again. Has clear intent. Knows what category they want. Gets shown the same generic homepage as a first-time visitor. Leaves because discovery is too much work. The brand lost a guaranteed conversion to a UX failure.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Eureka Forbes Shopper</div>
+        <div class="user-name">High-Intent Mobile Browser</div>
+        <div class="user-desc">Browsing on mobile, considering a home appliance. High purchase intent. Lands on a product page where price and availability are buried 3–4 screens below the fold. Leaves before finding the information they need to buy.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">All Accounts</div>
+        <div class="user-name">Category Explorer</div>
+        <div class="user-desc">Doesn't know exactly what they want. Needs the site to guide them. Navigates to a category organized by internal business logic, doesn't recognize the structure, gives up. Amazon's recommendation engine guides this user. Our site didn't.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE BET -->
+  <div class="sec">
+    <div class="sec-label">The Bet</div>
+    <div class="sec-title">Personalization Over the Industry Default</div>
+    <div class="bet-box">
+      <div class="bet-label">The Non-Obvious Call</div>
+      <h3>Build a personalization engine instead of optimizing checkout.</h3>
+      <p>The personalization engine was the riskier call in every dimension:</p>
+      <p><strong>More expensive to build</strong> than a checkout optimization. Checkout changes are incremental; a personalization layer requires a new data pipeline and recommendation logic.<br><br>
+      <strong>Harder to measure</strong> — you need enough time and volume to see the impact. Checkout optimization shows results in 2 weeks; personalization needs 6–8 weeks minimum.<br><br>
+      <strong>Invisible in a demo</strong> — you can't show a client "personalization working" in a meeting. A new homepage design is immediately visible. A recommendation engine that's learning is not.</p>
+      <p>I made the case to ITC's digital team using a competitive comparison: their Amazon.in performance (where their products converted well) vs. their own site performance. The difference was almost entirely personalization — Amazon knew what each user wanted; ITC's site did not.</p>
+      <div class="bet-result">
+        <strong>They approved it. Here's what happened:</strong>
+        <p>After 8 weeks of A/B testing, personalized homepage drove +8pp conversion vs. control. Mobile PDP restructure drove +6pp on mobile sessions. Combined with cart recovery emails, total uplift: +16 percentage points. The personalization bet was the right call.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="sec">
+    <div class="sec-label">Solution Design</div>
+    <div class="sec-title">Three Interventions, One Diagnosis</div>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>Personalization engine — homepage layer</h4>
+          <p>Used browsing history and purchase data to serve personalized hero banners for returning users (category-specific), "recently viewed" and "you might also like" modules, and preference-based category surfacing. First time a returning user saw a homepage that reflected their history.</p>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>Mobile PDP restructure</h4>
+          <p>Restructured product detail pages to surface price, availability, and the buy button above the fold on mobile. Previously, users had to scroll 3–4 screens to find critical purchase information. Rearranged the information hierarchy to match how mobile users actually make purchase decisions.</p>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">3</div>
+        <div class="d-body">
+          <h4>Personalized cart abandonment email flows</h4>
+          <p>Triggered email sequences using the specific product the user viewed or added to cart — not generic "you left something behind" emails, but emails featuring the actual product with personalized copy. Measured against a control group receiving generic recovery emails.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A/B RESULTS -->
+  <div class="sec">
+    <div class="sec-label">Measurement</div>
+    <div class="sec-title">8 Weeks, Three Interventions, One Framework</div>
+    <p class="prose">Ran A/B tests across all three client accounts for 8 weeks — long enough to reach statistical significance given each account's traffic volume. The test duration was intentional: a 2-week test on these traffic levels would have produced false positives.</p>
+    <table class="ab-table">
+      <thead>
+        <tr><th>Intervention</th><th>Test Group</th><th>Control Group</th><th>Result</th><th>Confidence</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Personalized homepage (returning users)</td>
+          <td>Personalized hero + modules</td>
+          <td>Generic homepage (all users)</td>
+          <td class="result">+8pp conversion</td>
+          <td>95%+</td>
+        </tr>
+        <tr>
+          <td>Mobile PDP restructure</td>
+          <td>Price/CTA above fold</td>
+          <td>Original layout (price below fold)</td>
+          <td class="result">+6pp on mobile</td>
+          <td>95%+</td>
+        </tr>
+        <tr>
+          <td>Personalized cart recovery email</td>
+          <td>Product-specific email</td>
+          <td>Generic recovery email</td>
+          <td class="result">22% recovery rate</td>
+          <td>95%+</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="prose"><strong>Combined effect: +16 percentage points</strong> overall conversion across accounts, anchored by ITC as the lead account. The +16pp is not additive across all three tests — it represents the net conversion improvement across the full user population after all three changes were deployed.</p>
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <div class="sec">
+    <div class="sec-label">Key Decisions</div>
+    <div class="sec-title">The Calls I Made at 23</div>
+    <table class="decision-table">
+      <thead>
+        <tr><th>Decision</th><th>What I Chose</th><th>Why</th><th>Alternative Rejected</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Where to investigate first</td>
+          <td>Full user journey analysis before any solution</td>
+          <td>Conversion problem wasn't where everyone assumed; needed to find where in the funnel before proposing what to fix</td>
+          <td>Jump directly to checkout optimization — the industry default, and in this case, the wrong answer</td>
+        </tr>
+        <tr>
+          <td>Personalization vs. checkout</td>
+          <td>Personalization engine first</td>
+          <td>Data showed discovery was the gap; checkout was actually working fine; optimizing a working funnel stage has diminishing returns</td>
+          <td>Checkout optimization — less risky, faster to build, but addresses the wrong failure mode</td>
+        </tr>
+        <tr>
+          <td>A/B test duration</td>
+          <td>8 weeks to statistical significance</td>
+          <td>Traffic volume required 8 weeks to avoid false positives; shorter tests would have produced misleading results at conventional significance thresholds</td>
+          <td>2-week test — faster feedback but high risk of false positive leading to shipping the wrong change</td>
+        </tr>
+        <tr>
+          <td>Client communication</td>
+          <td>Weekly written updates with data</td>
+          <td>Builds trust, surfaces problems before they become surprises, gives clients visibility into work they can't see yet (the personalization engine learning)</td>
+          <td>Monthly review — slower feedback loop, no mechanism for course correction</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="sec">
+    <div class="sec-label">Results</div>
+    <div class="sec-title">What the Numbers Said</div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-num">+16pp</div>
+        <div class="metric-change">↑ Improvement</div>
+        <div class="metric-lbl">Conversion Rate<br>Across All Accounts</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">6</div>
+        <div class="metric-change">Shipped</div>
+        <div class="metric-lbl">Products Delivered<br>On Time, In Scope</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">95%</div>
+        <div class="metric-change">Achieved</div>
+        <div class="metric-lbl">Client Satisfaction<br>Score</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">+8pp</div>
+        <div class="metric-change">↑ from personalization</div>
+        <div class="metric-lbl">Homepage Conversion<br>(Returning Users)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">22%</div>
+        <div class="metric-change">Recovery rate</div>
+        <div class="metric-lbl">Cart Abandonment<br>Email Recovery</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">1st</div>
+        <div class="metric-change">Awarded</div>
+        <div class="metric-lbl">Excellence Award for<br>"Product Ownership Mindset" in BA role</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="sec">
+    <div class="sec-label">Lessons Learned</div>
+    <div class="sec-title">What Iksula Built in Me</div>
+    <div class="lessons-list">
+      <div class="lesson">
+        <div class="lesson-num">Lesson 01</div>
+        <h4>The presenting problem is almost never the actual problem.</h4>
+        <p>Every client said "checkout is broken." Checkout was fine. I learned to be professionally skeptical of the first diagnosis and to map the full journey before proposing any solution. This habit has surfaced the real problem in every role since.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 02</div>
+        <h4>Risky bets need a strong narrative, not just data.</h4>
+        <p>The personalization engine was the right call — but it wasn't obvious, and the data alone wasn't enough to close it. I had to build an argument: here's what Amazon does, here's what you do, here's the gap, here's what it's costing you. Data gives you the case. Narrative closes it.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 03</div>
+        <h4>Product ownership is not about authority. It's about accountability.</h4>
+        <p>I had no formal authority over the technology partners building these products. I couldn't stop a sprint or reassign anyone. What I had was clarity about the goal and willingness to be accountable for the outcome. That turned out to be enough — and it's still the most important PM skill I use.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 04</div>
+        <h4>Ship fast, measure everything, change your mind when the data says to.</h4>
+        <p>In 2 years I shipped 6 products. Not all of them worked perfectly the first time. The ones that succeeded are the ones where we measured closely and iterated quickly. The ability to change your mind based on evidence — without ego, without attachment to the original hypothesis — is a product superpower.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

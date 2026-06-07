@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signzy KYC — Case Study · Shraddha Singh</title>
+  <meta name="description" content="How switching north star metrics from 'time to approve' to 'first-attempt success rate' transformed a KYC onboarding product — and cut onboarding from 3 days to 2 hours."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff; --blue-mid:#1d4ed8;
+      --green:#10b981; --amber:#f59e0b; --bg:#f8fafc; --white:#fff;
+      --text:#0f172a; --muted:#64748b; --border:#e2e8f0; --border-hi:#cbd5e1;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    /* NAV */
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:.4rem;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,#1e3a5f 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 80% 50%,rgba(37,99,235,.15),transparent);pointer-events:none;}
+    .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.4);color:#93c5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;max-width:720px;}
+    .hero-sub{font-size:.95rem;color:#94a3b8;max-width:600px;line-height:1.75;margin-bottom:1.75rem;}
+    .meta-pills{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .meta-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#94a3b8;font-size:.75rem;font-weight:600;padding:.28rem .75rem;border-radius:100px;}
+    .meta-pill.accent{background:rgba(37,99,235,.2);border-color:rgba(37,99,235,.35);color:#93c5fd;}
+
+    /* STATS BAR */
+    .stats{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .s-num em{color:#60a5fa;font-style:normal;}
+    .s-lbl{font-size:.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;line-height:1.4;}
+
+    /* JOURNEY BAR */
+    .journey{background:var(--white);border-bottom:1px solid var(--border);}
+    .journey-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+    .j-step{padding:1.25rem 1.5rem;position:relative;border-right:1px solid var(--border);}
+    .j-step:last-child{border-right:none;}
+    .j-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.4rem;}
+    .j-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3;}
+    .j-text{font-size:.76rem;color:var(--muted);line-height:1.6;}
+
+    /* PAGE */
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+    /* SECTION */
+    .sec{margin-bottom:2.75rem;}
+    .sec-label{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem;}
+    .sec-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin-bottom:1rem;}
+    .prose{font-size:.9rem;color:var(--muted);line-height:1.8;}
+    .prose+.prose{margin-top:.75rem;}
+    .prose strong{color:var(--text);}
+
+    /* QUOTE CALLOUT */
+    .quote-block{background:#f0f9ff;border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:1.1rem 1.4rem;margin:1.25rem 0;}
+    .quote-block p{font-size:.9rem;color:#1e40af;line-height:1.7;margin:0;font-style:italic;}
+    .quote-block cite{display:block;font-size:.75rem;color:#3b82f6;font-weight:600;margin-top:.5rem;font-style:normal;}
+
+    /* TWO-COL GRID */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.4rem;}
+    .card h4{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .card p{font-size:.875rem;color:var(--text);line-height:1.65;margin:0;}
+    .card ul{margin:.3rem 0 0 1rem;}
+    .card li{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:.25rem;}
+
+    /* USERS */
+    .users-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .user-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;border-top:3px solid var(--blue);}
+    .user-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--blue);margin-bottom:.4rem;}
+    .user-name{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;}
+    .user-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+    /* DISCOVERY STEPS */
+    .discovery-steps{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .d-step{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;display:flex;gap:1rem;align-items:flex-start;}
+    .d-num{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .d-body h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+    .d-body p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+    .d-body .insight{display:inline-block;background:#eff6ff;color:#1d4ed8;font-size:.74rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;margin-top:.5rem;}
+
+    /* PRIORITY MATRIX */
+    .matrix-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;font-size:.82rem;}
+    .matrix-table thead{background:#f8fafc;}
+    .matrix-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .matrix-table td{padding:.75rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--muted);line-height:1.5;vertical-align:top;}
+    .matrix-table tr:last-child td{border-bottom:none;}
+    .matrix-table td strong{color:var(--text);}
+    .p0{background:#eff6ff;color:#1d4ed8;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .p1{background:#f0fdf4;color:#15803d;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .p2{background:#f8fafc;color:#64748b;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+
+    /* THE BET */
+    .bet-box{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.25rem 0;}
+    .bet-label{font-size:.65rem;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.65rem;}
+    .bet-box h3{font-size:1rem;font-weight:800;color:#78350f;margin-bottom:.65rem;line-height:1.35;}
+    .bet-box p{font-size:.88rem;color:#92400e;line-height:1.75;margin-bottom:.65rem;}
+    .bet-box p:last-child{margin-bottom:0;}
+    .bet-result{background:#fff;border:1px solid #fde68a;border-radius:8px;padding:.85rem 1.1rem;margin-top:.85rem;}
+    .bet-result strong{display:block;font-size:.78rem;font-weight:700;color:#78350f;margin-bottom:.3rem;}
+    .bet-result p{font-size:.84rem;color:#92400e;margin:0;line-height:1.6;}
+
+    /* KEY DECISIONS */
+    .decision-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;}
+    .decision-table thead{background:#f8fafc;}
+    .decision-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .decision-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;font-size:.82rem;color:var(--muted);line-height:1.55;vertical-align:top;}
+    .decision-table tr:last-child td{border-bottom:none;}
+    .decision-table td:first-child{font-weight:700;color:var(--navy);white-space:nowrap;}
+
+    /* METRICS GRID */
+    .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .metric{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.35rem;text-align:center;border-top:3px solid var(--blue);}
+    .metric-num{font-size:1.8rem;font-weight:900;color:var(--navy);letter-spacing:-1.5px;line-height:1;}
+    .metric-change{font-size:.72rem;font-weight:700;color:var(--green);margin:.25rem 0;}
+    .metric-lbl{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;line-height:1.4;}
+
+    /* LESSONS */
+    .lessons-list{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .lesson{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;border-left:3px solid var(--blue);}
+    .lesson-num{font-size:.65rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .lesson h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;}
+    .lesson p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    /* OUTCOME BANNER */
+    .outcome-banner{background:linear-gradient(135deg,var(--navy),#1e3a5f);border-radius:14px;padding:2rem 2.25rem;margin:1.5rem 0;}
+    .ob-label{font-size:.65rem;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;}
+    .ob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+    .ob-item{display:flex;flex-direction:column;gap:.2rem;}
+    .ob-num{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-1px;}
+    .ob-lbl{font-size:.75rem;color:#94a3b8;line-height:1.4;}
+
+    /* FOOTER */
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    /* RESPONSIVE */
+    @media(max-width:700px){
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .journey-inner{grid-template-columns:1fr 1fr;}
+      .j-step:nth-child(2){border-right:none;}
+      .two-col{grid-template-columns:1fr;}
+      .users-grid{grid-template-columns:1fr;}
+      .metrics-grid{grid-template-columns:1fr 1fr;}
+      .ob-grid{grid-template-columns:1fr 1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">Case Study · Signzy KYC</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Case Study · B2B Fintech · Discovery</div>
+    <h1>KYC wasn't slow.<br>It was failing silently.</h1>
+    <p class="hero-sub">Banks told us onboarding took 3 days because of backend processing. The real problem was a 60% drop-off in the first 10 minutes — and no mechanism to tell users why they failed. Switching the north star metric changed the entire roadmap.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">Signzy Technologies</span>
+      <span class="meta-pill">Product Owner</span>
+      <span class="meta-pill">Jan – Sep 2024</span>
+      <span class="meta-pill accent">B2B Fintech · KYC · RBI Compliance</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num"><em>93%</em></div><div class="s-lbl">Faster Onboarding<br>3 days → &lt;2 hours</div></div>
+      <div><div class="s-num"><em>+35%</em></div><div class="s-lbl">KYC Accuracy<br>Improvement</div></div>
+      <div><div class="s-num"><em>+40%</em></div><div class="s-lbl">Customer Acquisition<br>Speed</div></div>
+      <div><div class="s-num"><em>+25%</em></div><div class="s-lbl">Platform Revenue<br>Growth</div></div>
+      <div><div class="s-num"><em>3</em></div><div class="s-lbl">Major Contract<br>Renewals Secured</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY BAR -->
+<div class="journey">
+  <div class="journey-inner">
+    <div class="j-step">
+      <div class="j-num">01 Discovery</div>
+      <div class="j-label">Found the real failure mode</div>
+      <div class="j-text">3 months of transaction logs revealed drop-offs in minute 1–10, not backend delays</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">02 Metric Switch</div>
+      <div class="j-label">Changed the north star</div>
+      <div class="j-text">"Time to approve" → "First-attempt success rate" — one change, entirely new roadmap</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">03 The Bet</div>
+      <div class="j-label">UX before AI model</div>
+      <div class="j-text">Shipped guided capture UI before the expensive model retrain — 28% improvement in 3 weeks</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">04 Outcome</div>
+      <div class="j-label">Platform transformed</div>
+      <div class="j-text">3 days to 2 hours, 3 renewals, 25% revenue growth — all without a single compliance exception</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CONTEXT -->
+  <div class="sec">
+    <div class="sec-label">Context</div>
+    <div class="sec-title">The Platform & My Role</div>
+    <div class="two-col">
+      <div class="card">
+        <h4>The Product</h4>
+        <p>Signzy builds digital onboarding and identity verification infrastructure for Indian banks. Clients included <strong>Yes Bank</strong> and <strong>IndusInd Bank</strong> — processing hundreds of thousands of new account applications monthly. KYC (Know Your Customer) is a mandatory regulatory step under RBI guidelines before any account can be opened.</p>
+      </div>
+      <div class="card">
+        <h4>My Mandate</h4>
+        <p>Joined as Product Owner with a mandate to improve the KYC onboarding product. The sales team's summary: <em>"Our clients tell us customers are dropping off at document verification. We're not sure why."</em> No hypothesis. No data. That was the brief.</p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h4>Team</h4>
+        <ul>
+          <li>6-person engineering team</li>
+          <li>Data science team (AI model improvements)</li>
+          <li>Compliance consultants (RBI alignment)</li>
+          <li>QA team (UAT and release validation)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Constraints</h4>
+        <ul>
+          <li>Every product change required RBI compliance review before sprint commit</li>
+          <li>Model updates needed formal validation — couldn't just ship</li>
+          <li>Bank clients had near-zero tolerance for compliance incidents</li>
+          <li>9-month engagement window</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="sec">
+    <div class="sec-label">The Problem</div>
+    <div class="sec-title">The Stated Problem Was Wrong</div>
+    <div class="quote-block">
+      <p>"Our clients tell us their customers are dropping off at document verification. We're not sure why."</p>
+      <cite>— Sales lead, first week</cite>
+    </div>
+    <p class="prose">The surface diagnosis was: <strong>KYC takes 3 days and has high rejection rates. Speed it up.</strong> The implied solution was backend optimization — faster processing pipelines, better infrastructure.</p>
+    <p class="prose">Before writing a single spec, I pulled 3 months of transaction logs. What I found completely changed the problem statement.</p>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>60%+ of failures happened in the first 10 minutes</h4>
+          <p>Not during backend processing (which happened hours later). During the document upload phase — the very beginning of the session. If users were failing in minute 1–10, this was a UX problem, not a processing speed problem.</p>
+          <span class="insight">Finding: UX failure, not backend failure</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>42% of document uploads were low quality</h4>
+          <p>Poor lighting, cropped edges, blurred images. The validation happened server-side, hours later. By then, users had given up. There was no real-time feedback to help them fix it immediately.</p>
+          <span class="insight">Finding: No feedback loop at the point of failure</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">3</div>
+        <div class="d-body">
+          <h4>Each failed KYC cost the bank ~15 minutes of ops time</h4>
+          <p>Client interviews with Yes Bank and IndusInd ops teams revealed their biggest pain wasn't the rejection rate — it was the support ticket volume. Failed KYC → customer complaint → ops ticket → resolution. At 500K+ monthly applications, this was a significant cost centre.</p>
+          <span class="insight">Finding: The real client pain was ops burden, not speed</span>
+        </div>
+      </div>
+    </div>
+    <div class="bet-box" style="background:#f0fdf4;border-color:#86efac;border-left-color:#10b981;">
+      <div class="bet-label" style="color:#14532d;">The Insight That Changed Everything</div>
+      <h3 style="color:#14532d;">"Time to approve" was the wrong north star.</h3>
+      <p style="color:#166534;">Average processing time masked the bimodal distribution. Users who passed flew through; users who failed dragged the average down. The right metric was <strong>first-attempt success rate</strong>: if users passed on the first try, everything downstream got faster automatically.</p>
+      <p style="color:#166534;">Switching metrics changed the entire roadmap. We were no longer trying to speed up the backend. We were trying to prevent failures from happening in the first place.</p>
+    </div>
+  </div>
+
+  <!-- USERS -->
+  <div class="sec">
+    <div class="sec-label">Users</div>
+    <div class="sec-title">Three Constituents, One Product</div>
+    <div class="users-grid">
+      <div class="user-card">
+        <div class="user-type">End User</div>
+        <div class="user-name">Bank Customer</div>
+        <div class="user-desc">Opening a new account. Tier-1 and tier-2 city demographics. Mobile-first. Often completing KYC from home with poor lighting conditions. Has no idea what "document quality validation" means — just knows their application was rejected.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Direct Client</div>
+        <div class="user-name">Bank Ops Team</div>
+        <div class="user-desc">Handling support escalations from failed KYC applications. Their pain: high ticket volume, no visibility into why applications are failing, and no tool to tell customers what to fix. They care about ticket volume, not KYC accuracy.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Platform Buyer</div>
+        <div class="user-name">Bank CTO / CDO</div>
+        <div class="user-desc">Evaluating Signzy's platform ROI. Their metric: how many successful onboardings per month, and what's the compliance incident rate. They approved the contract renewal based on platform reliability, not features.</div>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:1rem;">The key insight: in B2B, you have two users — your direct client (the bank) and their customer (the account applicant). Understanding both was not optional. Solving for ops teams without solving for the end user produces better dashboards but not better KYC.</p>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="sec">
+    <div class="sec-label">Discovery</div>
+    <div class="sec-title">Two Rounds of Research, One Insight</div>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">R1</div>
+        <div class="d-body">
+          <h4>Internal Data: 3 months of KYC transaction logs</h4>
+          <p>Pulled and mapped the funnel stage-by-stage. Where were users dropping? At what rate? At what time of day? The headline finding: 60%+ of failures happened in the first 10 minutes. This pointed to the document upload phase — not the backend. The backend was fine.</p>
+          <span class="insight">Duration: 2 weeks · Method: Funnel analysis, session log review</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">R2</div>
+        <div class="d-body">
+          <h4>Client Interviews: Yes Bank & IndusInd Bank ops teams</h4>
+          <p>Spent 1 week talking to bank operations leads. Their biggest pain wasn't the rejection rate — it was the support ticket volume. Each failed KYC generated a support escalation. At scale, this was a significant cost. Their ask: "Help our customers succeed on the first try, or at least tell them what to fix."</p>
+          <span class="insight">Duration: 1 week · Method: Structured interviews, pain point mapping</span>
+        </div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-top:1.5rem;">
+      <div class="card">
+        <h4>What I Expected to Find</h4>
+        <p>Backend processing bottleneck. A speed problem. Something we could fix with infrastructure or model optimization. The obvious hypothesis given the complaint.</p>
+      </div>
+      <div class="card">
+        <h4>What Changed My Direction</h4>
+        <p>The 10-minute drop-off data. Users weren't abandoning after waiting for backend results — they were giving up before the backend ever saw their document. Entirely different problem.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITIZATION -->
+  <div class="sec">
+    <div class="sec-label">Prioritization</div>
+    <div class="sec-title">14 Improvements. The Framework That Chose Between Them.</div>
+    <p class="prose">I ran a value vs. effort matrix across 14 potential improvements, scored specifically against impact on <strong>first-attempt success rate</strong> (the new north star, not the old "time to approve"):</p>
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Impact on Success Rate</th>
+          <th>Effort</th>
+          <th>Compliance Risk</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Real-time document quality feedback</strong></td>
+          <td>Very High</td>
+          <td>Medium</td>
+          <td>Low</td>
+          <td><span class="p0">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Guided capture UI (frame overlay)</strong></td>
+          <td>High</td>
+          <td>Low</td>
+          <td>Low</td>
+          <td><span class="p0">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Rejection taxonomy + specific error reasons</strong></td>
+          <td>High</td>
+          <td>Medium</td>
+          <td>Low</td>
+          <td><span class="p1">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Retrain liveness model on India-specific data</strong></td>
+          <td>Very High</td>
+          <td>High</td>
+          <td>High (RBI validation required)</td>
+          <td><span class="p1">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Automated resubmission reminder flow</strong></td>
+          <td>Medium</td>
+          <td>Low</td>
+          <td>Low</td>
+          <td><span class="p2">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="prose">The model retrain scored high on impact — but only after accounting for compliance risk and effort did it drop to P1. The critical move was adding <strong>compliance risk</strong> as an explicit column, not treating it as a separate filter. It changed what P0 looked like entirely.</p>
+  </div>
+
+  <!-- THE BET -->
+  <div class="sec">
+    <div class="sec-label">The Bet</div>
+    <div class="sec-title">The Decision That Proved the Framework</div>
+    <div class="bet-box">
+      <div class="bet-label">The Non-Obvious Call</div>
+      <h3>Ship the guided capture UI before touching the AI model.</h3>
+      <p>The data science team pushed hard to retrain the liveness model first. It was the technically impressive problem and the one with the most engineering excitement. Their argument: model accuracy is the root cause.</p>
+      <p><strong>My counter-argument:</strong> Retraining takes 8 weeks minimum and carries deployment risk — all model updates need RBI-aligned validation before they touch production. The guided capture UI ships in 3 weeks with near-zero compliance risk. And our data showed 60% of failures were at document upload (UX), not liveness (model). We would spend 8 weeks fixing 40% of the problem instead of 3 weeks fixing 60% of it.</p>
+      <p><strong>What I risked:</strong> If I was wrong about the data — if liveness failures were actually the bigger problem — I would have delayed the right solution by 3 weeks and lost credibility with the data science team.</p>
+      <div class="bet-result">
+        <strong>Result after 4 weeks:</strong>
+        <p>First-attempt success rate improved 28% — without touching the model. The document upload phase accounted for exactly what the data predicted. The model retrain followed in Phase 2 and added the remaining accuracy gains.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="sec">
+    <div class="sec-label">Solution Design</div>
+    <div class="sec-title">What We Built (and What We Explicitly Didn't)</div>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>Mobile-first guided capture experience (Phase 1)</h4>
+          <p>Frame overlay that positioned the document correctly. Lighting indicator showing ambient light quality. Auto-capture trigger when quality threshold was met. Users no longer guessed whether their photo was good — the UI told them in real time before submission.</p>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>Real-time document quality scoring at upload (Phase 1)</h4>
+          <p>Quality check moved from server-side (hours later) to client-side (instant). Users saw specific feedback — "Image too blurry," "Edge cropped," "Low light detected" — before submitting. Eliminated the 42% low-quality upload rate.</p>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">3</div>
+        <div class="d-body">
+          <h4>Rejection taxonomy and client analytics dashboard (Phase 2)</h4>
+          <p>Built a categorization system for rejection reasons. Bank ops teams could now see why customers were failing, not just that they were. Also provided a client-facing dashboard — banks could see their own KYC funnel in real time.</p>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">4</div>
+        <div class="d-body">
+          <h4>Liveness model retrain on India-specific data (Phase 2)</h4>
+          <p>Retrained the model on lighting conditions common in tier-2 Indian cities (high ambient light, low-contrast backgrounds). Delivered remaining accuracy gains after Phase 1 UX improvements. RBI validation completed before deployment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem;border-left:3px solid #f59e0b;">
+      <h4>What We Explicitly Did NOT Build</h4>
+      <p>A backend processing speed optimization. The original request. We didn't touch the processing pipeline because the data showed it wasn't the problem. Not building this was as important a product decision as anything we shipped.</p>
+    </div>
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <div class="sec">
+    <div class="sec-label">Key Decisions</div>
+    <div class="sec-title">The Tradeoffs, Made Explicit</div>
+    <table class="decision-table">
+      <thead>
+        <tr><th>Decision</th><th>What I Chose</th><th>Why</th><th>Alternative Rejected</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Phase order</td>
+          <td>UX improvements first, model retrain second</td>
+          <td>Faster time-to-value, lower risk, addresses the larger failure mode (60% vs. 40%)</td>
+          <td>Model retrain first — higher effort, lower coverage, compliance risk delayed timeline</td>
+        </tr>
+        <tr>
+          <td>Error feedback</td>
+          <td>Specific error codes with user-facing explanations</td>
+          <td>Reduces support tickets; enables user self-service; removes ops burden from banks</td>
+          <td>Generic "rejected" message — faster to build but zero learning for the user</td>
+        </tr>
+        <tr>
+          <td>Compliance approach</td>
+          <td>All changes reviewed before sprint commit</td>
+          <td>RBI violations = contract loss. Better to slow down 1 week than ship and scramble</td>
+          <td>Build first, get sign-off later — too risky for a regulated product</td>
+        </tr>
+        <tr>
+          <td>North star metric</td>
+          <td>First-attempt success rate</td>
+          <td>Exposes the bimodal distribution that "average processing time" hides; targets the real failure mode</td>
+          <td>Time to approve — optimizes the wrong part of the funnel</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="sec">
+    <div class="sec-label">Results</div>
+    <div class="sec-title">What the Data Said After</div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-num">93%</div>
+        <div class="metric-change">↓ Reduction</div>
+        <div class="metric-lbl">Onboarding Time<br>3 days → &lt;2 hours</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">+35%</div>
+        <div class="metric-change">↑ Improvement</div>
+        <div class="metric-lbl">KYC Accuracy<br>(First-attempt success rate)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">+40%</div>
+        <div class="metric-change">↑ Faster</div>
+        <div class="metric-lbl">Customer Acquisition<br>Speed (downstream effect)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">+25%</div>
+        <div class="metric-change">↑ Growth</div>
+        <div class="metric-lbl">Platform Revenue<br>(New signings + renewals)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">3</div>
+        <div class="metric-change">Secured</div>
+        <div class="metric-lbl">Major Contract<br>Renewals</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">0</div>
+        <div class="metric-change">Clean</div>
+        <div class="metric-lbl">Compliance Exceptions<br>Post-launch</div>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:1.25rem;">The ops-side metric also moved significantly: support ticket volume from KYC failures dropped materially across both bank clients. Yes Bank and IndusInd cited this as the primary driver of their satisfaction improvement — not the speed gain, not the accuracy improvement. The reduction in their support burden.</p>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="sec">
+    <div class="sec-label">Lessons Learned</div>
+    <div class="sec-title">What I Carry Forward</div>
+    <div class="lessons-list">
+      <div class="lesson">
+        <div class="lesson-num">Lesson 01</div>
+        <h4>First-attempt success rate is a better north star than average processing time.</h4>
+        <p>Average processing time masks the bimodal distribution. Users who pass fly through; users who fail drag the average down catastrophically. Switching to first-attempt success rate forces you to focus on preventing failures, not hiding them in an average.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 02</div>
+        <h4>In B2B, your user's user is often the one you need to talk to.</h4>
+        <p>The banks were my direct clients. But the people actually struggling were their end customers. I had to understand both constituencies to solve the problem correctly. Talking only to the bank would have produced a better dashboard, not a better product.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 03</div>
+        <h4>Compliance constraints can become differentiators.</h4>
+        <p>I was initially frustrated by how much slower everything moved because of RBI compliance requirements. By the end, I realized that Signzy's ability to ship compliant products reliably was the product. Banks can't build this capability themselves — that's why they pay for it.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 04</div>
+        <h4>Add compliance risk as an explicit column in your prioritization matrix, not a separate filter.</h4>
+        <p>When it's a separate filter, you make compliance a binary gate. When it's a column, it becomes a cost you can trade off against impact. That distinction completely changed which features were P0 in our matrix.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

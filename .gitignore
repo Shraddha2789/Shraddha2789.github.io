@@ -1,3 +1,12 @@
 .DS_Store
 *.drawio
 notion-portfolio/build_notion.py
+
+# Personal files — excluded from public repo
+assets/eTicket-M65UWC.pdf
+"assets/IMG-20220512-WA0074 (1).jpeg"
+"assets/Presentation 3.pdf"
+
+# Office lock/temp files
+teardowns/~$*
+~$*

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sapiens CoreSuite — Case Study · Shraddha Singh</title>
+  <meta name="description" content="How I built a 4-factor prioritization framework to bring clarity to a 50+ item backlog with no methodology — and delivered 6 releases with zero P1 defects."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --orange:#f97316; --orange-lt:#fff7ed; --orange-mid:#ea580c;
+      --green:#10b981; --blue:#2563eb; --bg:#f8fafc; --white:#fff;
+      --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    .hero{background:linear-gradient(135deg,#0d1b35 0%,#1c1a10 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 80% 50%,rgba(249,115,22,.12),transparent);pointer-events:none;}
+    .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(249,115,22,.18);border:1px solid rgba(249,115,22,.35);color:#fed7aa;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;max-width:720px;}
+    .hero-sub{font-size:.95rem;color:#94a3b8;max-width:620px;line-height:1.75;margin-bottom:1.75rem;}
+    .meta-pills{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .meta-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#94a3b8;font-size:.75rem;font-weight:600;padding:.28rem .75rem;border-radius:100px;}
+    .meta-pill.accent{background:rgba(249,115,22,.18);border-color:rgba(249,115,22,.35);color:#fed7aa;}
+
+    .stats{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2rem;}
+    .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .s-num em{color:#fed7aa;font-style:normal;}
+    .s-lbl{font-size:.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;line-height:1.4;}
+
+    .journey{background:var(--white);border-bottom:1px solid var(--border);}
+    .journey-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
+    .j-step{padding:1.25rem 1.5rem;position:relative;border-right:1px solid var(--border);}
+    .j-step:last-child{border-right:none;}
+    .j-num{font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.4rem;}
+    .j-label{font-size:.85rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;line-height:1.3;}
+    .j-text{font-size:.76rem;color:var(--muted);line-height:1.6;}
+
+    .page{max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+    .sec{margin-bottom:2.75rem;}
+    .sec-label{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--orange-mid);margin-bottom:.5rem;}
+    .sec-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;margin-bottom:1rem;}
+    .prose{font-size:.9rem;color:var(--muted);line-height:1.8;}
+    .prose+.prose{margin-top:.75rem;}
+    .prose strong{color:var(--text);}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.4rem;}
+    .card h4{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+    .card p{font-size:.875rem;color:var(--text);line-height:1.65;margin:0;}
+    .card ul{margin:.3rem 0 0 1rem;}
+    .card li{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:.25rem;}
+
+    .users-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .user-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem;border-top:3px solid var(--orange);}
+    .user-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--orange-mid);margin-bottom:.4rem;}
+    .user-name{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;}
+    .user-desc{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+    .discovery-steps{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .d-step{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;display:flex;gap:1rem;align-items:flex-start;}
+    .d-num{width:32px;height:32px;border-radius:50%;background:var(--orange);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
+    .d-body h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+    .d-body p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+    .d-body .insight{display:inline-block;background:var(--orange-lt);color:#9a3412;font-size:.74rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;margin-top:.5rem;}
+
+    /* THE 4-FACTOR MATRIX — signature element */
+    .framework-box{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:1.25rem 0;}
+    .fb-header{background:#f8fafc;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);}
+    .fb-header h4{font-size:.9rem;font-weight:800;color:var(--navy);}
+    .fb-header p{font-size:.78rem;color:var(--muted);margin-top:.25rem;}
+    .factors-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;}
+    .factor{padding:1.35rem 1.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .factor:nth-child(2){border-right:none;}
+    .factor:nth-child(3){border-bottom:none;}
+    .factor:nth-child(4){border-right:none;border-bottom:none;}
+    .factor-num{font-size:.65rem;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem;}
+    .factor h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;}
+    .factor p{font-size:.8rem;color:var(--muted);line-height:1.6;margin:0;}
+    .factor .weight{display:inline-block;background:var(--orange-lt);color:var(--orange-mid);font-size:.7rem;font-weight:800;padding:.18rem .55rem;border-radius:5px;margin-top:.5rem;}
+
+    .matrix-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.25rem 0;font-size:.82rem;}
+    .matrix-table thead{background:#f8fafc;}
+    .matrix-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .matrix-table td{padding:.75rem 1rem;border-bottom:1px solid #f1f5f9;color:var(--muted);line-height:1.5;vertical-align:top;}
+    .matrix-table tr:last-child td{border-bottom:none;}
+    .matrix-table td strong{color:var(--text);}
+    .r1{background:#fff7ed;color:#9a3412;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .r2{background:#eff6ff;color:#1d4ed8;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .r3{background:#f0fdf4;color:#166534;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+    .r4{background:#f5f3ff;color:#5b21b6;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:5px;}
+
+    .bet-box{background:var(--orange-lt);border:1px solid #fed7aa;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.25rem 0;}
+    .bet-label{font-size:.65rem;font-weight:800;color:#7c2d12;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.65rem;}
+    .bet-box h3{font-size:1rem;font-weight:800;color:#7c2d12;margin-bottom:.65rem;line-height:1.35;}
+    .bet-box p{font-size:.88rem;color:#9a3412;line-height:1.75;margin-bottom:.65rem;}
+    .bet-box p:last-child{margin-bottom:0;}
+    .bet-result{background:#fff;border:1px solid #fed7aa;border-radius:8px;padding:.85rem 1.1rem;margin-top:.85rem;}
+    .bet-result strong{display:block;font-size:.78rem;font-weight:700;color:#7c2d12;margin-bottom:.3rem;}
+    .bet-result p{font-size:.84rem;color:#9a3412;margin:0;line-height:1.6;}
+
+    .decision-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1rem 0;}
+    .decision-table thead{background:#f8fafc;}
+    .decision-table th{padding:.75rem 1rem;text-align:left;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+    .decision-table td{padding:.85rem 1rem;border-bottom:1px solid #f1f5f9;font-size:.82rem;color:var(--muted);line-height:1.55;vertical-align:top;}
+    .decision-table tr:last-child td{border-bottom:none;}
+    .decision-table td:first-child{font-weight:700;color:var(--navy);}
+
+    .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;}
+    .metric{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.35rem;text-align:center;border-top:3px solid var(--orange);}
+    .metric-num{font-size:1.8rem;font-weight:900;color:var(--navy);letter-spacing:-1.5px;line-height:1;}
+    .metric-change{font-size:.72rem;font-weight:700;color:var(--green);margin:.25rem 0;}
+    .metric-lbl{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;line-height:1.4;}
+
+    .lessons-list{display:flex;flex-direction:column;gap:.75rem;margin:1rem 0;}
+    .lesson{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.35rem;border-left:3px solid var(--orange);}
+    .lesson-num{font-size:.65rem;font-weight:800;color:var(--orange-mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .lesson h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;}
+    .lesson p{font-size:.82rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .journey-inner{grid-template-columns:1fr 1fr;}
+      .j-step:nth-child(2){border-right:none;}
+      .two-col,.three-col{grid-template-columns:1fr;}
+      .users-grid{grid-template-columns:1fr;}
+      .metrics-grid{grid-template-columns:1fr 1fr;}
+      .factors-grid{grid-template-columns:1fr;}
+      .factor{border-right:none!important;}
+      .page{padding:2rem 1.25rem 4rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">Case Study · Sapiens CoreSuite</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Case Study · Enterprise Insurtech · Roadmap Strategy</div>
+    <h1>50 features. 6 releases.<br>No prioritization logic. My first job was clarity.</h1>
+    <p class="hero-sub">I inherited a backlog with no methodology — every client claiming P0, engineering with 6 release slots, and the math not adding up. The real problem wasn't execution capacity. It was that nobody had made the tradeoffs explicit. A backlog without prioritization logic isn't a strategy. It's a queue.</p>
+    <div class="meta-pills">
+      <span class="meta-pill">Sapiens International</span>
+      <span class="meta-pill">Senior Product Owner</span>
+      <span class="meta-pill">Oct 2024 – Present</span>
+      <span class="meta-pill accent">Insurtech · Enterprise SaaS · 500K+ Customers</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num"><em>30%</em></div><div class="s-lbl">Faster Customer<br>Onboarding</div></div>
+      <div><div class="s-num"><em>25%</em></div><div class="s-lbl">Transaction<br>Abandonment Reduced</div></div>
+      <div><div class="s-num"><em>15%</em></div><div class="s-lbl">Platform Adoption<br>Increase</div></div>
+      <div><div class="s-num"><em>95%</em></div><div class="s-lbl">Pre-production<br>Quality Rate</div></div>
+      <div><div class="s-num"><em>0</em></div><div class="s-lbl">P1 Defects<br>Shipped to Clients</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="journey">
+  <div class="journey-inner">
+    <div class="j-step">
+      <div class="j-num">01 First 30 Days</div>
+      <div class="j-label">Understand before executing</div>
+      <div class="j-text">Client interviews, engineering architecture review, support ticket analysis — before touching a sprint</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">02 Framework</div>
+      <div class="j-label">4-factor prioritization matrix</div>
+      <div class="j-text">Client breadth × revenue linkage × strategic value × technical risk — every backlog item scored</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">03 The Hard Call</div>
+      <div class="j-label">Revenue over roadmap aesthetics</div>
+      <div class="j-text">Chose the invisible backend feature over the visible portal — protected a renewal, managed two clients' expectations directly</div>
+    </div>
+    <div class="j-step">
+      <div class="j-num">04 Quality Gate</div>
+      <div class="j-label">95% pre-production standard</div>
+      <div class="j-text">Zero P1 defects shipped in 6 months. Client satisfaction improved without shipping a single new line of code.</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CONTEXT -->
+  <div class="sec">
+    <div class="sec-label">Context</div>
+    <div class="sec-title">The Platform & What I Walked Into</div>
+    <div class="two-col">
+      <div class="card">
+        <h4>CoreSuite — The Product</h4>
+        <p>Sapiens CoreSuite is an enterprise insurance platform used by tier-1 insurance carriers globally. Handles policy servicing, fund management, digital customer portals, and compliance workflows. Serves <strong>500K+ end customers</strong> through Sapiens' insurance carrier clients.</p>
+      </div>
+      <div class="card">
+        <h4>What I Found on Day 1</h4>
+        <p>A backlog of 50+ features with no consistent prioritization methodology. Multiple clients each believing their request was P0. Engineering with 6 release slots for the year. No framework for how decisions had been made. A queue masquerading as a roadmap.</p>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:.75rem;">My mandate: define and drive the product roadmap for CoreSuite's policy servicing and fund management modules, with a specific focus on enabling digital portal integration for enterprise clients. The real work, it turned out, was building the decision-making infrastructure before touching any feature.</p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="sec">
+    <div class="sec-label">The Problem</div>
+    <div class="sec-title">The Backlog Wasn't the Problem. The Lack of Clarity Was.</div>
+    <p class="prose">In enterprise B2B SaaS, every client believes their request is the most urgent. That belief is often legitimate — from their perspective. The PM's job is not to validate every belief. It's to build a framework that makes the tradeoffs legible and defensible to everyone.</p>
+    <p class="prose">The three questions the backlog couldn't answer when I arrived:</p>
+    <div class="three-col" style="margin-top:1rem;">
+      <div class="card">
+        <h4>Question 1</h4>
+        <p>Which features create the most value for the most clients? (Client breadth vs. single-client requests)</p>
+      </div>
+      <div class="card">
+        <h4>Question 2</h4>
+        <p>Which features are table-stakes for contract retention vs. which are growth enablers? (Survival vs. expansion)</p>
+      </div>
+      <div class="card">
+        <h4>Question 3</h4>
+        <p>Which features carry technical risk high enough that sequencing matters? (What unlocks what)</p>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:1rem;">Without answers, the roadmap defaulted to whoever had the loudest client relationship. That's not prioritization — that's noise allocation.</p>
+  </div>
+
+  <!-- USERS -->
+  <div class="sec">
+    <div class="sec-label">Users</div>
+    <div class="sec-title">Three Layers of Users, Three Different Definitions of Value</div>
+    <div class="users-grid">
+      <div class="user-card">
+        <div class="user-type">End Customer</div>
+        <div class="user-name">Policyholder</div>
+        <div class="user-desc">Using the digital portal to check policy status, manage funds, submit claims. Wants self-service. Cannot call for basic inquiries. A 30% drop-off during digital onboarding means a support call — both a cost and a trust problem for the carrier.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Direct Client</div>
+        <div class="user-name">Insurance Carrier</div>
+        <div class="user-desc">Tier-1 carriers using CoreSuite as their core processing platform. Their pain: platform updates breaking their integrations, feature delivery unpredictability, and lack of visibility into the roadmap. They need to plan their own digital roadmaps around ours.</div>
+      </div>
+      <div class="user-card">
+        <div class="user-type">Internal</div>
+        <div class="user-name">Carrier IT / Integration Team</div>
+        <div class="user-desc">Integrating CoreSuite APIs with carrier-side systems. Insurance carriers have extremely low tolerance for production defects. A policy processing error at 2am is not a minor bug — it's a compliance incident. Their trust is earned release by release.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem;border-left:3px solid var(--orange);">
+      <h4>The Non-Obvious Insight About Enterprise B2B Users</h4>
+      <p>Clients ask for features. What they actually need is confidence that the platform is moving in the right direction. Prioritization transparency — knowing what's coming and trusting it will ship — improved client satisfaction without shipping a single line of code. I invested as deliberately in communication cadence as in feature delivery.</p>
+    </div>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="sec">
+    <div class="sec-label">Discovery — First 30 Days</div>
+    <div class="sec-title">Understanding Before Executing</div>
+    <div class="discovery-steps">
+      <div class="d-step">
+        <div class="d-num">1</div>
+        <div class="d-body">
+          <h4>Client interviews — 3 tier-1 insurance carriers</h4>
+          <p>Structured sessions to understand each client's 12-month digital roadmap and where CoreSuite fit in their plans. Key question: what does "success" look like in their planning horizon? The answer varied by client — which itself was a prioritization input.</p>
+          <span class="insight">Finding: Different clients needed different things in different timeframes</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">2</div>
+        <div class="d-body">
+          <h4>Engineering architecture review</h4>
+          <p>Sat with the lead architect to map technical dependencies between features. Some features were gating others — building them in the wrong order would create rework. This is a prioritization input that no amount of client interviews can surface.</p>
+          <span class="insight">Finding: 8 features had hidden dependencies that changed their viable release slot</span>
+        </div>
+      </div>
+      <div class="d-step">
+        <div class="d-num">3</div>
+        <div class="d-body">
+          <h4>Support ticket analysis</h4>
+          <p>Compared what clients were requesting (feature requests) vs. what they were complaining about (support tickets). These were meaningfully different. Support tickets surfaced real pain; feature requests surfaced desired solutions. The pain is often more reliable than the solution.</p>
+          <span class="insight">Finding: Top 3 support categories weren't in the top 10 requested features</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK -->
+  <div class="sec">
+    <div class="sec-label">Prioritization</div>
+    <div class="sec-title">The 4-Factor Framework That Replaced Gut Feel</div>
+    <div class="framework-box">
+      <div class="fb-header">
+        <h4>CoreSuite Backlog Prioritization Framework</h4>
+        <p>Every backlog item scored on four dimensions. Composite score determines release slot assignment.</p>
+      </div>
+      <div class="factors-grid">
+        <div class="factor">
+          <div class="factor-num">Factor 01</div>
+          <h4>Client Breadth</h4>
+          <p>How many of our active clients benefit from this feature? Score 1–5. A feature serving 3 clients scores higher than one serving 1 — even if the 1-client request is louder.</p>
+          <span class="weight">Weight: 30%</span>
+        </div>
+        <div class="factor">
+          <div class="factor-num">Factor 02</div>
+          <h4>Revenue Linkage</h4>
+          <p>Is this feature tied to a specific contract commitment or renewal? Features with explicit revenue consequences score highest — regardless of how "exciting" or "strategic" they are.</p>
+          <span class="weight">Weight: 35%</span>
+        </div>
+        <div class="factor">
+          <div class="factor-num">Factor 03</div>
+          <h4>Strategic Value</h4>
+          <p>Does this advance platform differentiation, or does it maintain feature parity with competitors? Differentiating features score higher. Table-stakes features still get built but score lower.</p>
+          <span class="weight">Weight: 20%</span>
+        </div>
+        <div class="factor">
+          <div class="factor-num">Factor 04</div>
+          <h4>Technical Risk</h4>
+          <p>Does this depend on a complex architectural change that might slip? High-risk features are scored down — not eliminated, but moved adjacent to releases where engineering has capacity for a spike.</p>
+          <span class="weight">Weight: 15% (inverse)</span>
+        </div>
+      </div>
+    </div>
+    <p class="prose">The resulting logic: <strong>features scoring high on Client Breadth + Revenue Linkage → Release 1–2.</strong> Features high on Strategic Value but low on Client Breadth → Release 4–6. Features with high Technical Risk → adjacent to engineering capacity windows.</p>
+    <p class="prose">More importantly: the framework made the tradeoffs visible. Clients could see why their feature was in Release 4 instead of Release 2. Disagreement became a data conversation, not a relationship conversation.</p>
+  </div>
+
+  <!-- THE HARD CALL -->
+  <div class="sec">
+    <div class="sec-label">The Hardest Prioritization Call</div>
+    <div class="sec-title">Revenue Certainty vs. Roadmap Aesthetics</div>
+    <div class="bet-box">
+      <div class="bet-label">The Non-Obvious Call — Release 3</div>
+      <h3>Chose the invisible backend feature. Deferred the visible customer-facing one.</h3>
+      <p>Release 3 had a conflict that the framework couldn't resolve automatically — it required a judgment call:</p>
+      <p><strong>Feature A:</strong> A digital self-service portal for policyholders. Requested by 2 clients, visible to end customers, modernizes the product story. Internal metric: higher score on client breadth and strategic value.<br><br>
+      <strong>Feature B:</strong> An internal batch processing optimization. Requested by 1 client, invisible to customers, high engineering complexity. But it was tied directly to that client's renewal decision.</p>
+      <p>The framework said Feature A. The revenue signal said Feature B. I took both to the product steering committee with explicit trade-off framing: "If we do A, we have a better product story but risk this client renewal. If we do B, we protect revenue but delay the portal work two other clients are waiting for."</p>
+      <div class="bet-result">
+        <strong>Decision: Feature B. The renewal was protected.</strong>
+        <p>I personally communicated the delay to the two clients waiting for Feature A — committing to Release 4 with dedicated capacity and explaining the reason. Required de-prioritizing two smaller Release 4 features. Those were re-scoped into Release 5. The client retained. No surprises, no burned relationships.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUALITY GATE -->
+  <div class="sec">
+    <div class="sec-label">Execution</div>
+    <div class="sec-title">The Quality Gate That Became a Trust Mechanism</div>
+    <p class="prose">Insurance carrier clients have near-zero tolerance for production defects. A policy processing error on a Sunday night is not a minor bug — it's a compliance incident. I introduced a <strong>95% pre-production quality gate</strong>: every release went through API-level testing in Postman, with me personally validating integration scenarios before UAT opened to clients.</p>
+    <div class="two-col">
+      <div class="card">
+        <h4>What It Cost</h4>
+        <p>Slightly longer delivery cycles. Each release cycle added approximately 3–5 days for personal validation before client UAT. Some sprints felt slow.</p>
+      </div>
+      <div class="card">
+        <h4>What It Bought</h4>
+        <p>Zero P1 defects shipped to clients in 6 months. Client confidence in release reliability. Carriers started planning their own integrations around our release dates — a sign of trust, not just satisfaction.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem;border-left:3px solid var(--green);">
+      <h4>The Insight: Reliability is a Growth Lever</h4>
+      <p>Clients who trust the platform's reliability take on more integration risk and expand their usage. Every clean release is a trust deposit. I track pre-production quality rate as deliberately as any feature metric — because it compounds.</p>
+    </div>
+  </div>
+
+  <!-- KEY DECISIONS -->
+  <div class="sec">
+    <div class="sec-label">Key Decisions</div>
+    <div class="sec-title">The Tradeoffs, Made Explicit</div>
+    <table class="decision-table">
+      <thead>
+        <tr><th>Decision</th><th>What I Chose</th><th>Why</th><th>Tradeoff Accepted</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>First 30 days</td>
+          <td>Understand before executing — no sprints started</td>
+          <td>Executing a bad backlog fast just creates faster wrong outcomes; needed the framework first</td>
+          <td>Delayed first release cycle by ~3 weeks; justified by framework quality that followed</td>
+        </tr>
+        <tr>
+          <td>Release 3 conflict</td>
+          <td>Feature B (invisible, revenue-protecting)</td>
+          <td>Revenue certainty &gt; roadmap aesthetics; a better product story with a lost renewal is not a success</td>
+          <td>Two clients waited an extra release cycle; required direct communication to manage expectations</td>
+        </tr>
+        <tr>
+          <td>Pre-production quality gate</td>
+          <td>95% quality before UAT opens</td>
+          <td>Insurance clients cannot absorb production defects; reliability is a growth lever, not just a cost</td>
+          <td>Slightly longer delivery cycles per release</td>
+        </tr>
+        <tr>
+          <td>API design ownership</td>
+          <td>PO owns API documentation, not just engineering</td>
+          <td>Prevents spec drift between what I specify and what clients receive; technical fluency is a product responsibility</td>
+          <td>More technical work for me as PO; appropriate given the integration complexity</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="sec">
+    <div class="sec-label">Results</div>
+    <div class="sec-title">6 Months In — What the Data Shows</div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-num">30%</div>
+        <div class="metric-change">↓ Reduction</div>
+        <div class="metric-lbl">Customer Onboarding Time<br>via digital portal</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">25%</div>
+        <div class="metric-change">↓ Reduction</div>
+        <div class="metric-lbl">Transaction Abandonment<br>Analytics-informed UX</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">15%</div>
+        <div class="metric-change">↑ Increase</div>
+        <div class="metric-lbl">Platform Adoption<br>Self-service capabilities</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">95%</div>
+        <div class="metric-change">Sustained</div>
+        <div class="metric-lbl">Pre-Production<br>Quality Rate</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">0</div>
+        <div class="metric-change">Clean</div>
+        <div class="metric-lbl">P1 Defects Shipped<br>to Clients (6 months)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">50+</div>
+        <div class="metric-change">Triaged</div>
+        <div class="metric-lbl">Backlog Items Across<br>6 Releases, Aligned</div>
+      </div>
+    </div>
+    <p class="prose" style="margin-top:1.25rem;">The most significant non-metric result: clients started referencing the release communication cadence in their own planning documents. Predictability had become a product. They trusted what was coming — which is the precondition for everything else.</p>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="sec">
+    <div class="sec-label">Lessons Learned</div>
+    <div class="sec-title">What I'm Learning in Real Time</div>
+    <div class="lessons-list">
+      <div class="lesson">
+        <div class="lesson-num">Lesson 01</div>
+        <h4>Enterprise clients don't want what they say they want.</h4>
+        <p>They ask for features. What they actually need is confidence that the platform is moving in the right direction. My job is often to provide that confidence — through communication, prioritization transparency, and consistent delivery — as much as it is to ship a specific feature.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 02</div>
+        <h4>Roadmap predictability is a product.</h4>
+        <p>For enterprise clients, knowing what's coming and trusting it will actually ship matters as much as the feature itself. I've invested as deliberately in consistent release communication as in feature quality. This has improved client satisfaction without shipping a single line of code.</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 03</div>
+        <h4>Prioritization frameworks do two things: they make decisions, and they make decisions legible.</h4>
+        <p>The 4-factor matrix is useful for making the right call. But its bigger value is making the call defensible to clients who disagree. When a client asks why their feature is in Release 4, the answer isn't "because I decided so." It's "here's how it scored on the four factors, and here's what would need to change for it to move up."</p>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">Lesson 04</div>
+        <h4>Pre-production quality compounds.</h4>
+        <p>Every clean release is a trust deposit. Clients who trust reliability take on more integration risk and expand faster. The 95% quality gate looked like a cost in the first sprint and looked like a growth strategy by month 4.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

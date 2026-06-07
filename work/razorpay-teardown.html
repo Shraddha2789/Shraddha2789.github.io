@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Razorpay — Product Teardown · Shraddha Singh</title>
+  <meta name="description" content="A PM's deep-dive into Razorpay's product strategy, platform evolution from payment gateway to financial OS, and three product opportunities I'd build next."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff; --blue-mid:#1d4ed8;
+      --green:#10b981; --green-lt:#f0fdf4;
+      --amber:#f59e0b; --amber-lt:#fffbeb;
+      --red:#ef4444; --red-lt:#fef2f2;
+      --bg:#f8fafc; --white:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
+
+    /* NAV */
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;text-decoration:none;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,#0d1b35 0%,#1e3a7a 60%,#0f2d5a 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 75% 50%,rgba(37,99,235,.18),transparent);pointer-events:none;}
+    .hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1;}
+    .hero-tag{display:inline-block;background:rgba(37,99,235,.2);border:1px solid rgba(37,99,235,.35);color:#93c5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.8rem,4vw,2.75rem);font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:.75rem;line-height:1.15;}
+    .hero-sub{font-size:1rem;color:#94a3b8;max-width:600px;line-height:1.75;margin-bottom:1.75rem;}
+    .hero-meta{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+    .hero-meta span{font-size:.8rem;color:#64748b;font-weight:500;}
+
+    /* STATS BAR */
+    .stats{background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2rem;}
+    .stats-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center;}
+    .s-num{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .s-num em{color:#93c5fd;font-style:normal;}
+    .s-lbl{font-size:.63rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.3rem;line-height:1.4;}
+
+    /* CONTENT */
+    .content{max-width:800px;margin:0 auto;padding:3rem 2rem 5rem;}
+    h2{font-size:1.35rem;font-weight:800;color:var(--navy);margin:2.5rem 0 .75rem;letter-spacing:-.3px;padding-top:.5rem;border-top:2px solid var(--border);}
+    h2:first-child{border-top:none;margin-top:0;}
+    h3{font-size:1rem;font-weight:700;color:var(--navy);margin:1.5rem 0 .5rem;}
+    p{font-size:.935rem;color:var(--muted);line-height:1.8;margin-bottom:.85rem;}
+    ul,ol{margin:.5rem 0 .85rem 1.35rem;}
+    li{font-size:.935rem;color:var(--muted);line-height:1.75;margin-bottom:.3rem;}
+    strong{color:var(--text);}
+    blockquote{background:var(--blue-lt);border-left:4px solid var(--blue);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1rem 0;}
+    blockquote p{margin:0;color:#1e40af;font-style:italic;}
+    table{width:100%;border-collapse:collapse;margin:1rem 0 1.25rem;font-size:.875rem;}
+    th{background:var(--navy);color:#fff;padding:.65rem .85rem;text-align:left;font-weight:600;}
+    td{padding:.6rem .85rem;border:1px solid var(--border);color:var(--muted);vertical-align:top;}
+    tr:nth-child(even) td{background:#f8fafc;}
+    pre{background:#0f172a;color:#e2e8f0;padding:1.25rem 1.5rem;border-radius:10px;overflow-x:auto;font-size:.82rem;line-height:1.7;margin:1rem 0;}
+
+    /* PILLS */
+    .pill-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.75rem 0 1.25rem;}
+    .pill{font-size:.75rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;}
+    .pill-green{background:var(--green-lt);color:#065f46;border:1px solid #bbf7d0;}
+    .pill-amber{background:var(--amber-lt);color:#92400e;border:1px solid #fde68a;}
+    .pill-red{background:var(--red-lt);color:#991b1b;border:1px solid #fecaca;}
+    .pill-blue{background:var(--blue-lt);color:#1e40af;border:1px solid #bfdbfe;}
+
+    /* CALLOUT */
+    .callout{background:var(--green-lt);border:1px solid #bbf7d0;border-radius:10px;padding:1.1rem 1.35rem;margin:1rem 0;}
+    .callout h4{color:#065f46;font-size:.9rem;font-weight:700;margin-bottom:.35rem;}
+    .callout p,.callout li{color:#1e4031;margin-bottom:.25rem;}
+    .callout ul{margin-bottom:0;}
+    .callout-blue{background:var(--blue-lt);border:1px solid #bfdbfe;}
+    .callout-blue h4{color:#1e40af;}
+    .callout-blue p,.callout-blue li{color:#1e3a8a;}
+
+    /* RISK BOX */
+    .risk-box{background:var(--red-lt);border:1px solid #fecaca;border-radius:10px;padding:1.1rem 1.35rem;margin:1rem 0;}
+    .risk-box h4{color:#991b1b;font-size:.9rem;font-weight:700;margin-bottom:.35rem;}
+    .risk-box p,.risk-box li{color:#7f1d1d;margin-bottom:.25rem;}
+
+    /* OPPORTUNITY BOX */
+    .opp{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:1.25rem 1.5rem;margin:1.25rem 0;}
+    .opp-num{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#7c3aed;margin-bottom:.4rem;}
+    .opp h4{color:#4c1d95;font-size:1rem;font-weight:800;margin-bottom:.5rem;}
+    .opp p{color:#3b0764;margin-bottom:.5rem;}
+    .opp p:last-child{margin-bottom:0;}
+    .opp strong{color:#2e1065;}
+    .opp-why{background:#fff;border:1px solid #ddd6fe;border-radius:7px;padding:.75rem 1rem;margin-top:.75rem;font-size:.83rem;color:#4c1d95;}
+    .opp-why strong{color:#3b0764;display:block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem;}
+
+    /* TAKEAWAYS */
+    .takeaway-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);}
+    .takeaway-item:last-child{border-bottom:none;}
+    .tc-num{flex-shrink:0;width:28px;height:28px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-top:.1rem;}
+    .tc-text strong{display:block;font-size:.9rem;color:var(--navy);margin-bottom:.2rem;}
+    .tc-text span{font-size:.85rem;color:var(--muted);}
+
+    /* DECK VIEWER */
+    .viewer-section{max-width:800px;margin:0 auto;padding:0 2rem 3rem;}
+    .viewer-sec-title{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.85rem;}
+    .viewer-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(13,27,53,.08);}
+    .viewer-toolbar{background:#f1f5f9;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+    .viewer-toolbar span{font-size:.82rem;font-weight:600;color:var(--text);}
+    .dl-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.45rem 1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;}
+    .dl-btn:hover{background:var(--blue);}
+    iframe.deck{display:block;width:100%;height:520px;border:none;}
+
+    /* RELATED */
+    .related{max-width:800px;margin:0 auto;padding:0 2rem 4rem;}
+    .related-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;}
+    .related-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;text-decoration:none;transition:border-color .15s;}
+    .related-card:hover{border-color:#cbd5e1;}
+    .rc-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.35rem;}
+    .rc-title{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.4;}
+
+    footer{background:var(--navy);padding:2rem;text-align:center;}
+    footer p{font-size:.8rem;color:#475569;}
+    footer a{color:#93c5fd;}
+
+    @media(max-width:640px){
+      .content{padding:2rem 1.25rem 4rem;}
+      .hero{padding:2.5rem 1.25rem 2rem;}
+      .related{padding:0 1.25rem 3rem;}
+      .viewer-section{padding:0 1.25rem 3rem;}
+      iframe.deck{height:340px;}
+      .viewer-toolbar{flex-direction:column;gap:.6rem;align-items:flex-start;}
+      .stats-inner{grid-template-columns:repeat(3,1fr);}
+      .related-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Back to Portfolio</a>
+  <span class="nav-title">Product Teardown</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Product Teardown · June 2026</div>
+    <h1>Razorpay — From Payment Gateway to Financial OS</h1>
+    <p class="hero-sub">How a developer-first payments API became India's SME banking infrastructure — and the PM questions behind every product bet they've made since 2014.</p>
+    <div class="hero-meta">
+      <span>Shraddha Singh</span>
+      <span>Fintech · B2B · Payments Infrastructure</span>
+      <span>10 min read</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stats-inner">
+      <div><div class="s-num"><em>8M+</em></div><div class="s-lbl">Businesses<br>on platform</div></div>
+      <div><div class="s-num"><em>$90B+</em></div><div class="s-lbl">Annual payments<br>processed</div></div>
+      <div><div class="s-num"><em>100+</em></div><div class="s-lbl">Payment methods<br>supported</div></div>
+      <div><div class="s-num"><em>$7.5B</em></div><div class="s-lbl">Valuation<br>(2021 Series F)</div></div>
+      <div><div class="s-num"><em>2014</em></div><div class="s-lbl">Founded by IIT<br>Roorkee students</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <h2>1. What is Razorpay?</h2>
+  <p>Razorpay is India's leading payment gateway — and increasingly, its leading financial services platform for businesses. Founded in 2014 by Harshil Mathur and Shashvat Nakrani out of YCombinator, it started as a simple API to accept payments online. It's now a suite of products covering payments, banking, payroll, and lending.</p>
+  <p>The simplest version of the Razorpay story: <strong>they won the payment gateway market by being the product developers actually wanted to use, then used that distribution to expand into every financial product an SME needs.</strong></p>
+  <blockquote><p>Razorpay didn't win on price or feature count. They won because their API documentation was better than anyone else's — and in a developer-bought product, documentation is the product.</p></blockquote>
+  <p>That insight — that the buyer persona in B2B fintech was changing from finance teams to developers — shaped every early product decision and is still the clearest lens for understanding what Razorpay is trying to build.</p>
+
+  <h2>2. The User — And Why B2B User Complexity Matters Here</h2>
+  <p>Razorpay has three distinct user types with very different needs, and getting this wrong is the fastest way to misunderstand their product decisions.</p>
+  <table>
+    <tr><th>User Type</th><th>Who They Are</th><th>What They Actually Want</th></tr>
+    <tr><td><strong>Developer / Tech lead</strong></td><td>Building the checkout or payment flow; evaluates APIs</td><td>Clean documentation, reliable uptime, instant sandbox, fast integration. Will advocate internally for whichever tool makes them look good.</td></tr>
+    <tr><td><strong>Finance / Operations</strong></td><td>Owns reconciliation, settlements, compliance</td><td>Accurate reporting, predictable settlement times, audit trail, GST handling. Will block adoption if reporting doesn't work.</td></tr>
+    <tr><td><strong>Business owner / Founder</strong></td><td>Cares about conversion, revenue, growth</td><td>Higher checkout success rate, lower payment failure rate, access to credit when needed. Buys on outcomes, not features.</td></tr>
+  </table>
+  <p>The product decision Razorpay made early — and most competitors missed — was to <strong>optimize first for the developer</strong> while making sure the finance team couldn't block it. The developer initiates adoption; the finance team has veto power. You need both.</p>
+  <p><strong>The market segmentation by business size also matters:</strong> A startup wants a 15-minute integration. An enterprise wants SLAs, dedicated support, and custom settlement logic. Razorpay's product line has expanded to serve both — but the tension between these segments shapes every roadmap decision.</p>
+
+  <h2>3. The Core Problem Being Solved</h2>
+  <table>
+    <tr><th>Problem</th><th>How Bad It Was Before Razorpay</th></tr>
+    <tr><td>Payment gateway integration took weeks</td><td>Banks and traditional PGs (CCAvenue, PayU) required manual forms, verification, and enterprise sales cycles. A startup couldn't go live in a day.</td></tr>
+    <tr><td>API documentation was unusable</td><td>Competitors had PDFs, SOAP APIs, and integration guides written by lawyers. Developers were copying Stack Overflow answers to understand basic auth flows.</td></tr>
+    <tr><td>Payment failure rates were high</td><td>Industry average success rate ~65–70%. Lost transactions = lost revenue. Nobody was treating this as a PM metric.</td></tr>
+    <tr><td>SMEs had no banking product built for them</td><td>Traditional banks offered SME accounts that were designed for large enterprises, stripped down. No API access, no automation, no visibility.</td></tr>
+  </table>
+
+  <h2>4. Product Evolution — The Platform Expansion Story</h2>
+  <pre>2014 — Launch
+  └─ Payment gateway API for Indian businesses
+  └─ Competitive moat: developer-first docs, fast onboarding
+
+2015–17 — Distribution
+  └─ PCI-DSS compliance, international card support
+  └─ Razorpay Dashboard: finance team gets visibility
+  └─ Growing SME merchant base
+
+2018–19 — Product Depth
+  └─ Payment Links: non-developer merchants can collect payments
+  └─ Payment Pages: hosted checkout without engineering
+  └─ Subscriptions: recurring billing for SaaS
+
+2020 — Adjacency Expansion
+  └─ Smart Collect (UPI QR, virtual accounts): B2B collections
+  └─ Route: marketplace payment splitting
+  └─ RazorpayX (banking): current accounts + API for businesses
+
+2021 — Full Financial Stack
+  └─ Razorpay Capital: instant credit based on transaction history
+  └─ Opfin (payroll): acquired for ₹125 Cr — payroll for SMEs
+  └─ Corporate cards via RazorpayX
+
+2022–24 — Platform Maturity
+  └─ International payments (outward remittances)
+  └─ Embedded compliance (TDS, GST reconciliation)
+  └─ AI-based fraud detection in payment flows
+  └─ Razorpay for Enterprise: custom SLAs, dedicated infra</pre>
+
+  <p><strong>The sequencing logic worth studying:</strong> Razorpay expanded from payment collection → banking → payroll → lending. Each step used data from the previous one. Banking gave visibility into cash flow. Payroll gave data on employee count and burn rate. Both made underwriting for Razorpay Capital dramatically better than a traditional lender could achieve.</p>
+
+  <blockquote><p>They didn't expand because they wanted to be a super-app. They expanded because each adjacency made the underwriting data better — which made the lending business viable.</p></blockquote>
+
+  <h2>5. Feature Analysis — What's Working and What's Not</h2>
+
+  <h3>Payment Gateway — Core Product</h3>
+  <div class="pill-row"><span class="pill pill-green">Working</span></div>
+  <p>Industry-leading checkout success rate (reportedly 85%+ vs. industry ~70%). Best-in-class developer experience. SDKs for every major language and platform. <strong>Risk:</strong> This is increasingly table stakes — PhonePe for Business and PayU have closed the gap. The moat is defensibility of the installed base, not product differentiation.</p>
+
+  <h3>RazorpayX — Business Banking</h3>
+  <div class="pill-row"><span class="pill pill-green">Working</span><span class="pill pill-amber">Premium Segment Risk</span></div>
+  <p>Current accounts with API access, automated payouts, vendor payments, corporate cards. Fills a genuine gap — traditional SME banking has no API layer. <strong>The PM bet:</strong> businesses that process payments with Razorpay and bank with RazorpayX give Razorpay a 360° view of their cash position — which is the real underwriting asset. <strong>Risk:</strong> RBI's banking regulations create a ceiling. Razorpay doesn't have a banking licence — it works through partner banks. Regulatory changes can move the ceiling unexpectedly.</p>
+
+  <h3>Razorpay Capital — SME Lending</h3>
+  <div class="pill-row"><span class="pill pill-green">High Potential</span></div>
+  <p>Instant credit lines and business loans underwritten using transaction history rather than traditional credit bureau data. This is the most strategically valuable product in the portfolio. SMEs that are creditworthy by cash flow but invisible to traditional lenders are the addressable market. <strong>The AI angle:</strong> Razorpay Capital is essentially a machine learning problem dressed as a fintech product — the model gets better with every loan cycle because more transaction data flows in.</p>
+
+  <h3>Opfin (Payroll)</h3>
+  <div class="pill-row"><span class="pill pill-amber">Strategically Smart, Execution Risk</span></div>
+  <p>Acquiring Opfin was the right call — payroll data is the cleanest signal of a company's financial health. But payroll is a category where stickiness comes from compliance accuracy (PF, ESI, TDS), and that's a grueling product domain. The question isn't whether Razorpay should own payroll — it's whether they have the patience to build it with the depth that HR teams actually trust.</p>
+
+  <h3>Payment Links & Pages</h3>
+  <div class="pill-row"><span class="pill pill-green">Working</span></div>
+  <p>Democratized payment collection for non-technical merchants — freelancers, consultants, small retailers who don't have engineering resources. Smart move: extends Razorpay's addressable market without compromising the developer-first core product. Simple no-code interface. <strong>Opportunity:</strong> These users generate data about informal SME cash flows that Razorpay Capital could underwrite — but the data pipeline from no-code to lending isn't fully built yet.</p>
+
+  <h3>International Payments</h3>
+  <div class="pill-row"><span class="pill pill-amber">Early</span></div>
+  <p>Outward remittances and international collections are real pain points for Indian exporters and SaaS companies with global customers. But this is a highly regulated, compliance-heavy space with established players (Wise, Payoneer, banks). Razorpay's advantage here is the existing merchant relationship — cross-sell, not a greenfield play. Too early to assess.</p>
+
+  <h2>6. Business Model — The Three-Layer Stack</h2>
+  <table>
+    <tr><th>Layer</th><th>Product</th><th>Revenue Mechanism</th><th>Margin Profile</th></tr>
+    <tr><td><strong>Transactions</strong></td><td>Payment gateway, Links, Pages</td><td>MDR (1.8–3% per transaction)</td><td>Low-medium — volume-dependent</td></tr>
+    <tr><td><strong>Banking</strong></td><td>RazorpayX, corporate cards, payroll</td><td>Interchange, float income, SaaS fees</td><td>Medium — improves with AUM</td></tr>
+    <tr><td><strong>Lending</strong></td><td>Razorpay Capital</td><td>Interest income, processing fees</td><td>High — if NPA is managed well</td></tr>
+  </table>
+  <p><strong>The strategic logic:</strong> Transaction revenue is thin and commoditizing. Banking revenue scales with asset under management. Lending revenue is the highest-margin bet but carries credit risk. Razorpay is building toward a world where transactions are nearly free (a customer acquisition cost) and the real revenue comes from banking and credit.</p>
+  <p>This is the same playbook Stripe is running globally — but Razorpay is doing it in a market where 90% of SMEs are underserved by traditional finance, which makes the total addressable market much larger relative to the size of the company.</p>
+
+  <h2>7. What's Working</h2>
+  <div class="callout">
+    <h4>Strengths</h4>
+    <ul>
+      <li><strong>Developer experience moat:</strong> Eight years of compound advantage in API quality, documentation, and developer community. Hard to replicate quickly.</li>
+      <li><strong>Data flywheel:</strong> More transactions → better fraud detection → higher success rates → more merchants → more transactions. Every new product adds a new data type to the flywheel.</li>
+      <li><strong>SME trust:</strong> 8M+ businesses rely on Razorpay for revenue collection. Switching cost is high once payroll, banking, and payments are all on one platform.</li>
+      <li><strong>Razorpay Capital's underwriting advantage:</strong> Transaction-history-based underwriting is structurally better than bureau-based underwriting for new-to-credit SMEs. No traditional lender has this data.</li>
+      <li><strong>Enterprise expansion:</strong> Moving upmarket to larger customers without losing the SME base — two customer segments, two revenue profiles, one platform.</li>
+    </ul>
+  </div>
+
+  <h2>8. What's Not Working</h2>
+  <div class="risk-box">
+    <h4>Risks and Weaknesses</h4>
+    <ul>
+      <li><strong>Regulatory ceiling on banking:</strong> Without a banking licence, RazorpayX is always one RBI circular away from a product constraint. The partner-bank model works until it doesn't.</li>
+      <li><strong>Commoditization in the gateway:</strong> The developer-first advantage is narrowing. Cashfree, PayU, and PhonePe Business have all improved their APIs significantly. Price pressure is real.</li>
+      <li><strong>B2B sales motion complexity:</strong> As Razorpay moves upmarket to enterprise, the sales cycle gets long, legal gets involved, and the developer-self-serve motion breaks down. Enterprise sales is a different muscle.</li>
+      <li><strong>Payroll execution risk:</strong> Opfin works, but compliance payroll is brutally hard. PF, ESI, TDS filings are highly sensitive — one systematic error at scale is a reputational crisis.</li>
+      <li><strong>Valuation overhang:</strong> The $7.5B Series F valuation was set at 2021 peak. A secondary market at this valuation is difficult. Pressure to reach profitability may constrain ambitious product bets.</li>
+    </ul>
+  </div>
+
+  <h2>9. Three Product Opportunities I'd Build Next</h2>
+
+  <div class="opp">
+    <div class="opp-num">Opportunity 01</div>
+    <h4>AI Cash Flow Intelligence — Razorpay Capital's Killer Feature</h4>
+    <p>Razorpay Capital already uses transaction history for underwriting. The missing product: surface that intelligence back to the merchant as forward-looking cash flow forecasting. "You have 23 days of runway at current burn. Based on your seasonal pattern, you typically see a 40% revenue dip in August — here's a working capital offer sized for that dip."</p>
+    <p>This turns Razorpay Capital from a reactive lending product (apply when you need money) into a proactive financial advisor (we see the dip coming before you do). It also dramatically increases the relevance of credit offers — you're not cold-pitching, you're answering a question the business owner already has.</p>
+    <div class="opp-why"><strong>Why now</strong> The transaction data already exists. The AI capability to generate forecasts from time-series transaction data is available and cheap. The gap is product — nobody has built the merchant-facing interface that makes this intelligence actionable rather than overwhelming.</div>
+  </div>
+
+  <div class="opp">
+    <div class="opp-num">Opportunity 02</div>
+    <h4>Razorpay for Bharat — Vernacular-First, Low-Bandwidth Payment Collection</h4>
+    <p>The 8M businesses on Razorpay are not representative of India's ~64M SMEs. The remaining 56M are Tier 2/3 businesses — kirana stores, local service providers, small manufacturers — who operate on WhatsApp, in Hindi, Marathi, Tamil, or Telugu, and have unreliable internet connections.</p>
+    <p>The current Razorpay product assumes English, stable internet, and a smartphone with sufficient processing power to run a modern web app. None of these assumptions hold for Bharat. A simplified, vernacular-first, low-bandwidth payment collection product — built specifically for offline-first use cases — could double the addressable market. The challenge is product discipline: every feature that makes the premium product powerful makes the Bharat product harder to use.</p>
+    <div class="opp-why"><strong>Why this matters strategically</strong> UPI has already solved the payment problem for Bharat consumers. The unaddressed problem is collection infrastructure for Bharat merchants — the person receiving the UPI payment has no tools beyond a screen notification. Razorpay can own this layer before any bank does.</div>
+  </div>
+
+  <div class="opp">
+    <div class="opp-num">Opportunity 03</div>
+    <h4>Embedded Compliance — Automated Tax and Regulatory Filing at Point of Transaction</h4>
+    <p>Every Indian business with GST registration has to file GSTR-1 and GSTR-3B monthly. Every business paying vendors above threshold has TDS obligations. Every payroll run has PF/ESI filing requirements. This compliance work is either done manually (error-prone, time-consuming) or outsourced to a CA (expensive).</p>
+    <p>Razorpay sees every transaction. The data to pre-populate 80% of a GST filing is already in the system. The product: as a merchant completes a transaction on Razorpay, the system automatically categorizes it for GST, flags TDS obligations, and pre-builds the filing. At month end, review and file with one click.</p>
+    <p>This makes switching from Razorpay almost impossible — your compliance history lives in the platform. And it's a feature that Stripe cannot replicate in India without years of regulatory relationship-building. It's a local moat.</p>
+    <div class="opp-why"><strong>The PM risk to design around</strong> Compliance errors at scale are catastrophic — a wrong GST filing generates a notice from the department. This feature needs a "human-confirms-before-filing" step that's non-negotiable, regardless of how confident the AI classification is. Design for the compliance officer, not the busy founder.</div>
+  </div>
+
+  <h2>10. The Comparative Lens — Razorpay vs. Stripe</h2>
+  <p>The most common framing of Razorpay is "India's Stripe." It's useful shorthand, but it obscures the ways the products are fundamentally different — and why those differences matter for PM thinking.</p>
+  <table>
+    <tr><th>Dimension</th><th>Stripe</th><th>Razorpay</th></tr>
+    <tr><td>Core user</td><td>Global developer building internet businesses</td><td>Indian developer + Indian SME finance team</td></tr>
+    <tr><td>Market context</td><td>Card-first markets; established banking infrastructure</td><td>UPI-first; large unbanked SME segment; regulatory complexity</td></tr>
+    <tr><td>Revenue model emphasis</td><td>Transaction processing + Stripe Capital</td><td>Transaction + banking + lending (more balanced)</td></tr>
+    <tr><td>Data advantage</td><td>Global transaction patterns</td><td>Deep India-specific cash flow data on 8M SMEs</td></tr>
+    <tr><td>Regulatory posture</td><td>Works within established frameworks</td><td>Must navigate RBI, SEBI, IRDAI simultaneously</td></tr>
+    <tr><td>Competitive moat</td><td>Global developer network effects</td><td>India-specific data and compliance depth</td></tr>
+  </table>
+  <p>The key insight: <strong>Razorpay can build products Stripe cannot, because Razorpay has India-specific data advantages, regulatory relationships, and SME distribution that take years to build.</strong> The risk is that this moat only protects them in India — global expansion carries none of these advantages.</p>
+
+  <h2>11. PM Takeaways</h2>
+  <div class="takeaway-item">
+    <div class="tc-num">1</div>
+    <div class="tc-text"><strong>Developer experience is a product, not a feature.</strong><span> Razorpay won its first market because documentation and API ergonomics were better — not because their payment success rates were higher. In developer-bought products, the integration experience is the first product the buyer evaluates.</span></div>
+  </div>
+  <div class="takeaway-item">
+    <div class="tc-num">2</div>
+    <div class="tc-text"><strong>Platform expansions should use each other's data.</strong><span> Every Razorpay product addition — banking, payroll, lending — was justified partly because it generated data that improved an existing product. Adjacency without data leverage is just scope creep.</span></div>
+  </div>
+  <div class="takeaway-item">
+    <div class="tc-num">3</div>
+    <div class="tc-text"><strong>In regulated fintech, compliance is a product constraint AND a moat.</strong><span> The embedded compliance opportunity exists only because Razorpay has the regulatory relationships to file on behalf of merchants. Competitors can't copy the feature without copying the regulatory foundation. Build compliance in — don't bolt it on.</span></div>
+  </div>
+  <div class="takeaway-item">
+    <div class="tc-num">4</div>
+    <div class="tc-text"><strong>Transaction revenue is a customer acquisition cost in disguise.</strong><span> Razorpay's long-term bet is that the payment processing margin pays for merchant acquisition, and the real business is lending and banking. Understanding the multi-product lifetime value changes which merchants are worth acquiring at what cost.</span></div>
+  </div>
+  <div class="takeaway-item">
+    <div class="tc-num">5</div>
+    <div class="tc-text"><strong>The product you design for your most skeptical user is the one that actually ships.</strong><span> Razorpay's finance-team-friendly dashboard wasn't technically necessary — developers could read API logs. But the finance team has veto power over tool adoption. Designing for the skeptic (the person who can say no) is as important as designing for the enthusiast (the person who wants to use it).</span></div>
+  </div>
+
+</div>
+
+<div class="viewer-section">
+  <div class="viewer-sec-title">📊 Original Teardown Deck — 21 Slides</div>
+  <div class="viewer-wrap">
+    <div class="viewer-toolbar">
+      <span>📊 Razorpay-Teardown-Shraddha-Singh.pptx &nbsp;·&nbsp; 21 slides &nbsp;·&nbsp; Razorpay brand theme</span>
+      <a href="../assets/Razorpay-Teardown-Shraddha-Singh.pptx" download class="dl-btn">⬇ Download PPTX</a>
+    </div>
+    <!-- Online viewer requires a public URL — update the src below after pushing to GitHub:
+         https://view.officeapps.live.com/op/embed.aspx?src=YOUR_GITHUB_RAW_URL -->
+    <iframe class="deck"
+      src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/Shraddha2789/Shraddha2789.github.io/main/assets/Razorpay-Teardown-Shraddha-Singh.pptx"
+      title="Razorpay Product Teardown Deck">
+    </iframe>
+  </div>
+</div>
+
+<div class="related">
+  <div class="related-label">More From This Portfolio</div>
+  <div class="related-grid">
+    <a href="cred-teardown.html" class="related-card">
+      <div class="rc-type">Product Teardown</div>
+      <div class="rc-title">CRED — How India's Most Exclusive Fintech Built Its Moat</div>
+    </a>
+    <a href="blog-genai-feature-first.html" class="related-card">
+      <div class="rc-type">PM Writing</div>
+      <div class="rc-title">Which GenAI Feature Do You Build First? The risk-adjusted framework</div>
+    </a>
+    <a href="signzy-kyc.html" class="related-card">
+      <div class="rc-type">Case Study</div>
+      <div class="rc-title">Signzy KYC — How switching one metric changed the entire roadmap</div>
+    </a>
+    <a href="../index.html#writing" class="related-card">
+      <div class="rc-type">Writing</div>
+      <div class="rc-title">More PM writing — Medium and portfolio articles</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

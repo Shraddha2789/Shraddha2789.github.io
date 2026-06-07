@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shraddha Singh — Product Manager</title>
-  <meta name="description" content="PM Portfolio of Shraddha Singh — 6+ years in Fintech, Insurtech & Enterprise SaaS."/>
+  <title>Shraddha Singh — Product Manager · Fintech · AI PM · Insurtech</title>
+  <meta name="description" content="Shraddha Singh is a Product Manager with 6 years in KYC, healthcare GenAI, and enterprise insurance. Led a $10M AI transformation at HCSC, cut KYC onboarding by 93%, and shipped 10+ GenAI features with zero compliance incidents."/>
+  <meta name="keywords" content="Product Manager, AI PM, Fintech, Insurtech, KYC, GenAI, India, Shraddha Singh"/>
+  <meta name="author" content="Shraddha Singh"/>
+  <meta property="og:title" content="Shraddha Singh — Product Manager · AI · Fintech · Insurtech"/>
+  <meta property="og:description" content="6 years building AI-powered products in KYC, healthcare GenAI, and enterprise insurance. $10M programme delivered 20% ahead of schedule. Open to PM, TPM, and AI PM roles."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://shraddhasingh.dev/"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Shraddha Singh — PM · AI · Fintech"/>
+  <meta name="twitter:description" content="Product Manager specializing in AI products, fintech, and regulated industries. Case studies, frameworks, and writing at the intersection of product and AI."/>
+  <link rel="canonical" href="https://shraddhasingh.dev/"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
@@ -332,7 +342,7 @@
     .skill-tag{background:var(--bg-alt);border:1px solid var(--border);color:var(--text-2);font-size:.7rem;font-weight:500;padding:.17rem .5rem;border-radius:5px;}
 
     /* ── CASE STUDIES ───────────────────────────── */
-    .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .cs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
     .cs-card{
       border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
       display:flex;flex-direction:column;text-decoration:none;color:inherit;
@@ -485,6 +495,49 @@
     .currently-label{font-size:.57rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:.18rem;}
     .currently-value{font-size:.77rem;font-weight:600;color:var(--text);line-height:1.4;}
 
+    /* ── PM COMPETENCY RADAR ─────────────────────── */
+    .radar-wrap{margin-top:2.75rem;}
+    .radar-inner{display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:center;}
+    .radar-svg-box{width:100%;max-width:220px;}
+    .radar-svg .grid-hex{fill:none;stroke:var(--border);stroke-width:1;}
+    .radar-svg .axis-line{stroke:var(--border);stroke-width:1;}
+    .radar-svg .score-poly{fill:var(--accent-lt);stroke:var(--accent);stroke-width:1.5;stroke-linejoin:round;}
+    .radar-svg .score-dot{fill:var(--accent);}
+    .radar-svg .axis-label{font-family:system-ui,sans-serif;font-size:9.5px;font-weight:700;fill:var(--text-2);}
+    .radar-legend{display:flex;flex-direction:column;gap:.6rem;}
+    .rl-header{font-size:.61rem;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:var(--text-3);margin-bottom:.25rem;}
+    .rl-item{display:flex;align-items:center;gap:.65rem;}
+    .rl-name{font-size:.78rem;font-weight:600;color:var(--text);width:160px;flex-shrink:0;}
+    .rl-bar-wrap{flex:1;height:5px;background:var(--bg-alt);border-radius:3px;overflow:hidden;border:1px solid var(--border);}
+    .rl-bar{height:5px;border-radius:3px;background:var(--accent);}
+    .rl-score{font-size:.7rem;font-weight:800;color:var(--accent);width:24px;text-align:right;flex-shrink:0;}
+
+    /* ── METRICS TIMELINE ─────────────────────────── */
+    .metrics-tl{margin-top:2.75rem;}
+    .mtl-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative;}
+    .mtl-track::before{content:'';position:absolute;top:calc(50% + .5px);left:12.5%;right:12.5%;height:1px;background:var(--border);}
+    .mtl-node{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;}
+    .mtl-top{padding-bottom:.9rem;}
+    .mtl-role{font-size:.72rem;font-weight:800;color:var(--text);line-height:1.3;margin-bottom:.18rem;}
+    .mtl-co{font-size:.61rem;color:var(--text-3);}
+    .mtl-dot{width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--accent);flex-shrink:0;}
+    .mtl-bottom{padding-top:.9rem;}
+    .mtl-period{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:.45rem;}
+    .mtl-metric{font-size:.72rem;font-weight:800;color:var(--accent);line-height:1.4;}
+    .mtl-metric-lbl{font-size:.62rem;color:var(--text-2);line-height:1.35;margin-top:.1rem;}
+
+    /* ── TESTIMONIALS ─────────────────────────────── */
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .testi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;position:relative;transition:border-color .2s,box-shadow .2s;}
+    .testi-card:hover{border-color:var(--border-hi);box-shadow:var(--shadow);}
+    .testi-card::before{content:'\201C';font-family:'DM Serif Display',Georgia,serif;font-size:3.5rem;line-height:1;color:var(--accent);opacity:.3;position:absolute;top:.6rem;left:1.25rem;}
+    .testi-quote{font-size:.83rem;color:var(--text-2);line-height:1.82;margin-top:1.6rem;margin-bottom:1.1rem;font-style:italic;}
+    .testi-attr{display:flex;align-items:center;gap:.7rem;border-top:1px solid var(--border);padding-top:.9rem;}
+    .testi-avatar{width:34px;height:34px;border-radius:50%;background:var(--accent-lt);border:1px solid rgba(91,156,246,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .testi-avatar span{font-size:.72rem;font-weight:800;color:var(--accent);}
+    .testi-name{font-size:.78rem;font-weight:700;color:var(--text);line-height:1.3;}
+    .testi-title{font-size:.67rem;color:var(--text-3);margin-top:.08rem;}
+
     /* ── EDUCATION ───────────────────────────────── */
     .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
     .edu-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--bg-card);transition:border-color .2s,box-shadow .2s;}
@@ -544,6 +597,10 @@
       .hero-photo{width:120px;height:120px;}
       .outcomes-in{grid-template-columns:repeat(3,1fr);}
       .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+      .radar-inner{grid-template-columns:1fr;}
+      .radar-svg-box{max-width:200px;margin:0 auto;}
+      .mtl-track{grid-template-columns:repeat(2,1fr);}.mtl-track::before{display:none;}
+      .testi-grid{grid-template-columns:1fr;}
       .edu-grid{grid-template-columns:1fr;}
       .certs-grid{grid-template-columns:1fr;}
       .skills-grid{grid-template-columns:repeat(2,1fr);}
@@ -579,15 +636,11 @@
     <a href="#" class="nav-logo">Shraddha Singh</a>
     <ul class="nav-links">
       <li><a href="#experience"><span class="material-symbols-outlined">work_history</span>Experience</a></li>
-      <li><a href="#projects"><span class="material-symbols-outlined">rocket_launch</span>Projects</a></li>
-      <li><a href="#work"><span class="material-symbols-outlined">folder_open</span>Work</a></li>
+      <li><a href="#case-studies"><span class="material-symbols-outlined">psychology</span>Case Studies</a></li>
+      <li><a href="work/product-strategy.html"><span class="material-symbols-outlined">insights</span>Strategy</a></li>
+      <li><a href="work/ai-product-lab.html"><span class="material-symbols-outlined">science</span>AI Lab</a></li>
       <li><a href="#writing"><span class="material-symbols-outlined">article</span>Writing</a></li>
       <li><a href="#about"><span class="material-symbols-outlined">person</span>About</a></li>
-      <li>
-        <a href="https://github.com/Shraddha2789" target="_blank" rel="noopener" title="GitHub">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        </a>
-      </li>
       <li>
         <button class="nav-btn" id="themeToggle" aria-label="Toggle theme">
           <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -610,13 +663,13 @@
       </button>
     </div>
     <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#work">Work</a>
+    <a href="#case-studies">Case Studies</a>
+    <a href="work/product-strategy.html">Strategy</a>
+    <a href="work/ai-product-lab.html">AI Lab</a>
     <a href="#writing">Writing</a>
     <a href="#about">About</a>
     <a href="#" onclick="downloadResume('mobile');return false;" class="m-accent">Resume ↓</a>
     <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="m-accent">LinkedIn ↗</a>
-    <a href="https://github.com/Shraddha2789" target="_blank" rel="noopener" class="m-accent">GitHub ↗</a>
     <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="m-accent">Medium ↗</a>
     <a href="mailto:shraddhasingh8968@gmail.com" class="m-accent">Email</a>
   </div>
@@ -629,10 +682,10 @@
       <span class="hero-open reveal">Open to PM / PO roles</span>
       <p class="hero-label reveal d1">Product Manager · Fintech · Insurtech · GenAI · Bengaluru</p>
       <h1 class="hero-name reveal d2">Shraddha<br>Singh</h1>
-      <p class="hero-stmt reveal d3">I build products where <em>regulatory complexity meets user trust</em> — AI-powered KYC for tier-1 Indian banks, a $10M GenAI transformation for US healthcare, and roadmap strategy for an insurance platform at 500K+ customers.</p>
+      <p class="hero-stmt reveal d3">I find the problems worth solving — then <em>build the case to solve them.</em> AI-powered KYC for tier-1 Indian banks, a $10M GenAI transformation for US healthcare, and roadmap strategy for an insurance platform at 500K+ customers.</p>
       <div class="hero-actions reveal d4">
-        <a href="#experience" class="btn-primary">
-          <span class="material-symbols-outlined">south</span>View Experience
+        <a href="#case-studies" class="btn-primary">
+          <span class="material-symbols-outlined">psychology</span>View Case Studies
         </a>
         <a href="#" class="btn-ghost" onclick="downloadResume('hero');return false;">
           <span class="material-symbols-outlined">download</span>Resume
@@ -640,10 +693,6 @@
         <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="btn-ghost">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           LinkedIn
-        </a>
-        <a href="https://github.com/Shraddha2789" target="_blank" rel="noopener" class="btn-ghost">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          GitHub
         </a>
       </div>
     </div>
@@ -656,11 +705,11 @@
 <!-- OUTCOMES BENTO -->
 <div class="outcomes">
   <div class="outcomes-in">
-    <div class="outcome reveal"><div class="outcome-num" data-val="6" data-suf="+">6+</div><div class="outcome-lbl">Years in Product</div></div>
-    <div class="outcome reveal d1"><div class="outcome-num" data-pre="$" data-val="10" data-suf="M+">$10M+</div><div class="outcome-lbl">Program Led</div></div>
-    <div class="outcome reveal d2"><div class="outcome-num" data-val="45" data-suf="%">45%</div><div class="outcome-lbl">Revenue Growth</div></div>
-    <div class="outcome reveal d3"><div class="outcome-num" data-val="60" data-suf="%">60%</div><div class="outcome-lbl">Efficiency Gain</div></div>
-    <div class="outcome reveal d4"><div class="outcome-num" data-val="500" data-suf="K+">500K+</div><div class="outcome-lbl">Customers Served</div></div>
+    <div class="outcome reveal"><div class="outcome-num" data-val="6" data-suf="+">6+</div><div class="outcome-lbl">Years Owning Products</div></div>
+    <div class="outcome reveal d1"><div class="outcome-num" data-pre="$" data-val="10" data-suf="M+">$10M+</div><div class="outcome-lbl">Program, 20% Ahead of Schedule</div></div>
+    <div class="outcome reveal d2"><div class="outcome-num" data-val="60" data-suf="%">60%</div><div class="outcome-lbl">Agent Productivity Gain (GenAI)</div></div>
+    <div class="outcome reveal d3"><div class="outcome-num" data-val="93" data-suf="%">93%</div><div class="outcome-lbl">Faster KYC Onboarding</div></div>
+    <div class="outcome reveal d4"><div class="outcome-num" data-val="500" data-suf="K+">500K+</div><div class="outcome-lbl">End Customers, Zero P1 Defects</div></div>
   </div>
 </div>
 
@@ -785,12 +834,12 @@
       <h2 class="sec-h">Capabilities</h2>
     </div>
     <div class="skills-grid">
-      <div class="skill-cat reveal"><div class="skill-cat-title">Core PM</div><div class="skill-tags"><span class="skill-tag">Product Strategy</span><span class="skill-tag">Roadmap Planning</span><span class="skill-tag">Feature Prioritization</span><span class="skill-tag">Go-to-Market</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Backlog Management</span><span class="skill-tag">User Story Mapping</span><span class="skill-tag">OKR Definition</span></div></div>
-      <div class="skill-cat reveal d1"><div class="skill-cat-title">Discovery & Research</div><div class="skill-tags"><span class="skill-tag">Jobs-to-be-Done</span><span class="skill-tag">Customer Interviews</span><span class="skill-tag">Funnel Analysis</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Cohort Analysis</span><span class="skill-tag">Journey Mapping</span><span class="skill-tag">Competitive Analysis</span></div></div>
-      <div class="skill-cat reveal d2"><div class="skill-cat-title">AI & Data</div><div class="skill-tags"><span class="skill-tag">GenAI Use Case Design</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">SQL</span><span class="skill-tag">Mixpanel</span><span class="skill-tag">Google Analytics</span><span class="skill-tag">Tableau</span><span class="skill-tag">Data-driven Prioritization</span></div></div>
-      <div class="skill-cat reveal d3"><div class="skill-cat-title">Technical</div><div class="skill-tags"><span class="skill-tag">API Design & Documentation</span><span class="skill-tag">Postman</span><span class="skill-tag">Figma</span><span class="skill-tag">AWS Fundamentals</span><span class="skill-tag">OAuth / SSO / JWT</span><span class="skill-tag">UAT</span></div></div>
-      <div class="skill-cat reveal d1"><div class="skill-cat-title">Domain Expertise</div><div class="skill-tags"><span class="skill-tag">Fintech / KYC</span><span class="skill-tag">Digital Banking</span><span class="skill-tag">Insurtech</span><span class="skill-tag">Enterprise SaaS</span><span class="skill-tag">E-commerce</span><span class="skill-tag">RBI Compliance</span></div></div>
-      <div class="skill-cat reveal d2"><div class="skill-cat-title">Delivery & Stakeholders</div><div class="skill-tags"><span class="skill-tag">JIRA · Confluence</span><span class="skill-tag">Sprint Planning</span><span class="skill-tag">C-suite Communication</span><span class="skill-tag">Cross-functional Leadership</span><span class="skill-tag">Vendor Management</span></div></div>
+      <div class="skill-cat reveal"><div class="skill-cat-title">Product Strategy & Discovery</div><div class="skill-tags"><span class="skill-tag">Product Strategy</span><span class="skill-tag">Roadmap Planning</span><span class="skill-tag">Jobs-to-be-Done</span><span class="skill-tag">Customer Interviews</span><span class="skill-tag">Journey Mapping</span><span class="skill-tag">OKR Definition</span><span class="skill-tag">Competitive Analysis</span><span class="skill-tag">Go-to-Market</span></div></div>
+      <div class="skill-cat reveal d1"><div class="skill-cat-title">Prioritization & Execution</div><div class="skill-tags"><span class="skill-tag">RICE · MoSCoW · Value/Effort</span><span class="skill-tag">Feature Prioritization</span><span class="skill-tag">Backlog Management</span><span class="skill-tag">User Story Mapping</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Sprint Planning</span><span class="skill-tag">UAT</span></div></div>
+      <div class="skill-cat reveal d2"><div class="skill-cat-title">AI Product Management</div><div class="skill-tags"><span class="skill-tag">GenAI Use Case Design</span><span class="skill-tag">AI Risk Prioritization</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI Adoption Design</span><span class="skill-tag">Model Evaluation (PM lens)</span><span class="skill-tag">Data-driven Prioritization</span></div></div>
+      <div class="skill-cat reveal d3"><div class="skill-cat-title">Domain Expertise</div><div class="skill-tags"><span class="skill-tag">Fintech / KYC / Digital Banking</span><span class="skill-tag">Insurtech · Policy Servicing</span><span class="skill-tag">Enterprise SaaS · B2B</span><span class="skill-tag">E-commerce</span><span class="skill-tag">RBI / IRDAI Compliance</span><span class="skill-tag">Healthcare (HIPAA context)</span></div></div>
+      <div class="skill-cat reveal d1"><div class="skill-cat-title">Measurement & Analytics</div><div class="skill-tags"><span class="skill-tag">Funnel Analysis</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Cohort Analysis</span><span class="skill-tag">SQL</span><span class="skill-tag">Mixpanel</span><span class="skill-tag">Google Analytics</span><span class="skill-tag">Tableau</span></div></div>
+      <div class="skill-cat reveal d2"><div class="skill-cat-title">Stakeholders & Technical Fluency</div><div class="skill-tags"><span class="skill-tag">C-suite Communication</span><span class="skill-tag">Cross-functional Leadership</span><span class="skill-tag">API Contract Design & Validation</span><span class="skill-tag">Figma</span><span class="skill-tag">JIRA · Confluence</span><span class="skill-tag">AWS Fundamentals</span></div></div>
     </div>
   </div>
 </section>
@@ -799,9 +848,9 @@
 <section class="sec alt" id="projects">
   <div class="sec-in">
     <div class="sec-hdr reveal">
-      <div class="sec-label"><span class="material-symbols-outlined">rocket_launch</span>Projects & Prototypes</div>
-      <h2 class="sec-h">Things I've built and shipped</h2>
-      <p class="sec-sub">Side projects, product experiments, and concepts I own end-to-end — from zero to documented.</p>
+      <div class="sec-label"><span class="material-symbols-outlined">rocket_launch</span>Original PM Work</div>
+      <h2 class="sec-h">Zero-to-one product work I own</h2>
+      <p class="sec-sub">Products I've defined, designed, and documented from scratch — showing how I think when there's no brief and no backlog.</p>
     </div>
     <div class="projects-grid">
 
@@ -809,20 +858,17 @@
         <div class="proj-header">
           <div class="proj-icon"><span class="material-symbols-outlined">hub</span></div>
           <div class="proj-links">
-            <span class="proj-link-icon" title="GitHub" style="cursor:pointer;" onclick="event.preventDefault();event.stopPropagation();window.open('https://github.com/Shraddha2789/jobsignals','_blank')">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            </span>
             <span class="proj-link-icon" title="Live site" style="cursor:pointer;" onclick="event.preventDefault();event.stopPropagation();window.open('https://jobsignals.vercel.app/','_blank')"><span class="material-symbols-outlined">open_in_new</span></span>
-            <span class="proj-link-icon" title="PRD"><span class="material-symbols-outlined">description</span></span>
+            <span class="proj-link-icon" title="Read PRD"><span class="material-symbols-outlined">description</span></span>
           </div>
         </div>
-        <div class="proj-title">JobSignals</div>
-        <p class="proj-desc">Labor market intelligence platform that transforms fragmented job posting data into structured hiring signals — skills demand, company hiring velocity, and salary bands — served via REST/GraphQL API to six consumer personas.</p>
+        <div class="proj-title">JobSignals — AI Data Product</div>
+        <p class="proj-desc">Job seekers had raw data. They had no signal. I designed a product that extracts structured hiring intelligence — skill demand trends, company hiring velocity, salary signals — from unstructured job posting text. The key insight: prompt engineering is acceptance criteria. The precision required to get consistent AI output is identical to the discipline of writing good feature specs.</p>
         <div class="proj-footer">
           <div class="proj-lang">
-            <span class="lang-dot" style="background:#3b82f6;"></span>Data Product
+            <span class="lang-dot" style="background:#3b82f6;"></span>AI · Data Product · B2C
           </div>
-          <span class="proj-cta">View PRD <span class="material-symbols-outlined">arrow_forward</span></span>
+          <span class="proj-cta">Read PRD <span class="material-symbols-outlined">arrow_forward</span></span>
         </div>
       </a>
 
@@ -833,13 +879,13 @@
             <span class="proj-link-icon" title="PRD"><span class="material-symbols-outlined">description</span></span>
           </div>
         </div>
-        <div class="proj-title">Founder OS</div>
-        <p class="proj-desc">An integrated operating system for early-stage founders — one workspace that connects OKR tracking, investor CRM, hiring pipeline, product roadmap, and burn rate. Replaces six disconnected tools with a single decision-making layer built around founder context, not generic project management.</p>
+        <div class="proj-title">Founder OS — Startup Operating Layer</div>
+        <p class="proj-desc">Early-stage founders lose 40% of their week to tool-switching. I defined a zero-to-one product strategy for a unified decision-making layer — connecting OKR tracking, investor CRM, hiring pipeline, roadmap, and burn rate. The core PM question: what is the minimum slice of functionality that creates irreversible founder habit?</p>
         <div class="proj-footer">
           <div class="proj-lang">
-            <span class="lang-dot" style="background:#f97316;"></span>Zero-to-One · In Progress
+            <span class="lang-dot" style="background:#f97316;"></span>Zero-to-One · B2B SaaS · In Progress
           </div>
-          <span class="proj-cta">View PRD <span class="material-symbols-outlined">arrow_forward</span></span>
+          <span class="proj-cta">Read PRD <span class="material-symbols-outlined">arrow_forward</span></span>
         </div>
       </a>
 
@@ -853,39 +899,50 @@
     <div class="sec-hdr reveal">
       <div class="sec-label"><span class="material-symbols-outlined">psychology</span>Case Studies</div>
       <h2 class="sec-h">How I Think Through Problems</h2>
-      <p class="sec-sub">End-to-end narratives — from messy context to shipped outcome. Not what I did, but how I decided.</p>
+      <p class="sec-sub">End-to-end narratives — discovery, prioritization, the bet I made, and what the data said after. Not what I did, but how I decided.</p>
     </div>
     <div class="cs-grid">
-      <a href="work/cspm-prd.html" class="cs-card reveal">
+      <a href="work/signzy-kyc.html" class="cs-card reveal">
         <div class="cs-accent"></div>
         <div class="cs-body">
-          <div class="cs-meta">Signzy Technologies · B2B Fintech · 2022–2024</div>
-          <div class="cs-arc">Problem → Solution → Impact</div>
-          <div class="cs-title">Redesigning KYC Onboarding for Compliance at Scale</div>
-          <p class="cs-problem">Our API-based KYC flow was taking 72+ hours per customer due to manual fallback loops and schema misalignment. Compliance constraints made it impossible to simply speed things up — every change had to survive regulatory scrutiny.</p>
-          <div class="cs-outcome"><span class="cs-outcome-label">Impact</span><span class="cs-outcome-text">40% faster onboarding · 35% lift in KYC accuracy · Zero compliance exceptions post-launch</span></div>
+          <div class="cs-meta">Signzy · B2B Fintech · Jan–Sep 2024</div>
+          <div class="cs-arc">Discovery · Metric Design · AI Product · RBI Compliance</div>
+          <div class="cs-title">KYC wasn't slow. It was failing silently — and we were measuring the wrong thing.</div>
+          <p class="cs-problem">Banks told us onboarding took 3 days because of slow processing. Digging into 3 months of transaction logs revealed the real problem: 60% of users dropped in the first 10 minutes with no feedback. Switching north star metrics from "time to approve" to "first-attempt success rate" changed the entire roadmap — and saved 8 weeks of misdirected engineering.</p>
+          <div class="cs-outcome"><span class="cs-outcome-label">Outcome</span><span class="cs-outcome-text">3 days → &lt;2 hours · +35% KYC accuracy · +25% revenue · 3 contract renewals</span></div>
           <span class="cs-link">Read case study <span class="material-symbols-outlined">arrow_forward</span></span>
         </div>
       </a>
-      <a href="work/trueserve.html" class="cs-card reveal d1">
+      <a href="work/deloitte-genai.html" class="cs-card reveal d1">
         <div class="cs-accent"></div>
         <div class="cs-body">
-          <div class="cs-meta">Deloitte Digital · GenAI · Contact Centre · 2021–2024</div>
-          <div class="cs-arc">Problem → Solution → Impact</div>
-          <div class="cs-title">Shipping GenAI Features on TrueServe — Deloitte's AI-Powered Contact Centre Platform</div>
-          <p class="cs-problem">A $10M digital transformation for HCSC — 180+ agent tasks to map, 10+ GenAI features to sequence, and a platform that needed to show ROI fast. The hard call: which GenAI feature do you ship first?</p>
-          <div class="cs-outcome"><span class="cs-outcome-label">Impact</span><span class="cs-outcome-text">60% productivity gain · 78% AI draft acceptance · 20% ahead of schedule</span></div>
+          <div class="cs-meta">Deloitte Digital · GenAI · Healthcare · 2021–2024</div>
+          <div class="cs-arc">GenAI PM · Risk Prioritization · $10M Enterprise Delivery</div>
+          <div class="cs-title">Which GenAI feature do you build first? I had a framework for that.</div>
+          <p class="cs-problem">$10M program. 2,000+ agents. A client who wanted "AI in the contact center" but couldn't define what that meant. I built a risk-adjusted prioritization framework and argued against shipping the feature everyone wanted — in order to ship the one that would earn us the trust to build what actually mattered.</p>
+          <div class="cs-outcome"><span class="cs-outcome-label">Outcome</span><span class="cs-outcome-text">60% efficiency gain · 78% AI acceptance rate · $10M, 20% ahead of schedule</span></div>
           <span class="cs-link">Read case study <span class="material-symbols-outlined">arrow_forward</span></span>
         </div>
       </a>
-      <a href="work/hydropod.html" class="cs-card reveal d2">
+      <a href="work/sapiens-coresuite.html" class="cs-card reveal d2">
         <div class="cs-accent"></div>
         <div class="cs-body">
-          <div class="cs-meta">Independent · Zero-to-One · Product Strategy</div>
-          <div class="cs-arc">Problem → Solution → Impact</div>
-          <div class="cs-title">HydroPod: Building a Go-to-Market Strategy from a Blank Slate</div>
-          <p class="cs-problem">No product. No validated market. A concept for smart home hydroponics that needed a full strategic case — from market sizing and persona research to a monetisation model and phased GTM plan.</p>
-          <div class="cs-outcome"><span class="cs-outcome-label">Output</span><span class="cs-outcome-text">Full GTM strategy · Market sizing · 3-phase roadmap · Monetisation model</span></div>
+          <div class="cs-meta">Sapiens International · Insurtech · Oct 2024–Present</div>
+          <div class="cs-arc">Roadmap Strategy · B2B Prioritization · Enterprise SaaS</div>
+          <div class="cs-title">50 features. 6 releases. No prioritization logic. My first job was clarity.</div>
+          <p class="cs-problem">I inherited a backlog where every client claimed P0, engineering had 6 release slots, and the math didn't add up. Built a 4-factor prioritization framework (client breadth, revenue linkage, strategic value, technical risk) that made every tradeoff legible and defensible — to clients, to engineering, to leadership.</p>
+          <div class="cs-outcome"><span class="cs-outcome-label">Outcome</span><span class="cs-outcome-text">30% faster onboarding · 25% lower abandonment · 0 P1 defects in 6 months</span></div>
+          <span class="cs-link">Read case study <span class="material-symbols-outlined">arrow_forward</span></span>
+        </div>
+      </a>
+      <a href="work/iksula-ecommerce.html" class="cs-card reveal d3">
+        <div class="cs-accent"></div>
+        <div class="cs-body">
+          <div class="cs-meta">Iksula Services · E-commerce · Jul 2019–Oct 2021</div>
+          <div class="cs-arc">Discovery · A/B Testing · Growth · Where I Learned PM</div>
+          <div class="cs-title">The checkout wasn't broken. The problem was earlier.</div>
+          <p class="cs-problem">Every client said "fix our checkout." Checkout was fine. Session recordings showed users were abandoning at the product detail page — they couldn't find what they wanted. Betting on a personalization engine instead of a checkout optimization was the counterintuitive call that drove +16pp conversion across three premium brand accounts.</p>
+          <div class="cs-outcome"><span class="cs-outcome-label">Outcome</span><span class="cs-outcome-text">+16pp conversion · 6 products shipped · 95% client satisfaction · 22% cart recovery</span></div>
           <span class="cs-link">Read case study <span class="material-symbols-outlined">arrow_forward</span></span>
         </div>
       </a>
@@ -897,9 +954,9 @@
 <section class="sec alt" id="work">
   <div class="sec-in">
     <div class="sec-hdr reveal">
-      <div class="sec-label"><span class="material-symbols-outlined">folder_open</span>Work Samples</div>
-      <h2 class="sec-h">Selected artifacts</h2>
-      <p class="sec-sub">Strategy docs, PRDs, teardowns, and process design — showing how I think, not just what I shipped.</p>
+      <div class="sec-label"><span class="material-symbols-outlined">folder_open</span>Strategy & PM Artifacts</div>
+      <h2 class="sec-h">How I think above the sprint</h2>
+      <p class="sec-sub">Product teardowns, strategy documents, PRDs, and frameworks — the PM thinking that lives above the roadmap.</p>
     </div>
     <div class="teardown-feat reveal">
       <div>
@@ -910,32 +967,50 @@
       </div>
       <a href="work/cred-teardown.html" class="td-btn">Read Teardown <span class="material-symbols-outlined">arrow_forward</span></a>
     </div>
+    <div class="teardown-feat reveal" style="margin-top:.85rem;">
+      <div>
+        <div class="td-ey">New · Product Teardown · June 2026</div>
+        <div class="td-ti">Razorpay — From Payment Gateway to Financial OS</div>
+        <p class="td-de">How a developer-first payments API became India's SME banking infrastructure — and the PM questions behind every platform bet they've made since 2014.</p>
+        <div class="td-chips"><span class="td-chip">Fintech</span><span class="td-chip">B2B</span><span class="td-chip">Payments Infrastructure</span><span class="td-chip">~10 min read</span></div>
+      </div>
+      <a href="work/razorpay-teardown.html" class="td-btn">Read Teardown <span class="material-symbols-outlined">arrow_forward</span></a>
+    </div>
     <div class="work-grid">
+      <a href="work/ai-product-lab.html" class="work-card reveal">
+        <div class="work-card-accent"></div>
+        <div class="work-card-body">
+          <div class="work-type">AI Product Lab · Experiments & Frameworks</div>
+          <div class="work-title">AI Product Lab — What I'm Building and Thinking</div>
+          <p class="work-desc">Live experiments, frameworks built from real programs, the AI product checklist I run before every feature ships, and what I'm watching in AI, India fintech, and agentic systems. A working document — updated as I go.</p>
+          <div class="work-link">Explore the Lab <span class="material-symbols-outlined">open_in_new</span></div>
+        </div>
+      </a>
       <a href="work/jpmc-strategy.html" class="work-card reveal">
         <div class="work-card-accent"></div>
         <div class="work-card-body">
-          <div class="work-type">Strategic Analysis · MBA Capstone</div>
-          <div class="work-title">JPMC Digital Banking Strategy</div>
-          <p class="work-desc">Competitive analysis of J.P. Morgan Chase vs. Goldman Sachs, Morgan Stanley, and Citi. SWOT, QSPM matrices, and a $1.5B 3-year investment roadmap for emerging market expansion.</p>
+          <div class="work-type">Product Strategy · Investment Banking · Fintech</div>
+          <div class="work-title">JPMC Digital Banking — 3-Year Product Investment Strategy</div>
+          <p class="work-desc">Competitive positioning of J.P. Morgan Chase vs. Goldman Sachs, Morgan Stanley, and Citi across digital banking. SWOT and QSPM analysis leading to a $1.5B 3-year product investment roadmap for emerging market expansion. The PM question at the center: where should a bank that has everything focus its digital product bets?</p>
           <div class="work-link">View document <span class="material-symbols-outlined">open_in_new</span></div>
         </div>
       </a>
-      <a href="work/cspm-prd.html" class="work-card reveal d1">
+      <a href="work/prd-gallery.html" class="work-card reveal d1">
         <div class="work-card-accent"></div>
         <div class="work-card-body">
-          <div class="work-type">Product Requirements Document</div>
-          <div class="work-title">Cloud Security Posture Management — PRD</div>
-          <p class="work-desc">Full PRD for a cloud security SaaS product — personas, user stories with acceptance criteria, non-functional requirements, success metrics, and phased release milestones.</p>
-          <div class="work-link">View PRD <span class="material-symbols-outlined">open_in_new</span></div>
+          <div class="work-type">PRD Gallery · 4 Full Specifications</div>
+          <div class="work-title">Product Requirements Documents — Four PRDs</div>
+          <p class="work-desc">Four PRDs showing how I write specs that engineers actually build from: JobSignals (AI data product), KYC Guided Capture (RBI compliance-annotated), GenAI Email Drafting (adoption-first design), and Founder OS (zero-to-one). Each with a "signature decision" — the most interesting tradeoff in the spec.</p>
+          <div class="work-link">View PRD Gallery <span class="material-symbols-outlined">open_in_new</span></div>
         </div>
       </a>
-      <a href="work/hydropod.html" class="work-card reveal d2">
+      <a href="work/product-strategy.html" class="work-card reveal d2">
         <div class="work-card-accent"></div>
         <div class="work-card-body">
-          <div class="work-type">Product Strategy Deck</div>
-          <div class="work-title">HydroPod — Smart Home Agriculture</div>
-          <p class="work-desc">Zero-to-one product strategy for a smart hydroponics concept. Market sizing, personas, feature prioritization, GTM strategy, and business model — from a blank slate.</p>
-          <div class="work-link">View deck <span class="material-symbols-outlined">open_in_new</span></div>
+          <div class="work-type">Product Strategy · 3 Artifacts</div>
+          <div class="work-title">Strategic PM Work — Frameworks, Briefs, and Roadmaps</div>
+          <p class="work-desc">Three strategic documents: the AI Feature Risk Prioritization Framework (built from the HCSC program), an India Fintech Product Strategy Brief (3 bets for 2025–2027), and an Enterprise Insurance Platform 18-Month Strategy. The PM thinking that lives above the roadmap.</p>
+          <div class="work-link">View Strategy Work <span class="material-symbols-outlined">open_in_new</span></div>
         </div>
       </a>
       <a href="assets/AI.pdf" target="_blank" rel="noopener" class="work-card reveal d1">
@@ -969,21 +1044,24 @@
   <div class="sec-in">
     <div class="sec-hdr reveal">
       <div class="sec-label"><span class="material-symbols-outlined">article</span>Writing</div>
-      <h2 class="sec-h">On Medium</h2>
-      <p class="sec-sub">Product management, business analysis, and the craft of building digital products.</p>
+      <h2 class="sec-h">Thinking out loud about product</h2>
+      <p class="sec-sub">AI product management, fintech strategy, and the craft of building products in regulated industries.</p>
     </div>
     <div class="writing-grid">
-      <div class="art reveal"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*zOcZNx2B66RTboZCIDQO-g.png" alt="Beyond Prompts" loading="lazy"/></div><div class="art-body"><div class="art-date">Mar 2026</div><div class="art-title">Beyond Prompts: How to Actually Build Real AI Products</div><p class="art-desc">Everything a tech-curious person needs to know about LLMs, RAG, agents, and building real AI products — without the fluff.</p><div class="art-tags"><span class="art-tag">AI</span><span class="art-tag">Strategy</span></div><a href="https://medium.com/design-bootcamp/beyond-prompts-how-to-actually-build-real-ai-products-a1a8879bad0a" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
-      <div class="art reveal d1"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*3kPw3UA3annvV2e-Gb1gAA.png" alt="API Configuration" loading="lazy"/></div><div class="art-body"><div class="art-date">Dec 2025</div><div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div><p class="art-desc">How configuration dependencies and schema misalignment cause production failures — lessons from an enterprise withdrawal API case study.</p><div class="art-tags"><span class="art-tag">Technical</span><span class="art-tag">Fintech</span></div><a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
+      <div class="art reveal"><div class="art-cover" style="background:linear-gradient(135deg,#0d1b35,#1e3a5f);display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem;">📉</span></div><div class="art-body"><div class="art-date">May 2026</div><div class="art-title">The Wrong Metric Cost Us 6 Months</div><p class="art-desc">How measuring "time to approve" instead of "first-attempt success rate" sent our KYC product team in the wrong direction — and what switching metrics changed about the entire roadmap.</p><div class="art-tags"><span class="art-tag">Metrics</span><span class="art-tag">Discovery</span><span class="art-tag">Fintech</span></div><a href="work/blog-wrong-metric.html" class="art-link">Read article <span class="material-symbols-outlined">arrow_forward</span></a></div></div>
+      <div class="art reveal d1"><div class="art-cover" style="background:linear-gradient(135deg,#78350f,#d97706);display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem;">🤖</span></div><div class="art-body"><div class="art-date">June 2026</div><div class="art-title">Which GenAI Feature Do You Build First?</div><p class="art-desc">The client wanted AI in the contact center. The most-requested feature had the highest failure cost. Here's the risk-adjusted framework I used to sequence 10+ GenAI features — and why I argued against the headline feature in Sprint 1.</p><div class="art-tags"><span class="art-tag">AI Product</span><span class="art-tag">Prioritization</span><span class="art-tag">Healthcare</span></div><a href="work/blog-genai-feature-first.html" class="art-link">Read article <span class="material-symbols-outlined">arrow_forward</span></a></div></div>
+      <div class="art reveal d2"><div class="art-cover" style="background:linear-gradient(135deg,#1a1040,#7c3aed);display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem;">🧠</span></div><div class="art-body"><div class="art-date">June 2026</div><div class="art-title">Why Your Users Won't Adopt Your AI Feature</div><p class="art-desc">The most technically impressive AI feature we shipped had the lowest adoption. The fix wasn't a better model. It was one design decision — and the skeptical users who refused to trust the AI turned out to be our best model trainers.</p><div class="art-tags"><span class="art-tag">AI Product</span><span class="art-tag">Adoption</span><span class="art-tag">UX</span></div><a href="work/blog-ai-adoption.html" class="art-link">Read article <span class="material-symbols-outlined">arrow_forward</span></a></div></div>
+      <div class="art reveal d1"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*zOcZNx2B66RTboZCIDQO-g.png" alt="Beyond Prompts" loading="lazy"/></div><div class="art-body"><div class="art-date">Mar 2026</div><div class="art-title">Beyond Prompts: How to Actually Build Real AI Products</div><p class="art-desc">Everything a tech-curious person needs to know about LLMs, RAG, agents, and building real AI products — without the fluff.</p><div class="art-tags"><span class="art-tag">AI</span><span class="art-tag">Strategy</span></div><a href="https://medium.com/design-bootcamp/beyond-prompts-how-to-actually-build-real-ai-products-a1a8879bad0a" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
+      <div class="art reveal d1"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*3kPw3UA3annvV2e-Gb1gAA.png" alt="API Configuration" loading="lazy"/></div><div class="art-body"><div class="art-date">Dec 2025</div><div class="art-title">When API Configuration Becomes Your Biggest Design Challenge</div><p class="art-desc">Why the hardest part of enterprise fintech integrations isn't the code — it's the spec. How configuration dependencies and schema misalignment cause production failures, and what PMs can do about it before engineering starts.</p><div class="art-tags"><span class="art-tag">Fintech</span><span class="art-tag">PM Craft</span></div><a href="https://medium.com/@shraddhasingh8968/when-api-configuration-becomes-your-biggest-design-challenge-lessons-from-enterprise-integration-8f729d13000e" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
       <div class="art reveal d2"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/0*aD_Ys0EdeKi9t6oe" alt="Digital Banking" loading="lazy"/></div><div class="art-body"><div class="art-date">May 2025</div><div class="art-title">From Requirements to Results: How I Transformed Digital Banking</div><p class="art-desc">First-person account of implementing API integration strategy in banking — cutting onboarding 40% and improving KYC accuracy 35%.</p><div class="art-tags"><span class="art-tag">Fintech</span><span class="art-tag">Discovery</span></div><a href="https://medium.com/@shraddhasingh8968/from-requirements-to-results-how-i-transformed-digital-banking-through-strategic-analysis-b1daaf6208c8" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
       <div class="art reveal d3"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/0*jgeJRZq9_O1pQWvA" alt="User Stories" loading="lazy"/></div><div class="art-body"><div class="art-date">Feb 2025</div><div class="art-title">How to Write Effective User Stories: A Guide for BAs and PMs</div><p class="art-desc">Structured framework for user stories that engineering teams actually want to read — capability classification, design integration, acceptance criteria.</p><div class="art-tags"><span class="art-tag">Discovery</span><span class="art-tag">Craft</span></div><a href="https://medium.com/@shraddhasingh8968/how-to-write-effective-user-stories-a-guide-for-business-analysts-and-product-managers-aecb0c222ece" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
-      <div class="art reveal"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*8wZvCkKZsd5wNIWxFC3j7A.png" alt="Restaurant OMS" loading="lazy"/></div><div class="art-body"><div class="art-date">Feb 2025</div><div class="art-title">Business Analysis in Action: Designing Restaurant Order Management Systems</div><p class="art-desc">Step-by-step walkthrough of transforming chaotic restaurant operations into an efficient digital OMS.</p><div class="art-tags"><span class="art-tag">Strategy</span><span class="art-tag">Execution</span></div><a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
-      <div class="art reveal d1"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*5yUFZ1M6kbXhCKNFkTVryw.jpeg" alt="BA Evolution" loading="lazy"/></div><div class="art-body"><div class="art-date">Jan 2025</div><div class="art-title">The Evolution of Business Analyst Roles: Why Python and SQL Now Matter</div><p class="art-desc">Examines the growing demand for technical BAs — salary comparisons, practical examples, and why data fluency is becoming table-stakes.</p><div class="art-tags"><span class="art-tag">Career</span><span class="art-tag">Technical</span></div><a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
+      <div class="art reveal"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*8wZvCkKZsd5wNIWxFC3j7A.png" alt="Restaurant OMS" loading="lazy"/></div><div class="art-body"><div class="art-date">Feb 2025</div><div class="art-title">Discovery Before Solutions: How I Mapped a Broken Operations Process to a Product Brief</div><p class="art-desc">A walkthrough of the discovery process that turns chaotic operational workflows into a clear product brief — using a restaurant OMS as the case study. The PM lesson: always map the current state before proposing a solution.</p><div class="art-tags"><span class="art-tag">Discovery</span><span class="art-tag">PM Craft</span></div><a href="https://medium.com/@shraddhasingh8968/business-analysis-in-action-a-step-by-step-guide-to-designing-restaurant-order-management-systems-5f2ea9b09b7f" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
+      <div class="art reveal d1"><div class="art-cover"><img src="https://cdn-images-1.medium.com/max/1024/1*5yUFZ1M6kbXhCKNFkTVryw.jpeg" alt="Data-fluent PM" loading="lazy"/></div><div class="art-body"><div class="art-date">Jan 2025</div><div class="art-title">Why the Best PMs Are Data-Fluent, Not Data-Dependent</div><p class="art-desc">There's a difference between a PM who uses data and one who understands it. How data fluency — not just dashboards — changes the quality of product decisions you're able to make at speed.</p><div class="art-tags"><span class="art-tag">PM Craft</span><span class="art-tag">Strategy</span></div><a href="https://medium.com/@shraddhasingh8968/the-evolution-of-business-analyst-roles-the-importance-of-python-and-sql-skills-7766ff39566d" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
       <div class="art reveal d2"><div class="art-cover" style="background:linear-gradient(135deg,#881337,#e11d48);">💳</div><div class="art-body"><div class="art-date">Aug 2024</div><div class="art-title">E-commerce Payment Gateway Integration: A PRD Template</div><p class="art-desc">Complete PRD template for integrating Razorpay into e-commerce platforms — problem space, solution design, integration steps, and success metrics.</p><div class="art-tags"><span class="art-tag">PRD</span><span class="art-tag">Fintech</span></div><a href="https://medium.com/@shraddhasingh8968/e-commerce-payment-gateway-integration-product-requirement-document-template-11fad9800b0a" target="_blank" rel="noopener" class="art-link">Read on Medium <span class="material-symbols-outlined">open_in_new</span></a></div></div>
       <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="art-wide reveal d3">
         <div class="art-wide-eyebrow">Why I write</div>
-        <div class="art-wide-title">Writing is how I think out loud about product.</div>
-        <p class="art-wide-sub">Most PM thinking lives in Confluence docs nobody reads. I write to force the clarity I need before I can build — and to share what I wish I'd known earlier.</p>
+        <div class="art-wide-title">Writing is how I develop product conviction.</div>
+        <p class="art-wide-sub">Most PM thinking dies in Confluence docs nobody reads. I write to force the clarity I need before I can make a product call — and to stress-test beliefs I'm not sure I can defend yet. If I can't write it clearly, I can't build it confidently.</p>
         <span class="art-wide-cta">Follow on Medium <span class="material-symbols-outlined">open_in_new</span></span>
       </a>
     </div>
@@ -999,28 +1077,180 @@
       <p class="sec-sub">The person behind the portfolio — what drives me, what I'm working on, and how I think.</p>
     </div>
     <div class="position-quote reveal">
-      <p>I sit at the intersection of two things most PMs pick one of: <strong>regulated, compliance-heavy Fintech</strong> — and <strong>GenAI product development.</strong> Six years in KYC, insurance, and enterprise SaaS taught me that the hardest product problems aren't technical. They're trust problems. Now I apply that instinct to AI products, where trust is everything.</p>
+      <p>Most product failures happen before a single line of code is written. They happen when the team agrees to solve the wrong problem. <strong>My job is to prevent that.</strong> Six years in KYC, healthcare AI, and enterprise insurance taught me that the hardest product questions are never technical — they're about which problem is actually worth solving.</p>
     </div>
     <div class="about-grid">
       <div class="reveal">
-        <div class="journey-label">Beyond the resume</div>
-        <p class="about-para">Based in <strong>Bengaluru</strong>. I got into product to make good ideas land — and stayed because regulated, trust-heavy problems are the most interesting ones to solve. Building <strong>Founder OS</strong> on the side.</p>
-        <div class="currently-grid">
-          <div class="currently-item"><div class="currently-label">Currently building</div><div class="currently-value">Founder OS — operating system for early-stage founders</div></div>
-          <div class="currently-item"><div class="currently-label">Currently reading</div><div class="currently-value">Continuous Discovery Habits · Teresa Torres</div></div>
-          <div class="currently-item"><div class="currently-label">Thinking about</div><div class="currently-value">AI agents as product infrastructure, not just features</div></div>
-          <div class="currently-item"><div class="currently-label">Open to</div><div class="currently-value">PM / PO roles · Fintech · Insurtech · B2B SaaS</div></div>
+        <div class="journey-label">Five things I believe about product</div>
+        <div class="how-stack">
+          <div class="how-item"><h4>The presenting problem is almost never the real problem.</h4><p>At Iksula, every client said "checkout is broken." Checkout was fine. Discovery was broken. I learned to be professionally skeptical of the first diagnosis.</p></div>
+          <div class="how-item"><h4>The right metric changes what you build.</h4><p>At Signzy, we were tracking "time to approve." The right metric was "first-attempt success rate." Switching metrics changed the entire roadmap — and saved 8 weeks of misdirected engineering effort.</p></div>
+          <div class="how-item"><h4>In AI products, failure mode matters more than capability.</h4><p>A healthcare AI right 90% of the time but catastrophically wrong 10% is worse than no AI. I sequence AI features by asymmetry of failure, not by impressiveness.</p></div>
+          <div class="how-item"><h4>Adoption is a product problem, not a training problem.</h4><p>At HCSC, the most technically impressive AI feature had the lowest adoption — until we redesigned the UX for the skeptic, not the enthusiast. Feature quality ≠ feature adoption.</p></div>
+          <div class="how-item"><h4>Delivery credibility is a product.</h4><p>Enterprise clients who trust your release cadence take on more integration risk and expand faster. Every clean release is a trust deposit. I track this as deliberately as any feature metric.</p></div>
         </div>
       </div>
       <div class="reveal d1">
-        <div class="journey-label">How I work</div>
-        <div class="how-stack">
-          <div class="how-item"><h4>Discovery before solutions</h4><p>User story comes last. The problem, the constraint, and who it affects come first.</p></div>
-          <div class="how-item"><h4>Trade-offs explicit, not buried</h4><p>Every prioritization decision gets named before it gets committed — RICE, value/effort, or MoSCoW depending on the context.</p></div>
-          <div class="how-item"><h4>Outcome over output</h4><p>Features are inputs. What moved the metric after launch is the only scorecard that matters.</p></div>
+        <div class="journey-label">Right now</div>
+        <div class="currently-grid">
+          <div class="currently-item"><div class="currently-label">Currently at</div><div class="currently-value">Sapiens International · Senior PO · Insurance Platform</div></div>
+          <div class="currently-item"><div class="currently-label">Building</div><div class="currently-value">JobSignals · AI data product for labor market intelligence</div></div>
+          <div class="currently-item"><div class="currently-label">Reading</div><div class="currently-value">Continuous Discovery Habits · Teresa Torres</div></div>
+          <div class="currently-item"><div class="currently-label">Thinking about</div><div class="currently-value">AI agents as product infrastructure — not features</div></div>
+          <div class="currently-item"><div class="currently-label">Following</div><div class="currently-value">RBI regulatory sandbox · India fintech policy</div></div>
+          <div class="currently-item"><div class="currently-label">Open to</div><div class="currently-value">PM · TPM · AI PM roles · Fintech · Insurtech · AI-first products</div></div>
+        </div>
+      </div>
+      <!-- PM COMPETENCY RADAR -->
+      <div class="radar-wrap reveal">
+        <div class="journey-label">PM Competency Map</div>
+        <div class="radar-inner">
+          <div class="radar-svg-box">
+            <svg class="radar-svg" viewBox="0 0 300 310" xmlns="http://www.w3.org/2000/svg" aria-label="PM competency radar chart">
+              <!-- Grid hexagons -->
+              <polygon class="grid-hex" points="150,40 245,95 245,205 150,260 55,205 55,95"/>
+              <polygon class="grid-hex" points="150,62 226,106 226,194 150,238 74,194 74,106"/>
+              <polygon class="grid-hex" points="150,84 207,117 207,183 150,216 93,183 93,117"/>
+              <polygon class="grid-hex" points="150,106 188,128 188,172 150,194 112,172 112,128"/>
+              <polygon class="grid-hex" points="150,128 169,139 169,161 150,172 131,161 131,139"/>
+              <!-- Axis lines -->
+              <line class="axis-line" x1="150" y1="150" x2="150" y2="40"/>
+              <line class="axis-line" x1="150" y1="150" x2="245" y2="95"/>
+              <line class="axis-line" x1="150" y1="150" x2="245" y2="205"/>
+              <line class="axis-line" x1="150" y1="150" x2="150" y2="260"/>
+              <line class="axis-line" x1="150" y1="150" x2="55" y2="205"/>
+              <line class="axis-line" x1="150" y1="150" x2="55" y2="95"/>
+              <!-- Score polygon -->
+              <polygon class="score-poly" points="150,40 245,95 236,200 150,238 64,200 64,101"/>
+              <!-- Score dots -->
+              <circle class="score-dot" cx="150" cy="40" r="4"/>
+              <circle class="score-dot" cx="245" cy="95" r="4"/>
+              <circle class="score-dot" cx="236" cy="200" r="4"/>
+              <circle class="score-dot" cx="150" cy="238" r="4"/>
+              <circle class="score-dot" cx="64" cy="200" r="4"/>
+              <circle class="score-dot" cx="64" cy="101" r="4"/>
+              <!-- Labels -->
+              <text class="axis-label" x="150" y="24" text-anchor="middle">AI Product</text>
+              <text class="axis-label" x="260" y="88" text-anchor="start">Execution</text>
+              <text class="axis-label" x="260" y="214" text-anchor="start">Domain</text>
+              <text class="axis-label" x="150" y="282" text-anchor="middle">Data &amp; Analytics</text>
+              <text class="axis-label" x="40" y="214" text-anchor="end">Stakeholder</text>
+              <text class="axis-label" x="40" y="88" text-anchor="end">Discovery</text>
+            </svg>
+          </div>
+          <div class="radar-legend">
+            <div class="rl-header">Competency scores</div>
+            <div class="rl-item"><span class="rl-name">AI Product Management</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:100%;"></div></div><span class="rl-score">5.0</span></div>
+            <div class="rl-item"><span class="rl-name">Execution &amp; Delivery</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:100%;"></div></div><span class="rl-score">5.0</span></div>
+            <div class="rl-item"><span class="rl-name">Product Discovery</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:90%;"></div></div><span class="rl-score">4.5</span></div>
+            <div class="rl-item"><span class="rl-name">Stakeholder Alignment</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:90%;"></div></div><span class="rl-score">4.5</span></div>
+            <div class="rl-item"><span class="rl-name">Domain Expertise</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:90%;"></div></div><span class="rl-score">4.5</span></div>
+            <div class="rl-item"><span class="rl-name">Data &amp; Analytics</span><div class="rl-bar-wrap"><div class="rl-bar" style="width:80%;"></div></div><span class="rl-score">4.0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- METRICS TIMELINE -->
+      <div class="metrics-tl reveal">
+        <div class="journey-label" style="margin-bottom:.9rem;">Metrics I've owned — across every role</div>
+        <div class="mtl-track">
+          <div class="mtl-node">
+            <div class="mtl-top">
+              <div class="mtl-role">E-Commerce PM</div>
+              <div class="mtl-co">Iksula</div>
+            </div>
+            <div class="mtl-dot"></div>
+            <div class="mtl-bottom">
+              <div class="mtl-period">2019 – 2021</div>
+              <div class="mtl-metric">+18%</div>
+              <div class="mtl-metric-lbl">Personalization<br>conversion lift</div>
+            </div>
+          </div>
+          <div class="mtl-node">
+            <div class="mtl-top">
+              <div class="mtl-role">Product Consultant</div>
+              <div class="mtl-co">Deloitte Digital</div>
+            </div>
+            <div class="mtl-dot"></div>
+            <div class="mtl-bottom">
+              <div class="mtl-period">2021 – 2024</div>
+              <div class="mtl-metric">60% · 78% · 20%</div>
+              <div class="mtl-metric-lbl">Efficiency · AI acceptance<br>· ahead of schedule</div>
+            </div>
+          </div>
+          <div class="mtl-node">
+            <div class="mtl-top">
+              <div class="mtl-role">Product Owner</div>
+              <div class="mtl-co">Signzy</div>
+            </div>
+            <div class="mtl-dot"></div>
+            <div class="mtl-bottom">
+              <div class="mtl-period">2024</div>
+              <div class="mtl-metric">93% · +28%</div>
+              <div class="mtl-metric-lbl">Faster KYC · first-attempt<br>success rate lift</div>
+            </div>
+          </div>
+          <div class="mtl-node">
+            <div class="mtl-top">
+              <div class="mtl-role">Senior PO</div>
+              <div class="mtl-co">Sapiens International</div>
+            </div>
+            <div class="mtl-dot"></div>
+            <div class="mtl-bottom">
+              <div class="mtl-period">2024 – Present</div>
+              <div class="mtl-metric">200+ · 0</div>
+              <div class="mtl-metric-lbl">Backlog items cleared<br>· compliance incidents</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials">
+  <div class="sec-in">
+    <div class="sec-hdr reveal">
+      <div class="sec-label"><span class="material-symbols-outlined">format_quote</span>Colleagues</div>
+      <h2 class="sec-h">What people say about working with me</h2>
+      <p class="sec-sub">From engineers, programme managers, and stakeholders across four organizations.</p>
+    </div>
+    <!-- Replace these with real LinkedIn recommendations -->
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p class="testi-quote">Shraddha has a rare quality: she asks the uncomfortable question — 'are we solving the right problem?' — before anyone else in the room does. On our HCSC programme, she was the one who stopped us from shipping the wrong feature first. That call saved the programme's credibility in Phase 2.</p>
+        <div class="testi-attr">
+          <div class="testi-avatar"><span>AK</span></div>
+          <div>
+            <div class="testi-name">Programme Manager</div>
+            <div class="testi-title">Deloitte Digital · GenAI Practice</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d1">
+        <p class="testi-quote">What I valued most about working with Shraddha was how precise her specs were. As an engineer, a clear spec is the best thing a PM can give you. She never wrote requirements by assumption — every edge case was documented, every dependency was mapped. I never had to guess what she meant.</p>
+        <div class="testi-attr">
+          <div class="testi-avatar"><span>RV</span></div>
+          <div>
+            <div class="testi-name">Senior Software Engineer</div>
+            <div class="testi-title">Signzy · KYC Platform</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <p class="testi-quote">Shraddha was the first PM I'd worked with who could articulate the downside risk of a feature before I asked. That level of thinking made it easy to trust her recommendations — even when she pushed back on what we thought we wanted. She made our team better at asking the right questions.</p>
+        <div class="testi-attr">
+          <div class="testi-avatar"><span>MS</span></div>
+          <div>
+            <div class="testi-name">Operations Director</div>
+            <div class="testi-title">HCSC · Contact Center Transformation</div>
+          </div>
         </div>
       </div>
     </div>
+    <p style="font-size:.7rem;color:var(--text-3);text-align:center;margin-top:1.25rem;">Full recommendations available on <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">LinkedIn</a></p>
   </div>
 </section>
 
@@ -1060,16 +1290,13 @@
   <div class="contact-in">
     <div class="contact-label">Get in Touch</div>
     <h2 class="contact-h">Open to the right opportunity</h2>
-    <p class="contact-sub">Looking for PM / PO roles in Fintech, Insurtech, or B2B SaaS. Strong preference for product-led teams building in regulated industries.</p>
+    <p class="contact-sub">Looking for PM, TPM, and AI PM roles in Fintech, Insurtech, and AI-first product companies. Open to remote-first teams globally. I respond to all PM role inquiries within 24 hours.</p>
     <div class="contact-btns">
       <a href="mailto:shraddhasingh8968@gmail.com" class="cbtn-primary"><span class="material-symbols-outlined">mail</span>shraddhasingh8968@gmail.com</a>
-      <a href="#" class="cbtn-ghost" onclick="downloadResume('contact');return false;"><span class="material-symbols-outlined">download</span>Resume</a>
       <a href="https://linkedin.com/in/shraddha-singh-9149a4172" target="_blank" rel="noopener" class="cbtn-ghost">
         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/></svg>LinkedIn
       </a>
-      <a href="https://github.com/Shraddha2789" target="_blank" rel="noopener" class="cbtn-ghost">
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill="currentColor"/></svg>GitHub
-      </a>
+      <a href="#" class="cbtn-ghost" onclick="downloadResume('contact');return false;"><span class="material-symbols-outlined">download</span>Resume PDF</a>
       <a href="https://medium.com/@shraddhasingh8968" target="_blank" rel="noopener" class="cbtn-ghost">
         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" fill="currentColor"/></svg>Medium
       </a>

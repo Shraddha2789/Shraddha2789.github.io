@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PRD Gallery · Shraddha Singh</title>
+  <meta name="description" content="Product Requirements Documents — full PRDs showing how Shraddha Singh writes specs that engineers actually want to build from."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff;
+      --green:#10b981; --amber:#f59e0b; --purple:#8b5cf6;
+      --bg:#f8fafc; --white:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:var(--navy);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:#94a3b8;font-size:.85rem;font-weight:500;text-decoration:none;}
+    .nav-back:hover{color:#fff;}
+    .nav-title{color:#fff;font-weight:700;font-size:.9rem;}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,#0d1b35,#1e1b35);padding:3.5rem 2rem 2.5rem;}
+    .hero-inner{max-width:960px;margin:0 auto;}
+    .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,235,.18);border:1px solid rgba(37,99,235,.35);color:#93c5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero h1{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:.75rem;line-height:1.15;}
+    .hero-sub{font-size:.92rem;color:#94a3b8;max-width:600px;line-height:1.8;margin-bottom:1.25rem;}
+    .hero-principles{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.5rem;}
+    .hp{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.9rem 1.1rem;}
+    .hp-label{font-size:.62rem;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .hp p{font-size:.78rem;color:#94a3b8;line-height:1.6;margin:0;}
+
+    /* PRD CARDS */
+    .page{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
+    .prd-list{display:flex;flex-direction:column;gap:1.5rem;}
+
+    .prd-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:box-shadow .2s,border-color .2s;}
+    .prd-card:hover{border-color:#cbd5e1;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+    .prd-top{padding:1.75rem 2rem 1.25rem;display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:flex-start;border-bottom:1px solid var(--border);}
+    .prd-left{}
+    .prd-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem;flex-wrap:wrap;}
+    .prd-num{font-size:.62rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+    .prd-domain{font-size:.68rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;}
+    .prd-h{font-size:1.1rem;font-weight:900;color:var(--navy);letter-spacing:-.2px;margin-bottom:.5rem;line-height:1.25;}
+    .prd-desc{font-size:.85rem;color:var(--muted);line-height:1.75;max-width:580px;}
+    .prd-right{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;}
+    .prd-stat{text-align:right;}
+    .ps-num{font-size:1.4rem;font-weight:900;color:var(--navy);letter-spacing:-1px;line-height:1;}
+    .ps-lbl{font-size:.62rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;}
+
+    /* SIGNATURE DECISION */
+    .prd-sig{padding:1.25rem 2rem;background:#f8fafc;border-bottom:1px solid var(--border);}
+    .sig-label{font-size:.62rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;}
+    .sig-content{font-size:.87rem;color:var(--text);line-height:1.7;}
+    .sig-content strong{color:var(--navy);}
+
+    /* PRD STRUCTURE */
+    .prd-structure{padding:1.25rem 2rem;}
+    .struct-label{font-size:.62rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.65rem;}
+    .struct-pills{display:flex;gap:.4rem;flex-wrap:wrap;}
+    .struct-pill{font-size:.72rem;font-weight:600;background:#f1f5f9;border:1px solid var(--border);color:var(--muted);padding:.22rem .65rem;border-radius:5px;}
+    .struct-pill.done{background:var(--blue-lt);color:#1d4ed8;border-color:#bfdbfe;}
+
+    /* PRD BOTTOM */
+    .prd-bottom{padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;}
+    .prd-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+    .prd-tag{font-size:.68rem;font-weight:600;padding:.2rem .55rem;border-radius:5px;background:#f8fafc;border:1px solid var(--border);color:var(--muted);}
+    .prd-cta{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;padding:.5rem 1.1rem;border-radius:7px;font-size:.8rem;font-weight:700;text-decoration:none;transition:background .15s;}
+    .prd-cta:hover{background:var(--blue);}
+
+    /* SECTION HEADER */
+    .section-h{font-size:1rem;font-weight:800;color:var(--navy);letter-spacing:-.2px;margin-bottom:1.25rem;display:flex;align-items:center;gap:.65rem;}
+    .section-h::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ABOUT PRDS */
+    .about-prds{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.75rem 2rem;margin-bottom:2.5rem;}
+    .about-prds p{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:.65rem;}
+    .about-prds p:last-child{margin-bottom:0;}
+    .about-prds strong{color:var(--text);}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .hero-principles{grid-template-columns:1fr;}
+      .prd-top{grid-template-columns:1fr;}
+      .prd-right{align-items:flex-start;flex-direction:row;flex-wrap:wrap;}
+      .page{padding:2rem 1.25rem 4rem;}
+      .prd-top,.prd-sig,.prd-structure,.prd-bottom{padding-left:1.25rem;padding-right:1.25rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-title">PRD Gallery</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Product Requirements Documents</div>
+    <h1>Specs that engineers<br>actually want to build from.</h1>
+    <p class="hero-sub">A PRD is not a documentation exercise. It's a product decision record — a proof that the PM made the tradeoffs visible before the engineers started. Here are four of mine.</p>
+    <div class="hero-principles">
+      <div class="hp">
+        <div class="hp-label">Principle 01</div>
+        <p>Non-goals are documented as carefully as goals. What we're not building is a decision too.</p>
+      </div>
+      <div class="hp">
+        <div class="hp-label">Principle 02</div>
+        <p>Acceptance criteria include compliance annotations — not just what to build, but why that constraint exists.</p>
+      </div>
+      <div class="hp">
+        <div class="hp-label">Principle 03</div>
+        <p>Every PRD ends with open questions. A spec with no open questions is a spec that hasn't been read carefully.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="about-prds">
+    <p>The best PRDs I've written don't just specify what to build. They document <strong>why we chose this over that</strong>, what we're explicitly not building in this version, and how we'll know it worked. If you're hiring a PM to write specs, these show how I think before engineering starts.</p>
+    <p>All PRDs here are sanitized where necessary to protect client-specific information. The structure, decision logic, and acceptance criteria represent real specification work.</p>
+  </div>
+
+  <div class="section-h">Full PRDs</div>
+
+  <div class="prd-list">
+
+    <!-- PRD 1: JOBSIGNALS -->
+    <div class="prd-card">
+      <div class="prd-top">
+        <div class="prd-left">
+          <div class="prd-eyebrow">
+            <span class="prd-num">PRD 01</span>
+            <span class="prd-domain" style="background:#f0fdf4;color:#166534;">AI · Data Product · B2C</span>
+            <span class="prd-domain" style="background:#eff6ff;color:#1d4ed8;">Multi-persona API</span>
+          </div>
+          <h2 class="prd-h">JobSignals — Labor Market Intelligence Platform</h2>
+          <p class="prd-desc">Full PRD for a zero-to-one AI data product that extracts structured hiring signals from unstructured job posting text. Six distinct user personas, REST + GraphQL API, and a prompt engineering specification that I wrote as acceptance criteria. The insight: writing precise prompts for consistent AI output taught me more about writing good feature specs than any methodology.</p>
+        </div>
+        <div class="prd-right">
+          <div class="prd-stat"><div class="ps-num">6</div><div class="ps-lbl">User personas</div></div>
+          <div class="prd-stat"><div class="ps-num">3</div><div class="ps-lbl">API surfaces</div></div>
+        </div>
+      </div>
+      <div class="prd-sig">
+        <div class="sig-label">Signature Decision in This PRD</div>
+        <div class="sig-content"><strong>Chose coverage over accuracy.</strong> The salary signal extraction trades precision for breadth — extracting probabilistic salary ranges from implicit language ("competitive compensation" + seniority signals) rather than explicit numbers. Documented with explicit confidence interval design so users can calibrate their own trust. This tradeoff decision is the center of the PRD, not a footnote.</div>
+      </div>
+      <div class="prd-structure">
+        <div class="struct-label">PRD Structure</div>
+        <div class="struct-pills">
+          <span class="struct-pill done">Problem Statement</span>
+          <span class="struct-pill done">User Personas (6)</span>
+          <span class="struct-pill done">Non-Goals</span>
+          <span class="struct-pill done">API Specification</span>
+          <span class="struct-pill done">Prompt Engineering Spec</span>
+          <span class="struct-pill done">Acceptance Criteria</span>
+          <span class="struct-pill done">Success Metrics</span>
+          <span class="struct-pill done">Open Questions</span>
+        </div>
+      </div>
+      <div class="prd-bottom">
+        <div class="prd-tags">
+          <span class="prd-tag">Zero-to-one</span>
+          <span class="prd-tag">Claude API</span>
+          <span class="prd-tag">Data product</span>
+          <span class="prd-tag">REST/GraphQL</span>
+        </div>
+        <a href="job-signals.html" class="prd-cta">Read PRD →</a>
+      </div>
+    </div>
+
+    <!-- PRD 2: KYC GUIDED CAPTURE -->
+    <div class="prd-card">
+      <div class="prd-top">
+        <div class="prd-left">
+          <div class="prd-eyebrow">
+            <span class="prd-num">PRD 02</span>
+            <span class="prd-domain" style="background:#eff6ff;color:#1d4ed8;">B2B Fintech · KYC</span>
+            <span class="prd-domain" style="background:#fef2f2;color:#991b1b;">RBI Compliance</span>
+          </div>
+          <h2 class="prd-h">KYC Guided Capture — Feature PRD</h2>
+          <p class="prd-desc">Feature spec for the guided document capture experience that moved KYC first-attempt success rate by 28% in the first month at Signzy — before touching the AI model. Every acceptance criterion has a compliance annotation explaining why the constraint exists (not just what it is). Designed for two users simultaneously: the bank customer completing KYC, and the bank ops team reviewing the results.</p>
+        </div>
+        <div class="prd-right">
+          <div class="prd-stat"><div class="ps-num">2</div><div class="ps-lbl">User types</div></div>
+          <div class="prd-stat"><div class="ps-num">+28%</div><div class="ps-lbl">First-attempt rate</div></div>
+        </div>
+      </div>
+      <div class="prd-sig">
+        <div class="sig-label">Signature Decision in This PRD</div>
+        <div class="sig-content"><strong>Real-time quality feedback specified at the component level, not the feature level.</strong> Rather than "add document quality check," the spec defines the exact feedback states (lighting_low, edge_cropped, blur_detected, quality_ok), the latency threshold (feedback must appear within 200ms of frame stability), and the fallback when the quality check fails to load. Compliance annotation: "No quality score or image data may be retained on device after capture session ends — RBI data minimization requirement." Engineering never needs to ask whether to retain data.</div>
+      </div>
+      <div class="prd-structure">
+        <div class="struct-label">PRD Structure</div>
+        <div class="struct-pills">
+          <span class="struct-pill done">Problem Statement</span>
+          <span class="struct-pill done">North Star Metric</span>
+          <span class="struct-pill done">Users (End Customer + Ops Team)</span>
+          <span class="struct-pill done">Non-Goals</span>
+          <span class="struct-pill done">Feature Specification</span>
+          <span class="struct-pill done">Acceptance Criteria + Compliance Annotations</span>
+          <span class="struct-pill done">Edge Cases</span>
+          <span class="struct-pill done">Success Metrics</span>
+          <span class="struct-pill done">Open Questions</span>
+        </div>
+      </div>
+      <div class="prd-bottom">
+        <div class="prd-tags">
+          <span class="prd-tag">RBI compliance</span>
+          <span class="prd-tag">Mobile-first</span>
+          <span class="prd-tag">AI-assisted UX</span>
+          <span class="prd-tag">B2B Fintech</span>
+        </div>
+        <a href="cspm-prd.html" class="prd-cta">Read PRD →</a>
+      </div>
+    </div>
+
+    <!-- PRD 3: GENAI EMAIL DRAFTING -->
+    <div class="prd-card">
+      <div class="prd-top">
+        <div class="prd-left">
+          <div class="prd-eyebrow">
+            <span class="prd-num">PRD 03</span>
+            <span class="prd-domain" style="background:#f5f3ff;color:#5b21b6;">GenAI Feature</span>
+            <span class="prd-domain" style="background:#fffbeb;color:#92400e;">Healthcare · HIPAA</span>
+          </div>
+          <h2 class="prd-h">AI Email Drafting — TruServe Feature PRD</h2>
+          <p class="prd-desc">Feature spec for smart email drafting — the Phase 1 P0 feature from the HCSC $10M program that achieved 78% agent acceptance rate in Sprint 4. The most interesting section: the AI confidence score UX specification, designed explicitly for skeptical agents who need to feel in control of AI output, not replaced by it. Also includes the override design and how override data feeds back into model improvement.</p>
+        </div>
+        <div class="prd-right">
+          <div class="prd-stat"><div class="ps-num">78%</div><div class="ps-lbl">AI acceptance rate</div></div>
+          <div class="prd-stat"><div class="ps-num">8–12min</div><div class="ps-lbl">Saved per email</div></div>
+        </div>
+      </div>
+      <div class="prd-sig">
+        <div class="sig-label">Signature Decision in This PRD</div>
+        <div class="sig-content"><strong>The override UX is specified as carefully as the generation UX.</strong> Most AI feature PRDs specify what happens when the AI works. This one specifies what happens when agents don't like the output: one-click override, pre-populated edit mode (not blank slate), and an implicit feedback signal captured from every override (which phrases were edited, what replacements were made). The override isn't a failure state — it's a data collection mechanism that improves the model over time. This design decision is why adoption was 30% higher than our baseline assumption.</div>
+      </div>
+      <div class="prd-structure">
+        <div class="struct-label">PRD Structure</div>
+        <div class="struct-pills">
+          <span class="struct-pill done">Problem Statement</span>
+          <span class="struct-pill done">Risk Assessment (Quadrant D classification)</span>
+          <span class="struct-pill done">Users (Agent + Supervisor + IT)</span>
+          <span class="struct-pill done">Non-Goals</span>
+          <span class="struct-pill done">Generation Spec</span>
+          <span class="struct-pill done">Confidence Score UX</span>
+          <span class="struct-pill done">Override Design + Feedback Loop</span>
+          <span class="struct-pill done">HIPAA Compliance Notes</span>
+          <span class="struct-pill done">Acceptance Criteria</span>
+          <span class="struct-pill done">Adoption Metrics</span>
+        </div>
+      </div>
+      <div class="prd-bottom">
+        <div class="prd-tags">
+          <span class="prd-tag">GenAI</span>
+          <span class="prd-tag">Adoption design</span>
+          <span class="prd-tag">Healthcare SaaS</span>
+          <span class="prd-tag">Enterprise</span>
+        </div>
+        <a href="trueserve.html" class="prd-cta">Read PRD →</a>
+      </div>
+    </div>
+
+    <!-- PRD 4: FOUNDER OS -->
+    <div class="prd-card">
+      <div class="prd-top">
+        <div class="prd-left">
+          <div class="prd-eyebrow">
+            <span class="prd-num">PRD 04</span>
+            <span class="prd-domain" style="background:#f0fdf4;color:#166534;">Zero-to-One</span>
+            <span class="prd-domain" style="background:#f8fafc;color:#64748b;">B2B SaaS</span>
+          </div>
+          <h2 class="prd-h">Founder OS — Operating Layer PRD</h2>
+          <p class="prd-desc">Full PRD for a zero-to-one product with no brief, no existing product, and no validated demand. The challenge: there are 20 existing tools for different parts of what founders need. The PM question at the center of this PRD: what is the minimum slice of functionality that creates irreversible founder habit — the thing that makes a founder open this product every morning instead of switching between the six tools they already have?</p>
+        </div>
+        <div class="prd-right">
+          <div class="prd-stat"><div class="ps-num">6</div><div class="ps-lbl">Tools displaced</div></div>
+          <div class="prd-stat"><div class="ps-num">Zero</div><div class="ps-lbl">to one</div></div>
+        </div>
+      </div>
+      <div class="prd-sig">
+        <div class="sig-label">Signature Decision in This PRD</div>
+        <div class="sig-content"><strong>Chose OKR tracking as the wedge feature — not investor CRM, not burn rate dashboard, not roadmap.</strong> The hypothesis: founders open their OKR tool at the start of every week. If we own the Monday morning review, we own the context that makes every other feature (investor updates, hiring decisions, sprint planning) naturally want to connect to us. The PRD documents this reasoning explicitly in the "why this feature is the wedge" section — because zero-to-one PRDs need to explain the sequencing logic, not just the feature list.</div>
+      </div>
+      <div class="prd-structure">
+        <div class="struct-label">PRD Structure</div>
+        <div class="struct-pills">
+          <span class="struct-pill done">Problem Statement</span>
+          <span class="struct-pill done">Market Context</span>
+          <span class="struct-pill done">User Research Synthesis</span>
+          <span class="struct-pill done">The Wedge Feature + Rationale</span>
+          <span class="struct-pill done">Module Specifications (6 modules)</span>
+          <span class="struct-pill done">Integration Architecture</span>
+          <span class="struct-pill done">Pricing Model</span>
+          <span class="struct-pill done">Non-Goals</span>
+          <span class="struct-pill done">Success Metrics</span>
+        </div>
+      </div>
+      <div class="prd-bottom">
+        <div class="prd-tags">
+          <span class="prd-tag">Zero-to-one</span>
+          <span class="prd-tag">B2B SaaS</span>
+          <span class="prd-tag">Founder tools</span>
+          <span class="prd-tag">Pricing strategy</span>
+        </div>
+        <a href="founder-os.html" class="prd-cta">Read PRD →</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

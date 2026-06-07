@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Why Your Users Won't Adopt Your AI Feature · Shraddha Singh</title>
+  <meta name="description" content="The most technically impressive AI feature on our HCSC program had the lowest adoption — until we changed one thing. The lesson applies to every AI product launch."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --violet:#7c3aed; --violet-lt:#f5f3ff;
+      --green:#10b981; --green-lt:#f0fdf4;
+      --blue:#2563eb; --blue-lt:#eff6ff;
+      --amber:#f59e0b;
+      --bg:#fafaf8; --white:#fff; --text:#1a1916; --muted:#6b6460; --border:#e5e2dc;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    nav{background:#fff;border-bottom:1px solid var(--border);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:var(--muted);font-size:.85rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:.35rem;}
+    .nav-back:hover{color:var(--text);}
+    .nav-tag{font-size:.72rem;font-weight:700;color:#5b21b6;background:var(--violet-lt);padding:.22rem .65rem;border-radius:100px;}
+
+    .article-header{max-width:680px;margin:0 auto;padding:3.5rem 2rem 2rem;}
+    .ah-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;}
+    .ah-cat{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#5b21b6;}
+    .ah-dot{width:3px;height:3px;border-radius:50%;background:var(--border);}
+    .ah-date{font-size:.78rem;color:var(--muted);}
+    .ah-read{font-size:.78rem;color:var(--muted);}
+
+    h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(1.75rem,4vw,2.4rem);font-weight:400;color:var(--text);line-height:1.2;letter-spacing:-.3px;margin-bottom:1rem;}
+    .article-sub{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:1.75rem;max-width:580px;}
+
+    .article-body{max-width:680px;margin:0 auto;padding:0 2rem 5rem;}
+
+    .body-text{font-size:.95rem;color:#2c2926;line-height:1.85;margin-bottom:1.25rem;}
+    .body-text strong{color:var(--text);font-weight:700;}
+
+    h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;font-weight:400;color:var(--text);margin:2.25rem 0 .85rem;line-height:1.25;}
+
+    /* CALLOUT — violet */
+    .callout{background:var(--violet-lt);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.5rem 0;}
+    .callout p{font-size:.9rem;color:#4c1d95;line-height:1.75;margin:0;}
+    .callout p strong{color:#3b0764;}
+
+    /* INSIGHT BOX */
+    .insight-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+    .ib-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem;}
+    .ib-content{font-size:.9rem;color:var(--text);line-height:1.75;font-weight:600;}
+
+    /* COMPARISON */
+    .comparison{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+    .comp-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;}
+    .comp-card.wrong{border-top:3px solid #f87171;}
+    .comp-card.right{border-top:3px solid var(--green);}
+    .comp-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.5rem;}
+    .comp-card.wrong .comp-label{color:#991b1b;}
+    .comp-card.right .comp-label{color:#166534;}
+    .comp-card h4{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:.4rem;}
+    .comp-card p{font-size:.8rem;color:var(--muted);line-height:1.65;margin:0;}
+
+    /* PERSONA CARDS */
+    .personas{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+    .persona{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.35rem;}
+    .persona-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.5rem;}
+    .persona.enthusiast .persona-type{color:#1d4ed8;}
+    .persona.skeptic .persona-type{color:#92400e;}
+    .persona.enthusiast{border-top:3px solid var(--blue);}
+    .persona.skeptic{border-top:3px solid var(--amber);}
+    .persona h4{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.5rem;}
+    .persona ul{margin:.25rem 0 0 1rem;}
+    .persona li{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:.25rem;}
+
+    /* ADOPTION LEVERS */
+    .levers{display:flex;flex-direction:column;gap:.85rem;margin:1.5rem 0;}
+    .lever{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+    .lever-header{background:var(--violet-lt);padding:.85rem 1.35rem;border-bottom:1px solid #ddd6fe;display:flex;align-items:center;gap:.75rem;}
+    .lever-num{width:26px;height:26px;border-radius:50%;background:var(--violet);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .lever-title{font-size:.9rem;font-weight:800;color:#3b0764;}
+    .lever-body{padding:1rem 1.35rem;}
+    .lever-body p{font-size:.85rem;color:var(--muted);line-height:1.7;margin:0;}
+    .lever-result{font-size:.82rem;color:#15803d;font-weight:600;margin-top:.6rem;padding:.5rem .75rem;background:var(--green-lt);border-radius:7px;}
+
+    /* ADOPTION SPECTRUM */
+    .spectrum{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:1.75rem 0;}
+    .sp-header{background:#f8fafc;padding:.85rem 1.25rem;border-bottom:1px solid var(--border);}
+    .sp-header p{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:0;}
+    .sp-body{padding:1.25rem;}
+    .sp-row{display:flex;align-items:center;gap:1rem;padding:.5rem 0;border-bottom:1px solid #f1f5f9;}
+    .sp-row:last-child{border-bottom:none;}
+    .sp-label{font-size:.82rem;color:var(--muted);width:170px;flex-shrink:0;line-height:1.4;}
+    .sp-bar-wrap{flex:1;background:#f1f5f9;border-radius:5px;height:8px;overflow:hidden;}
+    .sp-bar{height:8px;border-radius:5px;}
+    .sp-bar.low{background:#f87171;}
+    .sp-bar.med{background:var(--amber);}
+    .sp-bar.high{background:var(--green);}
+    .sp-num{font-size:.82rem;font-weight:700;color:var(--text);width:45px;text-align:right;flex-shrink:0;}
+
+    /* TAKEAWAYS */
+    .takeaways{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin:2rem 0;}
+    .tk-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .tk-list{display:flex;flex-direction:column;gap:.85rem;}
+    .tk-item{display:flex;gap:.85rem;align-items:flex-start;}
+    .tk-num{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;}
+    .tk-item p{font-size:.87rem;color:var(--text);line-height:1.7;margin:0;}
+    .tk-item p strong{color:var(--navy);}
+
+    /* AUTHOR */
+    .author-block{border-top:1px solid var(--border);padding-top:2rem;margin-top:2.5rem;display:flex;align-items:flex-start;gap:1.25rem;}
+    .author-info h4{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.2rem;}
+    .author-info p{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem;}
+    .author-links{display:flex;gap:.75rem;}
+    .author-link{font-size:.78rem;font-weight:600;color:#5b21b6;text-decoration:none;}
+    .author-link:hover{text-decoration:underline;}
+
+    /* RELATED */
+    .related{max-width:680px;margin:0 auto;padding:0 2rem 4rem;}
+    .related-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+    .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;}
+    .related-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;text-decoration:none;transition:border-color .15s;}
+    .related-card:hover{border-color:#cbd5e1;}
+    .rc-type{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.35rem;}
+    .rc-title{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.4;}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:600px){
+      .comparison,.personas{grid-template-columns:1fr;}
+      .related-grid{grid-template-columns:1fr;}
+      .article-header,.article-body,.related{padding-left:1.25rem;padding-right:1.25rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-tag">PM Writing</span>
+</nav>
+
+<div class="article-header">
+  <div class="ah-meta">
+    <span class="ah-cat">AI Product Thinking</span>
+    <span class="ah-dot"></span>
+    <span class="ah-date">June 2026</span>
+    <span class="ah-dot"></span>
+    <span class="ah-read">7 min read</span>
+  </div>
+  <h1>Why Your Users Won't Adopt Your AI Feature</h1>
+  <p class="article-sub">The most technically impressive AI feature we shipped had the lowest adoption. The fix wasn't a better model. It was a design decision that cost one sprint and changed everything.</p>
+</div>
+
+<div class="article-body">
+
+  <p class="body-text">At Deloitte Digital, we shipped a GenAI email drafting feature for 2,000+ healthcare contact center agents. The model was good — trained on a large corpus of agent communications, fine-tuned on HCSC's specific workflows, reviewed by a linguistics team. We were confident it would reduce average handle time by 8–12 minutes per interaction.</p>
+
+  <p class="body-text">Adoption at launch: 31%.</p>
+
+  <p class="body-text">The agents who did use it weren't saving time — they were spending almost as much time reviewing and editing the AI output as they would have spent writing from scratch. The agents who didn't use it had a consistent explanation: "I don't trust it."</p>
+
+  <p class="body-text">We hadn't shipped a bad model. We'd shipped a bad product. The model was right. The UX was wrong. And the gap between those two things is where most AI features quietly die.</p>
+
+  <h2>The Real Adoption Problem</h2>
+
+  <p class="body-text">Here's what we got wrong: we designed the feature for the user we wished we had, not the user we actually had.</p>
+
+  <p class="body-text">The user we wished we had was enthusiastic about AI. They'd read about ChatGPT, they trusted machine learning to be directionally correct, and they were willing to iterate with a tool that was sometimes wrong. They'd treat the AI output as a starting point and refine from there.</p>
+
+  <p class="body-text">The user we actually had was a healthcare contact center agent who had been burned by automation before. They'd used a CRM suggestion engine that gave them wrong policy information in front of a customer. They'd been trained that compliance errors in a live call were their personal professional responsibility — not the software vendor's. They were skeptical by design, and that skepticism was rational.</p>
+
+  <div class="personas">
+    <div class="persona enthusiast">
+      <div class="persona-type">Designed For — The Enthusiast</div>
+      <h4>Trusts AI by default</h4>
+      <ul>
+        <li>Treats AI output as a starting point</li>
+        <li>Comfortable iterating with imperfect suggestions</li>
+        <li>Sees wrong output as a learning moment</li>
+        <li>Will experiment without needing confidence signals</li>
+      </ul>
+    </div>
+    <div class="persona skeptic">
+      <div class="persona-type">Actual User — The Skeptic</div>
+      <h4>Distrusts AI until proven otherwise</h4>
+      <ul>
+        <li>Has been burned by automation before</li>
+        <li>Compliance responsibility sits with them, not the vendor</li>
+        <li>Will reread every AI output twice before using</li>
+        <li>Feels professionally exposed when AI gets it wrong</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="body-text">Designing for the enthusiast produces a clean, fast AI experience with no friction. Designing for the skeptic is harder — it requires building in signals, safeguards, and control mechanisms that slow down the happy path. But it's the only design that actually gets adopted by the people who need to use it.</p>
+
+  <div class="insight-box">
+    <div class="ib-label">The Core Problem</div>
+    <div class="ib-content">Your AI feature adoption will be determined by your most skeptical user, not your most enthusiastic one. If your UX doesn't work for the person who doesn't trust AI, your adoption numbers won't work either.</div>
+  </div>
+
+  <h2>What We Changed</h2>
+
+  <p class="body-text">We went back and redesigned the feature around the skeptic. Three changes, one sprint.</p>
+
+  <div class="levers">
+    <div class="lever">
+      <div class="lever-header">
+        <div class="lever-num">1</div>
+        <div class="lever-title">AI Confidence Score — visible, not hidden</div>
+      </div>
+      <div class="lever-body">
+        <p>Every email draft now showed a confidence indicator. Not a percentage — percentages feel precise and untrustworthy. A simple three-state signal: high confidence (green), review recommended (amber), AI uncertain — please verify (red). Agents could see at a glance whether the AI was confident or guessing.</p>
+        <p style="margin-top:.5rem;">The first version of the feature gave agents no signal about model confidence. A wrong suggestion looked identical to a correct one. That ambiguity was the enemy of trust — it meant agents had to treat every suggestion as potentially wrong, which made the tool no faster than writing from scratch.</p>
+        <div class="lever-result">Result: Agents reported spending 40% less time reviewing high-confidence drafts after the signal was added.</div>
+      </div>
+    </div>
+    <div class="lever">
+      <div class="lever-header">
+        <div class="lever-num">2</div>
+        <div class="lever-title">One-Click Override — obvious, not buried</div>
+      </div>
+      <div class="lever-body">
+        <p>Every AI suggestion had a prominently placed "Write my own" button. Not hidden in a menu. Not requiring confirmation. One click and the AI output was gone, replaced by a blank draft with the agent fully in control.</p>
+        <p style="margin-top:.5rem;">The first version had an override, but it was a settings-level toggle that required navigating away from the email. Most agents didn't know it existed. For a skeptical user, a hidden override means the AI is in charge, not them — and feeling like the AI is in charge is the adoption killer.</p>
+        <div class="lever-result">Result: Override rate dropped as agents became more confident. But the existence of an easy override increased initial adoption — knowing they could escape made agents willing to try.</div>
+      </div>
+    </div>
+    <div class="lever">
+      <div class="lever-header">
+        <div class="lever-num">3</div>
+        <div class="lever-title">Override Logging — feedback loop, not just a UX fix</div>
+      </div>
+      <div class="lever-body">
+        <p>Every time an agent overrode the AI suggestion, we captured what they wrote instead. This override data became the primary signal for model improvement. The agents who overrode the AI the most were the ones showing the model what it should have said.</p>
+        <p style="margin-top:.5rem;">This was the part that surprised us: the override mechanism wasn't just a UX fix. It was a data collection strategy. The skeptic who didn't trust the AI was also the best teacher for improving it. Designing for the skeptic made the model better over time.</p>
+        <div class="lever-result">Result: After 8 weeks of override data, AI draft acceptance rate improved from 31% to 78%. The skeptics trained the model into something the enthusiasts could love.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>The Adoption Curve Is Not About the Model</h2>
+
+  <p class="body-text">When AI features fail to get adopted, the post-mortem almost always concludes the model needs to be better. Sometimes that's true. More often, the model is fine and the UX is wrong.</p>
+
+  <p class="body-text">The adoption problem in AI products is a trust problem. Trust is not created by accuracy — or not only by accuracy. It's created by the experience of using the tool, which includes: how confident the AI signals it is, how easy it is to correct it, how transparent it is about what it doesn't know, and how much control the user feels they have at every step.</p>
+
+  <div class="spectrum">
+    <div class="sp-header"><p>What Drives AI Feature Adoption — Common Assumptions vs. Reality</p></div>
+    <div class="sp-body">
+      <div class="sp-row">
+        <div class="sp-label">Model accuracy</div>
+        <div class="sp-bar-wrap"><div class="sp-bar med" style="width:55%;"></div></div>
+        <div class="sp-num">Important</div>
+      </div>
+      <div class="sp-row">
+        <div class="sp-label">Visible confidence signals</div>
+        <div class="sp-bar-wrap"><div class="sp-bar high" style="width:85%;"></div></div>
+        <div class="sp-num">Critical</div>
+      </div>
+      <div class="sp-row">
+        <div class="sp-label">Easy override mechanism</div>
+        <div class="sp-bar-wrap"><div class="sp-bar high" style="width:90%;"></div></div>
+        <div class="sp-num">Critical</div>
+      </div>
+      <div class="sp-row">
+        <div class="sp-label">Training / onboarding</div>
+        <div class="sp-bar-wrap"><div class="sp-bar low" style="width:25%;"></div></div>
+        <div class="sp-num">Overstated</div>
+      </div>
+      <div class="sp-row">
+        <div class="sp-label">Feature richness</div>
+        <div class="sp-bar-wrap"><div class="sp-bar low" style="width:20%;"></div></div>
+        <div class="sp-num">Overstated</div>
+      </div>
+      <div class="sp-row">
+        <div class="sp-label">Perceived control / agency</div>
+        <div class="sp-bar-wrap"><div class="sp-bar high" style="width:95%;"></div></div>
+        <div class="sp-num">Critical</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="body-text">Training, in particular, is almost never the bottleneck. When an AI product team's first response to low adoption is "users need more training," they are usually looking away from the real problem. Training tells users how to use the tool. It doesn't change whether they trust the tool. Those are different problems.</p>
+
+  <h2>Why This Happens to Good Teams</h2>
+
+  <p class="body-text">Teams who build AI features are almost always enthusiasts. They've tested the model extensively. They've seen it work. They've developed an intuition for when to trust it and when to push back. They've built a mental model of the AI's failure modes through hundreds of hours of interaction.</p>
+
+  <p class="body-text">The user has not. The user encounters the feature once, in a live work context, with a customer on the other end of the interaction or a compliance obligation on the line. If the AI fails them in that first encounter, adoption is probably dead — not because the model failed, but because the experience of that failure was designed in a way that felt unrecoverable.</p>
+
+  <div class="comparison">
+    <div class="comp-card wrong">
+      <div class="comp-label">Designed for the Builder</div>
+      <h4>Assumes AI understanding</h4>
+      <p>Clean output, no noise, no confidence qualifications. Fast happy path. Optimized for the user who already knows how to evaluate AI output — which is almost never your actual user.</p>
+    </div>
+    <div class="comp-card right">
+      <div class="comp-label">Designed for the First-Time User</div>
+      <h4>Assumes zero prior trust</h4>
+      <p>Confidence visible, override obvious, control explicit at every step. Slower happy path, much higher adoption from users who are trying it for the first time — which is everyone, at launch.</p>
+    </div>
+  </div>
+
+  <h2>A Test to Run Before You Ship</h2>
+
+  <p class="body-text">Before your next AI feature launches, find your most skeptical user. Not the one who volunteered for the beta. Not the power user who gave you the best feedback in discovery. The one who, when you told them about the feature, said "I don't know, I'm not sure I'd trust it."</p>
+
+  <p class="body-text">Put them in front of the feature cold — no walkthrough, no context, just the product. Watch what they do when the AI gives them output they're not sure about. Watch whether they find the override. Watch whether they know how confident the AI is. Watch whether they feel in control or feel like the tool is controlling them.</p>
+
+  <p class="body-text">That session will tell you more about your adoption curve than 50 sessions with enthusiastic users. The skeptic shows you every place where you assumed trust that your users haven't extended yet.</p>
+
+  <div class="callout">
+    <p><strong>The test:</strong> If your most skeptical user can't figure out how to override the AI output in under 10 seconds, your override is not obvious enough. If they can't tell whether the AI is confident or guessing, you're missing a critical trust signal. Fix these before launch — not after adoption data comes in.</p>
+  </div>
+
+  <h2>The Unexpected Upside of the Skeptic</h2>
+
+  <p class="body-text">Designing for the skeptic feels like it slows everything down. More UI elements, more edge cases, longer development time, a less "clean" experience. And that's true — the enthusiast-designed version is faster to build and looks better in a demo.</p>
+
+  <p class="body-text">But the skeptic has a gift for you: they will tell you, through their behavior, exactly where the AI is wrong. Every override is a data point. Every correction is a label. Every moment of confusion is a signal about where your model needs work.</p>
+
+  <p class="body-text">The enthusiast uses the AI without correcting it even when it's wrong — they're not sure enough of the right answer to push back. The skeptic corrects everything. If you log those corrections, the skeptic is training your model while using your product. You're paying for adoption work and getting model training as a by-product.</p>
+
+  <p class="body-text">In our case: 8 weeks of override data from skeptical agents improved the draft acceptance rate from 31% to 78%. The team that initially pushed for "just launch it and iterate" would have iterated their way to 78% eventually — but much slower, without the correction signal quality that skeptical users provide.</p>
+
+  <div class="callout">
+    <p><strong>The non-obvious benefit:</strong> Override data from skeptical users is your best source of model training labels. Designing for the skeptic doesn't just improve adoption — it accelerates model improvement. The friction is a product asset.</p>
+  </div>
+
+  <!-- PM TAKEAWAYS -->
+  <div class="takeaways">
+    <div class="tk-label">PM Takeaways</div>
+    <div class="tk-list">
+      <div class="tk-item">
+        <div class="tk-num">1</div>
+        <p><strong>Adoption is a product problem, not a training problem.</strong> Low AI adoption almost never gets fixed by better onboarding material. It gets fixed by redesigning the UX for the user who doesn't trust the AI yet. Training tells users how to use the tool; it doesn't make them trust it.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">2</div>
+        <p><strong>Design for the skeptic. Test with the skeptic.</strong> Your most enthusiastic users will adopt almost anything. Your most skeptical users will tell you every place where the product assumes trust it hasn't earned. Find them early — before launch, not after the adoption data comes in disappointing.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">3</div>
+        <p><strong>Visible confidence signals are not optional.</strong> An AI output that might be right and an AI output that's definitely right look identical to a skeptical user. Show them the model's confidence. A three-state signal (high/medium/uncertain) is enough to change behavior — users spend less time reviewing high-confidence output and more carefully verify uncertain output.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">4</div>
+        <p><strong>The override must be the most obvious thing on the screen.</strong> Not a settings option. Not a modal dialog. One click, always visible. The existence of an obvious escape makes skeptical users willing to try. The override rate will drop naturally as trust grows — but adoption will never start without it.</p>
+      </div>
+      <div class="tk-item">
+        <div class="tk-num">5</div>
+        <p><strong>Log every override. They are your best training data.</strong> The skeptic who overrides your AI is showing you what the AI should have said. That signal is higher quality than labeled datasets because it comes from real work contexts. Design the override as a data collection mechanism, not just a UX escape hatch.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="author-block">
+    <div class="author-info">
+      <h4>Shraddha Singh</h4>
+      <p>Senior Product Owner at Sapiens International. 6 years in Fintech, Insurtech, and Enterprise AI. I write about product management, AI product decisions, and the craft of building in regulated industries.</p>
+      <div class="author-links">
+        <a href="https://linkedin.com/in/shraddha-singh-9149a4172" class="author-link" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://medium.com/@shraddhasingh8968" class="author-link" target="_blank" rel="noopener">More writing on Medium</a>
+        <a href="../index.html" class="author-link">Portfolio</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="related">
+  <div class="related-label">More From This Portfolio</div>
+  <div class="related-grid">
+    <a href="deloitte-genai.html" class="related-card">
+      <div class="rc-type">Case Study</div>
+      <div class="rc-title">Full story: the Deloitte HCSC GenAI program — framework, bets, and 78% acceptance rate</div>
+    </a>
+    <a href="blog-genai-feature-first.html" class="related-card">
+      <div class="rc-type">PM Writing</div>
+      <div class="rc-title">Which GenAI Feature Do You Build First? The risk-adjusted prioritization framework</div>
+    </a>
+    <a href="ai-product-lab.html" class="related-card">
+      <div class="rc-type">AI Product Lab</div>
+      <div class="rc-title">Experiments, frameworks, and what I'm building — the AI Product Lab</div>
+    </a>
+    <a href="blog-wrong-metric.html" class="related-card">
+      <div class="rc-type">PM Writing</div>
+      <div class="rc-title">The Wrong Metric Cost Us 6 Months — switching north star metrics</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

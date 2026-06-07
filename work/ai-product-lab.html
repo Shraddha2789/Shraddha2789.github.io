@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Product Lab · Shraddha Singh</title>
+  <meta name="description" content="Where I test AI product ideas, build frameworks, and document what I'm learning about building products that use AI reliably in regulated industries."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0d1b35; --blue:#2563eb; --blue-lt:#eff6ff;
+      --violet:#7c3aed; --violet-lt:#f5f3ff;
+      --green:#10b981; --green-lt:#f0fdf4;
+      --amber:#f59e0b; --amber-lt:#fffbeb;
+      --bg:#fafaf8; --white:#fff; --text:#1a1916; --muted:#6b6460; --border:#e5e2dc;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.6;}
+
+    /* NAV */
+    nav{background:#fff;border-bottom:1px solid var(--border);padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+    .nav-back{color:var(--muted);font-size:.85rem;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:.35rem;}
+    .nav-back:hover{color:var(--text);}
+    .nav-tag{font-size:.72rem;font-weight:700;color:var(--violet);background:var(--violet-lt);padding:.22rem .65rem;border-radius:100px;}
+
+    /* HERO */
+    .hero{background:linear-gradient(140deg,#0d1b35 0%,#1a1040 50%,#0f2d1a 100%);padding:4rem 2rem 3rem;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 80% 40%,rgba(124,58,237,.18),transparent),radial-gradient(ellipse 40% 50% at 20% 70%,rgba(16,185,129,.1),transparent);pointer-events:none;}
+    .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.35);color:#c4b5fd;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.25rem;}
+    .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px rgba(74,222,128,.8);animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+    .hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(1.9rem,4vw,2.75rem);font-weight:400;color:#fff;line-height:1.15;letter-spacing:-.3px;margin-bottom:.85rem;max-width:700px;}
+    .hero h1 em{font-style:italic;color:#a78bfa;}
+    .hero-sub{font-size:.97rem;color:#94a3b8;max-width:580px;line-height:1.8;margin-bottom:2rem;}
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+    .hs-item{text-align:left;}
+    .hs-num{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-1px;line-height:1;}
+    .hs-num em{color:#a78bfa;font-style:normal;}
+    .hs-lbl{font-size:.65rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.25rem;}
+
+    /* PAGE LAYOUT */
+    .page{max-width:960px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+    /* SECTION */
+    .lab-sec{margin-bottom:3.5rem;}
+    .lab-sec-hdr{margin-bottom:1.5rem;}
+    .lab-sec-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--violet);margin-bottom:.35rem;}
+    .lab-sec-title{font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.3px;}
+    .lab-sec-sub{font-size:.88rem;color:var(--muted);margin-top:.35rem;line-height:1.7;}
+
+    /* LIVE EXPERIMENT CARD — featured */
+    .exp-feat{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.25rem;}
+    .exp-feat-top{background:linear-gradient(135deg,#0d1b35,#1e1060);padding:2rem 2rem 1.5rem;}
+    .ef-live{display:inline-flex;align-items:center;gap:.4rem;background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);color:#4ade80;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .65rem;border-radius:100px;margin-bottom:.85rem;}
+    .ef-live .dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulse 2s ease-in-out infinite;}
+    .ef-name{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:.5rem;}
+    .ef-desc{font-size:.88rem;color:#94a3b8;line-height:1.75;max-width:560px;}
+    .exp-feat-body{padding:1.5rem 2rem;}
+    .ef-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem;}
+    .ef-cell{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;}
+    .ef-cell-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:.4rem;}
+    .ef-cell-val{font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.4;}
+    .ef-decisions{margin-bottom:1.25rem;}
+    .ef-decision-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.65rem;}
+    .ef-decision{display:flex;gap:.85rem;align-items:flex-start;padding:.6rem 0;border-bottom:1px solid #f1f5f9;}
+    .ef-decision:last-child{border-bottom:none;}
+    .ef-decision-q{font-size:.75rem;font-weight:800;color:var(--violet);width:220px;flex-shrink:0;line-height:1.4;}
+    .ef-decision-a{font-size:.82rem;color:var(--muted);line-height:1.65;}
+    .ef-links{display:flex;gap:.75rem;}
+    .ef-link{font-size:.8rem;font-weight:700;color:var(--violet);text-decoration:none;display:flex;align-items:center;gap:.3rem;}
+    .ef-link:hover{text-decoration:underline;}
+    .ef-link-secondary{color:var(--muted);}
+
+    /* SMALLER EXPERIMENT CARDS */
+    .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .exp-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;}
+    .exp-card-status{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;padding:.18rem .6rem;border-radius:100px;margin-bottom:.75rem;}
+    .status-active{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+    .status-active .dot{width:5px;height:5px;border-radius:50%;background:#4ade80;}
+    .status-exploring{background:#f5f3ff;color:#6d28d9;border:1px solid #ddd6fe;}
+    .status-backlog{background:#f8fafc;color:#64748b;border:1px solid var(--border);}
+    .exp-card-name{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;}
+    .exp-card-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:.85rem;}
+    .exp-card-q{font-size:.78rem;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:.75rem;line-height:1.5;}
+    .exp-card-q span{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.25rem;}
+
+    /* FRAMEWORKS */
+    .fw-stack{display:flex;flex-direction:column;gap:1rem;}
+    .fw-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:start;}
+    .fw-body{}
+    .fw-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--violet);margin-bottom:.4rem;}
+    .fw-name{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;line-height:1.3;}
+    .fw-desc{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.75rem;}
+    .fw-steps{display:flex;gap:.5rem;flex-wrap:wrap;}
+    .fw-step{font-size:.74rem;font-weight:700;background:#f5f3ff;color:#5b21b6;padding:.22rem .65rem;border-radius:6px;}
+    .fw-link{font-size:.78rem;font-weight:700;color:var(--violet);text-decoration:none;white-space:nowrap;}
+    .fw-link:hover{text-decoration:underline;}
+    .fw-origin{font-size:.72rem;color:var(--muted);margin-top:.4rem;font-style:italic;}
+
+    /* CHECKLIST */
+    .checklist-intro{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+    .cl-sections{display:flex;flex-direction:column;gap:1.25rem;}
+    .cl-section{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+    .cl-sec-header{padding:.9rem 1.35rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.85rem;}
+    .cl-sec-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .cl-sec-title{font-size:.9rem;font-weight:800;color:var(--navy);}
+    .cl-sec-sub{font-size:.75rem;color:var(--muted);margin-left:auto;}
+    .cl-items{padding:.75rem 1.35rem;}
+    .cl-item{display:flex;gap:.85rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid #f8fafc;}
+    .cl-item:last-child{border-bottom:none;}
+    .cl-check{width:16px;height:16px;border:1.5px solid #cbd5e1;border-radius:4px;flex-shrink:0;margin-top:.2rem;}
+    .cl-text{font-size:.82rem;color:var(--text);line-height:1.65;}
+    .cl-text em{color:var(--muted);font-style:normal;font-size:.78rem;}
+
+    /* WATCHING */
+    .watching-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .watch-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;}
+    .watch-icon{font-size:1.4rem;margin-bottom:.6rem;}
+    .watch-topic{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;line-height:1.3;}
+    .watch-desc{font-size:.8rem;color:var(--muted);line-height:1.65;}
+    .watch-why{font-size:.74rem;font-weight:700;color:var(--violet);margin-top:.6rem;}
+
+    /* CTA */
+    .lab-cta{background:linear-gradient(135deg,#0d1b35,#1a1040);border-radius:16px;padding:2.5rem;text-align:center;margin-top:1rem;}
+    .cta-eyebrow{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:#a78bfa;margin-bottom:.75rem;}
+    .cta-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:.65rem;line-height:1.3;}
+    .cta-sub{font-size:.88rem;color:#64748b;max-width:420px;margin:0 auto 1.5rem;line-height:1.75;}
+    .cta-links{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+    .cta-btn{font-size:.85rem;font-weight:700;padding:.7rem 1.5rem;border-radius:9px;text-decoration:none;transition:opacity .15s;}
+    .cta-btn-primary{background:#7c3aed;color:#fff;}
+    .cta-btn-primary:hover{opacity:.88;}
+    .cta-btn-secondary{background:rgba(255,255,255,.08);color:#94a3b8;border:1px solid rgba(255,255,255,.12);}
+    .cta-btn-secondary:hover{background:rgba(255,255,255,.12);}
+
+    footer{background:var(--navy);padding:1.5rem 2rem;text-align:center;}
+    footer p{font-size:.78rem;color:#475569;}
+    footer a{color:#93c5fd;text-decoration:none;}
+
+    @media(max-width:700px){
+      .ef-grid{grid-template-columns:1fr 1fr;}
+      .ef-decision{flex-direction:column;gap:.35rem;}
+      .ef-decision-q{width:auto;}
+      .exp-grid{grid-template-columns:1fr;}
+      .fw-card{grid-template-columns:1fr;}
+      .watching-grid{grid-template-columns:1fr 1fr;}
+      .page{padding:2rem 1.25rem 4rem;}
+      .exp-feat-top,.exp-feat-body{padding:1.25rem;}
+    }
+    @media(max-width:480px){
+      .ef-grid{grid-template-columns:1fr;}
+      .watching-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <span class="nav-tag">AI Product Lab</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span> Active experiments</div>
+    <h1>Where I test AI product ideas<br><em>before the market does</em></h1>
+    <p class="hero-sub">Not a showcase of finished work. A working document of what I'm building, what I'm learning, and what I believe about AI products — updated as I go.</p>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-num"><em>1</em></div><div class="hs-lbl">Live AI product<br>in production</div></div>
+      <div class="hs-item"><div class="hs-num"><em>2</em></div><div class="hs-lbl">Frameworks built<br>from real programs</div></div>
+      <div class="hs-item"><div class="hs-num"><em>10+</em></div><div class="hs-lbl">GenAI features<br>shipped at enterprise scale</div></div>
+      <div class="hs-item"><div class="hs-num"><em>0</em></div><div class="hs-lbl">Compliance incidents<br>across all AI deployments</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- LIVE EXPERIMENTS -->
+  <div class="lab-sec">
+    <div class="lab-sec-hdr">
+      <div class="lab-sec-label">Live Experiments</div>
+      <div class="lab-sec-title">What I'm currently building</div>
+      <div class="lab-sec-sub">Side projects where I'm the PM and the user — the fastest way to learn what actually works in AI products.</div>
+    </div>
+
+    <!-- FEATURED: JobSignals -->
+    <div class="exp-feat">
+      <div class="exp-feat-top">
+        <div class="ef-live"><span class="dot"></span> Live in production</div>
+        <div class="ef-name">JobSignals — AI Labor Market Intelligence</div>
+        <div class="ef-desc">Job seekers had raw data and no signal. I built an AI data product that extracts structured hiring intelligence — skill demand trends, company hiring velocity, salary signals — from unstructured job posting text. The central PM insight: prompt engineering is acceptance criteria. The precision required to get consistent AI output is identical to the discipline of writing good feature specs.</div>
+      </div>
+      <div class="exp-feat-body">
+        <div class="ef-grid">
+          <div class="ef-cell">
+            <div class="ef-cell-label">The PM problem I solved</div>
+            <div class="ef-cell-val">What skills are actually in demand — not what job boards say, but what hiring managers write</div>
+          </div>
+          <div class="ef-cell">
+            <div class="ef-cell-label">The AI design decision</div>
+            <div class="ef-cell-val">Structured extraction over generative summaries — precision beats creativity when users need to act on data</div>
+          </div>
+          <div class="ef-cell">
+            <div class="ef-cell-label">What I learned</div>
+            <div class="ef-cell-val">Prompt engineering is product work, not engineering work — owns the same tradeoffs as a feature spec</div>
+          </div>
+        </div>
+        <div class="ef-decisions">
+          <div class="ef-decision-label">Key product decisions</div>
+          <div class="ef-decision">
+            <div class="ef-decision-q">Why structured extraction, not generative summaries?</div>
+            <div class="ef-decision-a">Users need to compare across job postings. Free-form AI summaries are unstructured and non-comparable. Structured output (skill: required/preferred, salary: min/max, remote: yes/no) is queryable, filterable, and trustworthy. The "smarter" AI output would have been less useful.</div>
+          </div>
+          <div class="ef-decision">
+            <div class="ef-decision-q">How did you define "accuracy" for the extraction model?</div>
+            <div class="ef-decision-a">I defined 12 extraction fields and wrote acceptance criteria for each — same process as writing a PRD. If I couldn't write a test case for it, I didn't extract it. This constraint forced better product scope than technical ambition would have allowed.</div>
+          </div>
+          <div class="ef-decision">
+            <div class="ef-decision-q">What's the hardest unsolved problem right now?</div>
+            <div class="ef-decision-a">Recency. Job postings go stale but don't always get taken down. The product needs a "hiring velocity" signal that distinguishes actively hiring vs. passive pipeline building — the data is noisy and the model gets confused by it.</div>
+          </div>
+        </div>
+        <div class="ef-links">
+          <a href="job-signals.html" class="ef-link">Full case study →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMALLER EXPERIMENTS -->
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-card-status status-exploring"><span class="dot"></span> Exploring</div>
+        <div class="exp-card-name">AI Adoption Gap Tracker</div>
+        <div class="exp-card-desc">A lightweight tool to measure the gap between "AI feature shipped" and "AI feature actually used." Most adoption dashboards count logins, not value delivery. I want to measure meaningful usage — the moment a user acts on AI output vs. ignores it.</div>
+        <div class="exp-card-q"><span>The PM question I'm trying to answer</span>How do you distinguish between a user who trusts the AI and one who opens the feature and closes it?</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-status status-exploring">Exploring</div>
+        <div class="exp-card-name">Regulatory Radar — India AI Policy Monitor</div>
+        <div class="exp-card-desc">India's AI regulatory landscape is moving fast — RBI sandbox, DPDP Act, SEBI fintech framework. I'm building a personal tracker that surfaces policy changes with product implications, not just legal summaries.</div>
+        <div class="exp-card-q"><span>Why this matters for PM work</span>Regulated AI products need PMs who understand regulatory risk, not just technical risk. This is my way of staying ahead of compliance constraints before clients discover them.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-status status-backlog">Backlog</div>
+        <div class="exp-card-name">Agent Handoff Spec</div>
+        <div class="exp-card-desc">As agentic AI becomes real product infrastructure, the hardest PM problem is defining when an agent should hand off to a human — and what state it passes along. I'm working on a spec template for this transition point.</div>
+        <div class="exp-card-q"><span>The design problem</span>Human-to-AI handoff is well-documented. AI-to-human handoff — when the agent knows it's failing — is almost entirely undesigned.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-status status-backlog">Backlog</div>
+        <div class="exp-card-name">Insurance Claims AI Triage Model</div>
+        <div class="exp-card-desc">Sapiens context: most insurance claims routing is rule-based and brittle. I'm prototyping a lightweight AI triage layer that routes claims to the right adjuster type — not by policy category but by claim complexity signature.</div>
+        <div class="exp-card-q"><span>The key risk to solve</span>Wrong routing in insurance is worse than no routing — it adds delay and creates compliance trail issues. Downside risk must be designed in before upside potential.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORKS -->
+  <div class="lab-sec">
+    <div class="lab-sec-hdr">
+      <div class="lab-sec-label">Frameworks Built</div>
+      <div class="lab-sec-title">How I make AI product decisions</div>
+      <div class="lab-sec-sub">These aren't theoretical models. Each one came out of a real program where I needed a framework and none existed.</div>
+    </div>
+
+    <div class="fw-stack">
+      <div class="fw-card">
+        <div class="fw-body">
+          <div class="fw-label">Framework 01 · AI Prioritization</div>
+          <div class="fw-name">Risk-Adjusted GenAI Feature Sequencing</div>
+          <div class="fw-desc">Standard value/effort matrices miss the critical third dimension for regulated environments: the asymmetric cost of being wrong. This framework adds four questions to every AI feature prioritization decision — upside if right, downside if wrong, data readiness, and measurability. Developed at Deloitte Digital on a $10M HCSC contact center transformation program.</div>
+          <div class="fw-steps">
+            <span class="fw-step">What's the upside if right?</span>
+            <span class="fw-step">What's the downside if wrong?</span>
+            <span class="fw-step">Is training data ready?</span>
+            <span class="fw-step">Can we measure the outcome?</span>
+          </div>
+          <div class="fw-origin">Origin: Deloitte Digital · HCSC GenAI program · 2022–2024</div>
+        </div>
+        <div>
+          <a href="deloitte-genai.html" class="fw-link">Case study →</a>
+        </div>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-body">
+          <div class="fw-label">Framework 02 · Metrics</div>
+          <div class="fw-name">Mechanism vs. Consequence Metric Test</div>
+          <div class="fw-desc">Before committing to a north star metric, ask: does this metric expose the failure mode, or does it only measure the downstream consequence of the failure? The test: what would need to be true for this metric to look good while the underlying product is still broken? If you can answer that question easily, you have the wrong metric. Developed at Signzy when switching from "average KYC processing time" to "first-attempt success rate."</div>
+          <div class="fw-steps">
+            <span class="fw-step">What does this metric exclude?</span>
+            <span class="fw-step">Is it a mechanism or consequence?</span>
+            <span class="fw-step">Optimizable while broken?</span>
+          </div>
+          <div class="fw-origin">Origin: Signzy · KYC product · 2024</div>
+        </div>
+        <div>
+          <a href="blog-wrong-metric.html" class="fw-link">Blog post →</a>
+        </div>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-body">
+          <div class="fw-label">Framework 03 · AI UX</div>
+          <div class="fw-name">Design for the Skeptic, Not the Enthusiast</div>
+          <div class="fw-desc">AI feature adoption is determined by your most skeptical user, not your most enthusiastic one. Designing for the enthusiast (who trusts AI by default) produces clean, fast AI output with no friction. Designing for the skeptic means adding confidence scores, easy overrides, and keeping humans in control. The skeptic's version has consistently 20–30% better adoption because trust precedes use. Override data also feeds model improvement — the friction is a product asset.</div>
+          <div class="fw-steps">
+            <span class="fw-step">Show confidence score</span>
+            <span class="fw-step">One-click override</span>
+            <span class="fw-step">Agent stays in control</span>
+            <span class="fw-step">Log all overrides</span>
+          </div>
+          <div class="fw-origin">Origin: Deloitte Digital · HCSC agent UX · 2023</div>
+        </div>
+        <div>
+          <a href="blog-genai-feature-first.html" class="fw-link">Blog post →</a>
+        </div>
+      </div>
+
+      <div class="fw-card">
+        <div class="fw-body">
+          <div class="fw-label">Framework 04 · Backlog</div>
+          <div class="fw-name">4-Factor AI Backlog Prioritization</div>
+          <div class="fw-desc">At Sapiens, with 200+ items in the backlog and competing stakeholder groups, I needed a scoring method that was transparent, defensible, and fast. Four factors: strategic alignment (0–3), customer pain intensity (0–3), delivery confidence (0–3), and compliance risk (0–3, inverted). Transparent scoring lets stakeholders understand why their item moved — reducing negotiation friction by making the criteria explicit.</div>
+          <div class="fw-steps">
+            <span class="fw-step">Strategic alignment</span>
+            <span class="fw-step">Pain intensity</span>
+            <span class="fw-step">Delivery confidence</span>
+            <span class="fw-step">Compliance risk (inverted)</span>
+          </div>
+          <div class="fw-origin">Origin: Sapiens International · CoreSuite backlog · 2024–present</div>
+        </div>
+        <div>
+          <a href="sapiens-coresuite.html" class="fw-link">Case study →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI PRODUCT CHECKLIST -->
+  <div class="lab-sec">
+    <div class="lab-sec-hdr">
+      <div class="lab-sec-label">AI Product Checklist</div>
+      <div class="lab-sec-title">What I check before shipping any AI feature</div>
+    </div>
+    <p class="checklist-intro">This is the checklist I run through before every AI feature goes to staging. Not theoretical — built from the real failures and near-misses I've seen across healthcare, fintech, and insurance. The goal is to catch the avoidable failures before they reach users.</p>
+
+    <div class="cl-sections">
+      <div class="cl-section">
+        <div class="cl-sec-header">
+          <div class="cl-sec-num">1</div>
+          <div class="cl-sec-title">Problem & Scope</div>
+          <div class="cl-sec-sub">4 checks</div>
+        </div>
+        <div class="cl-items">
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The job-to-be-done is specific and measurable — not "use AI to improve X" <em>(vague brief = vague product)</em></div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">We have defined what "wrong AI output" looks like and documented the failure mode</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The failure mode's cost has been assessed: low (human reviews before action) vs. medium vs. high (live output, no review)</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">We can articulate why AI is the right tool here — not just because it's possible</div></div>
+        </div>
+      </div>
+
+      <div class="cl-section">
+        <div class="cl-sec-header">
+          <div class="cl-sec-num">2</div>
+          <div class="cl-sec-title">Data Readiness</div>
+          <div class="cl-sec-sub">4 checks</div>
+        </div>
+        <div class="cl-items">
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Training data is available and domain-specific — not just generic model capability <em>(healthcare AI needs healthcare data)</em></div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Data quality has been audited — volume, freshness, labeling accuracy, coverage gaps</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Edge cases are documented: what inputs is the model likely to fail on, and what happens when it does?</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Data governance is cleared: consent, PII handling, cross-border transfer rules (especially for regulated industries)</div></div>
+        </div>
+      </div>
+
+      <div class="cl-section">
+        <div class="cl-sec-header">
+          <div class="cl-sec-num">3</div>
+          <div class="cl-sec-title">UX & Adoption</div>
+          <div class="cl-sec-sub">5 checks</div>
+        </div>
+        <div class="cl-items">
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">UX is designed for the skeptic, not the enthusiast — assumes users will distrust AI output until proven otherwise</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">There is a clear, easy override mechanism — users can correct or dismiss AI output in one step</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Confidence or uncertainty is surfaced to users when the model is less confident than threshold</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">All overrides are logged — override patterns are the primary signal for model improvement</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The feature has been tested with skeptical users — not just early adopters or internal teams</div></div>
+        </div>
+      </div>
+
+      <div class="cl-section">
+        <div class="cl-sec-header">
+          <div class="cl-sec-num">4</div>
+          <div class="cl-sec-title">Metrics & Measurement</div>
+          <div class="cl-sec-sub">4 checks</div>
+        </div>
+        <div class="cl-items">
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">North star metric measures mechanism, not downstream consequence <em>(first-attempt success rate, not average processing time)</em></div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The metric test is passed: "What would need to be true for this metric to look good while the product is still broken?"</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Leading indicators exist — we don't have to wait for the north star to move to know if we're on track</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Success criteria are set before launch — not reverse-engineered from whatever number came out</div></div>
+        </div>
+      </div>
+
+      <div class="cl-section">
+        <div class="cl-sec-header">
+          <div class="cl-sec-num">5</div>
+          <div class="cl-sec-title">Compliance & Risk</div>
+          <div class="cl-sec-sub">4 checks</div>
+        </div>
+        <div class="cl-items">
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">Compliance team has reviewed the feature — not after launch, not as an afterthought</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The regulatory framework that applies has been identified: HIPAA, GDPR, DPDP, RBI guidelines, SEBI, IRDAI</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">There is a rollback plan if the feature causes harm — not a "monitor and iterate" plan, a specific rollback trigger</div></div>
+          <div class="cl-item"><div class="cl-check"></div><div class="cl-text">The "0 compliance incidents" target is explicit and owned — not assumed to be someone else's problem</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT I'M WATCHING -->
+  <div class="lab-sec">
+    <div class="lab-sec-hdr">
+      <div class="lab-sec-label">What I'm Watching</div>
+      <div class="lab-sec-title">Trends I'm tracking for their PM implications</div>
+    </div>
+    <div class="watching-grid">
+      <div class="watch-card">
+        <div class="watch-icon">🏛️</div>
+        <div class="watch-topic">India AI Regulatory Sandbox</div>
+        <div class="watch-desc">RBI, SEBI, and IRDAI are all building fintech AI frameworks with different compliance requirements. Most teams are ignoring this until it's too late.</div>
+        <div class="watch-why">PM implication: compliance constraints should gate feature sequencing, not follow it</div>
+      </div>
+      <div class="watch-card">
+        <div class="watch-icon">🤖</div>
+        <div class="watch-topic">Agentic AI as Product Infrastructure</div>
+        <div class="watch-desc">AI agents are moving from demos to real product infrastructure. The unsolved design problem: AI-to-human handoff when an agent fails or hits its limit.</div>
+        <div class="watch-why">PM implication: agent failure UX is the hardest unsolved PM problem in production AI right now</div>
+      </div>
+      <div class="watch-card">
+        <div class="watch-icon">📉</div>
+        <div class="watch-topic">LLM Inference Cost Curves</div>
+        <div class="watch-desc">Token prices are dropping 10x per year. Features that are economically unviable today will be viable in 12 months. Sequencing decisions should account for this.</div>
+        <div class="watch-why">PM implication: "too expensive to build" is a temporary constraint — design the feature, defer the ship date</div>
+      </div>
+      <div class="watch-card">
+        <div class="watch-icon">🔍</div>
+        <div class="watch-topic">Retrieval-Augmented Generation in Enterprise</div>
+        <div class="watch-desc">RAG is the real implementation pattern for regulated enterprise AI — not fine-tuning, not general models. But RAG quality is a data problem, not a model problem.</div>
+        <div class="watch-why">PM implication: the bottleneck for enterprise AI is document quality and retrieval accuracy, not model capability</div>
+      </div>
+      <div class="watch-card">
+        <div class="watch-icon">💳</div>
+        <div class="watch-topic">UPI & India Payments Stack Evolution</div>
+        <div class="watch-desc">UPI 2.0, credit on UPI, ONDC integration, cross-border UPI. India's payments infrastructure is being rebuilt layer by layer with significant PM opportunity at each layer.</div>
+        <div class="watch-why">PM implication: Razorpay, Cashfree, and Juspay are building fundamentally different products than Stripe — the business model differences matter more than the features</div>
+      </div>
+      <div class="watch-card">
+        <div class="watch-icon">📋</div>
+        <div class="watch-topic">AI Adoption Measurement</div>
+        <div class="watch-desc">Most "AI adoption" metrics count feature activations, not value delivery. The field is developing better instrumentation for measuring whether AI actually changed behavior.</div>
+        <div class="watch-why">PM implication: if you can't measure whether users act on AI output vs. ignore it, you can't improve adoption</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="lab-cta">
+    <div class="cta-eyebrow">Let's talk AI product</div>
+    <div class="cta-title">I'm looking for PM, TPM, and AI PM roles<br>in Fintech, Insurtech, and AI-first products</div>
+    <div class="cta-sub">If you're building products where AI failure has real consequences — regulated industries, high-stakes decisions, complex integrations — I'd like to talk.</div>
+    <div class="cta-links">
+      <a href="mailto:shraddhasingh8968@gmail.com" class="cta-btn cta-btn-primary">Get in touch</a>
+      <a href="../index.html" class="cta-btn cta-btn-secondary">View full portfolio</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Shraddha Singh · Product Manager · <a href="../index.html">Back to Portfolio</a> · <a href="mailto:shraddhasingh8968@gmail.com">shraddhasingh8968@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
