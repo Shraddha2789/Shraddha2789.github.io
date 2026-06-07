@@ -31,21 +31,21 @@ ARTICLES = [
         "title": "The Wrong Metric Cost Us 6 Months",
         "subtitle": "How measuring the wrong KYC number sent our product team in the wrong direction — and what switching metrics changed about the entire roadmap.",
         "tags": ["Product Management", "Metrics", "Fintech", "KYC", "Product Strategy"],
-        "canonical_url": "https://shraddhasingh.dev/work/blog-wrong-metric.html",
+        "canonical_url": "https://shraddha2789.github.io/work/blog-wrong-metric.html",
     },
     {
         "file": PORTFOLIO_ROOT / "blog-genai-feature-first.html",
         "title": "Which GenAI Feature Do You Build First?",
         "subtitle": "The client wanted AI in the contact center. The most-requested feature had the highest failure cost. Here's the risk-adjusted framework I used to sequence 10+ GenAI features.",
         "tags": ["AI Product Management", "GenAI", "Product Strategy", "Healthcare", "Fintech"],
-        "canonical_url": "https://shraddhasingh.dev/work/blog-genai-feature-first.html",
+        "canonical_url": "https://shraddha2789.github.io/work/blog-genai-feature-first.html",
     },
     {
         "file": PORTFOLIO_ROOT / "blog-ai-adoption.html",
         "title": "Why Your Users Won't Adopt Your AI Feature",
         "subtitle": "The most technically impressive AI feature we shipped had the lowest adoption. The fix wasn't a better model — it was one design decision that changed everything.",
         "tags": ["AI Product Management", "User Adoption", "UX", "Product Design", "AI"],
-        "canonical_url": "https://shraddhasingh.dev/work/blog-ai-adoption.html",
+        "canonical_url": "https://shraddha2789.github.io/work/blog-ai-adoption.html",
     },
 ]
 
@@ -77,9 +77,9 @@ def extract_article_html(html_path: Path) -> str:
     for a in body.find_all("a", href=True):
         href = a["href"]
         if href.startswith("../"):
-            a["href"] = "https://shraddhasingh.dev/" + href.replace("../", "")
+            a["href"] = "https://shraddha2789.github.io/" + href.replace("../", "")
         elif href.startswith("work/") or href.startswith("./"):
-            a["href"] = "https://shraddhasingh.dev/" + href.lstrip("./")
+            a["href"] = "https://shraddha2789.github.io/" + href.lstrip("./")
 
     # Remove author block (personal info already in Medium profile)
     for el in body.find_all(class_="author-block"):
